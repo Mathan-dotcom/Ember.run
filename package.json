@@ -1,0 +1,42 @@
+{
+  "name": "ember.run",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "hardhat test",
+    "test:contracts": "hardhat test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mathan-dotcom/Ember.run.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Mathan-dotcom/Ember.run/issues"
+  },
+  "homepage": "https://github.com/Mathan-dotcom/Ember.run#readme",
+  "dependencies": {
+    "canvas-confetti": "^1.9.4",
+    "ethers": "^6.17.0",
+    "lucide-react": "^1.47.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "hardhat": "^2.29.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

@@ -1,0 +1,494 @@
+/* =========================================================================
+   Meridian Design System & Styleguide — Instrument-Panel Skeuomorphism
+   Brand: High-Precision Autonomous Financial Mission Control
+   Theme: [data-theme="meridian"]
+   ========================================================================= */
+
+:root, [data-theme="meridian"] {
+  /* Substrates — the housing itself */
+  --panel-alu: #e4e1d8;             /* Primary panel substrate — brushed aluminum */
+  --panel-alu-shadow: #cfccc2;      /* Secondary substrate — recessed brushed-metal well */
+  --panel-walnut: #1c1a17;          /* Inverted panels — oiled walnut-black casing */
+  --panel-walnut-surface: #262420;  /* Slightly raised walnut plate */
+
+  /* Ink & Structure */
+  --ink-hard: #221f1c;              /* Primary engraved ink — deep umber-black */
+  --ink-soft: #6b645a;              /* Secondary ink — pencil-graphite label gray */
+  --bevel-light: rgba(255, 255, 255, 0.65); /* Top-edge highlight on beveled surfaces */
+  --bevel-dark: rgba(0, 0, 0, 0.35);        /* Bottom-edge shadow on beveled surfaces */
+
+  /* Soft Shadow — layered, directional light source */
+  --sk-shadow: rgba(20, 18, 15, 0.28);
+  --sk-shadow-tight: rgba(20, 18, 15, 0.18);
+
+  /* Semantic State Colors — backlit indicator-lamp accents */
+  --recovered: #1c1a17;
+  --recovered-accent: #e4e1d8;
+  --recovered-mark: #34c76f;        /* Backlit OK-green lamp */
+
+  --at-risk: #1c1a17;
+  --at-risk-accent: #f5a623;        /* Backlit amber lamp */
+
+  --critical: #e4e1d8;
+  --critical-accent: #e0392f;       /* Backlit red lamp */
+
+  --signal: #1c1a17;
+  --signal-accent: #3b6fd6;         /* Backlit blue lamp */
+
+  /* Financial Ledgers */
+  --ledger: #221f1c;
+  --ledger-muted: #8a8178;
+
+  /* Typography */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+
+  /* Radius — generous */
+  --radius-pulse: 14px;
+  --radius-pulse-sm: 8px;
+  --radius-pill: 999px;
+}
+
+/* -------------------------------------------------------------------------
+   Global Resets & Base Surface
+   ------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--panel-alu);
+  color: var(--ink-hard);
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Brushed Aluminum Texture Overlay */
+.sk-brushed-texture {
+  background-color: var(--panel-alu);
+  background-image: 
+    repeating-linear-gradient(
+      90deg, 
+      rgba(0,0,0,0.018) 0px, 
+      rgba(0,0,0,0.018) 1px, 
+      transparent 1px, 
+      transparent 3px
+    ),
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.45) 0%, transparent 70%);
+}
+
+/* -------------------------------------------------------------------------
+   Typography Scale
+   ------------------------------------------------------------------------- */
+.text-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 0.95;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-hard);
+  text-shadow: 0 1px 0 var(--bevel-light), 0 -1px 1px var(--bevel-dark);
+}
+
+.text-display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  line-height: 1.0;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--ink-hard);
+  text-shadow: 0 1px 0 var(--bevel-light);
+}
+
+.text-display-sm {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--ink-hard);
+  text-shadow: 0 1px 0 var(--bevel-light);
+}
+
+.text-heading {
+  font-family: var(--font-ui);
+  font-size: 1.15rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-hard);
+}
+
+.text-body {
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--ink-hard);
+}
+
+.text-data {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.text-micro {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* -------------------------------------------------------------------------
+   Skeuomorphic Surfaces & Elevation
+   ------------------------------------------------------------------------- */
+
+/* Flush Machined Plate */
+.sk-panel {
+  background: linear-gradient(180deg, #ece9e0 0%, var(--panel-alu) 60%, var(--panel-alu-shadow) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: var(--radius-pulse);
+  box-shadow:
+    0 1px 0 var(--bevel-light) inset,
+    0 -1px 0 var(--bevel-dark) inset,
+    0 6px 16px var(--sk-shadow-tight);
+  position: relative;
+}
+
+/* Walnut Inverted Casing Panel */
+.sk-panel-walnut {
+  background: linear-gradient(180deg, #2a2723 0%, var(--panel-walnut) 65%, #141311 100%);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: var(--radius-pulse);
+  color: var(--panel-alu);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* Raised Floating Panel (Modals, overlays) */
+.sk-panel-raised {
+  background: linear-gradient(180deg, #f4f1e8 0%, var(--panel-alu) 55%, var(--panel-alu-shadow) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: calc(var(--radius-pulse) + 4px);
+  box-shadow:
+    0 1px 0 var(--bevel-light) inset,
+    0 -1px 0 var(--bevel-dark) inset,
+    0 20px 48px var(--sk-shadow);
+  position: relative;
+}
+
+/* Recessed Well (Machined into panel for inputs & logs) */
+.sk-well {
+  background: var(--panel-alu-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  border-radius: var(--radius-pulse-sm);
+  box-shadow:
+    inset 0 2px 6px var(--sk-shadow-tight),
+    inset 0 -1px 0 var(--bevel-light);
+  color: var(--ink-hard);
+}
+
+.sk-well-dark {
+  background: #151412;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pulse-sm);
+  box-shadow:
+    inset 0 3px 8px rgba(0, 0, 0, 0.7),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  color: #d8d4c9;
+}
+
+/* Seams & Rivets */
+.sk-rivet {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff, #b5b0a3 75%);
+  box-shadow: 0 1px 1px var(--sk-shadow-tight), inset 0 1px 1px rgba(0,0,0,0.4);
+  display: inline-block;
+}
+
+.sk-seam-top {
+  border-top: 1px solid var(--bevel-dark);
+  box-shadow: 0 -1px 0 var(--bevel-light);
+}
+
+.sk-seam-bottom {
+  border-bottom: 1px solid var(--bevel-dark);
+  box-shadow: 0 1px 0 var(--bevel-light);
+}
+
+.sk-index::before {
+  content: attr(data-index);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-right: 0.65rem;
+  text-shadow: 0 1px 0 var(--bevel-light);
+  font-weight: 700;
+}
+
+/* -------------------------------------------------------------------------
+   Buttons & Controls
+   ------------------------------------------------------------------------- */
+
+/* Secondary Instrument Button */
+.sk-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(180deg, #f5f2e9 0%, var(--panel-alu) 50%, var(--panel-alu-shadow) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: var(--radius-pulse-sm);
+  box-shadow:
+    0 1px 0 var(--bevel-light) inset,
+    0 -1px 0 var(--bevel-dark) inset,
+    0 3px 6px var(--sk-shadow-tight);
+  color: var(--ink-hard);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease-out;
+  user-select: none;
+  text-decoration: none;
+}
+
+.sk-button:hover:not(:disabled) {
+  background: linear-gradient(180deg, #faf8f0 0%, #ece9df 50%, var(--panel-alu-shadow) 100%);
+  box-shadow: 0 1px 0 var(--bevel-light) inset, 0 5px 12px var(--sk-shadow-tight);
+  transform: translateY(-1px);
+}
+
+.sk-button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 5px var(--sk-shadow-tight);
+}
+
+.sk-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+/* Primary Accent Action Button (Lit Walnut Housing) */
+.sk-button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(180deg, #322e28 0%, var(--panel-walnut) 60%, #141311 100%);
+  color: var(--panel-alu);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius-pulse-sm);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 0 0 1px rgba(59, 111, 214, 0.3),
+    0 4px 14px rgba(59, 111, 214, 0.35);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease-out;
+  user-select: none;
+}
+
+.sk-button-primary:hover:not(:disabled) {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.15) inset,
+    0 0 0 1px rgba(59, 111, 214, 0.5),
+    0 6px 20px rgba(59, 111, 214, 0.55);
+  transform: translateY(-1px);
+}
+
+.sk-button-primary:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.sk-button-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Focus Visible Requirement */
+.sk-button:focus-visible,
+.sk-button-primary:focus-visible,
+.card-hover:focus-visible {
+  outline: 3px solid var(--signal-accent);
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------------------------------
+   Interactive Cards with Mechanical Spring
+   ------------------------------------------------------------------------- */
+.card-hover {
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, box-shadow;
+  position: relative;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1px 0 var(--bevel-light) inset, 0 16px 32px var(--sk-shadow);
+  z-index: 10;
+}
+
+.card-hover:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 6px var(--sk-shadow-tight);
+}
+
+/* -------------------------------------------------------------------------
+   Indicator Badges & Backlit Lamps
+   ------------------------------------------------------------------------- */
+.sk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 12px;
+  background: linear-gradient(180deg, #f5f2ea, var(--panel-alu-shadow));
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 1px 0 var(--bevel-light) inset, 0 2px 4px var(--sk-shadow-tight);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--ink-hard);
+}
+
+.sk-badge--inverted {
+  background: linear-gradient(180deg, #2a2723, var(--panel-walnut));
+  color: var(--panel-alu);
+  border-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* Indicator Lamps behind glass */
+.sk-lamp {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.sk-lamp::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 3px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.sk-lamp-green {
+  background: var(--recovered-mark);
+  box-shadow: 0 0 8px 2px var(--recovered-mark);
+}
+
+.sk-lamp-amber {
+  background: var(--at-risk-accent);
+  box-shadow: 0 0 8px 2px var(--at-risk-accent);
+}
+
+.sk-lamp-red {
+  background: var(--critical-accent);
+  box-shadow: 0 0 8px 2px var(--critical-accent);
+}
+
+.sk-lamp-blue {
+  background: var(--signal-accent);
+  box-shadow: 0 0 8px 2px var(--signal-accent);
+}
+
+.sk-lamp-dim {
+  background: #7a7369;
+  box-shadow: none;
+}
+
+/* -------------------------------------------------------------------------
+   Keyframe Animations
+   ------------------------------------------------------------------------- */
+@keyframes recoveryLamp {
+  0%   { opacity: 0; box-shadow: 0 0 0 0 var(--recovered-mark); transform: scale(0.92); }
+  55%  { opacity: 1; box-shadow: 0 0 16px 6px var(--recovered-mark); transform: scale(1.03); }
+  100% { opacity: 1; box-shadow: 0 0 6px 2px var(--recovered-mark); transform: scale(1); }
+}
+
+@keyframes needleFlinch {
+  0%   { transform: rotate(0deg); }
+  20%  { transform: rotate(-5deg); }
+  45%  { transform: rotate(4deg); }
+  70%  { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes criticalPulse {
+  0%, 100% { box-shadow: 0 0 8px 2px var(--critical-accent); }
+  50%      { box-shadow: 0 0 20px 8px var(--critical-accent); }
+}
+
+@keyframes signalPulse {
+  0%, 100% { box-shadow: 0 0 8px 2px var(--signal-accent); }
+  50%      { box-shadow: 0 0 20px 8px var(--signal-accent); }
+}
+
+.anim-lamp-pulse-red {
+  animation: criticalPulse 2s infinite ease-in-out;
+}
+
+.anim-lamp-pulse-blue {
+  animation: signalPulse 2s infinite ease-in-out;
+}
+
+/* -------------------------------------------------------------------------
+   Input Elements
+   ------------------------------------------------------------------------- */
+input.sk-input, textarea.sk-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  color: var(--ink-hard);
+  padding: 10px 14px;
+}
+
+input.sk-input::placeholder, textarea.sk-input::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.75;
+}
+
+/* Ticker-Tape banding */
+.ledger-row:nth-child(even) {
+  background: rgba(0, 0, 0, 0.035);
+}
+.ledger-row:nth-child(odd) {
+  background: transparent;
+}
