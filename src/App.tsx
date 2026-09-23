@@ -10,6 +10,7 @@ import { CuratorLeaderboard } from './components/CuratorLeaderboard';
 import { AntiGamingTelemetry } from './components/AntiGamingTelemetry';
 import { PasskeyAuthModal } from './components/PasskeyAuthModal';
 import { DemoSequenceModal } from './components/DemoSequenceModal';
+import { DynamicLiveWallpaper } from './components/DynamicLiveWallpaper';
 import { Post } from './types/signal';
 import { formatMon } from './utils/decay';
 import { Radio, Activity, Cpu, Layers, Award } from 'lucide-react';
@@ -28,17 +29,22 @@ const MissionControlContent: React.FC = () => {
   const totalPosts = posts.length;
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+      {/* Ambient Dynamic Live Wallpaper */}
+      <DynamicLiveWallpaper />
+
       {/* Instrument Console Header */}
-      <HeaderConsole
-        activeView={activeView}
-        onChangeView={setActiveView}
-        onOpenDemo={() => setIsDemoModalOpen(true)}
-        onOpenPasskeyModal={() => setIsPasskeyModalOpen(true)}
-      />
+      <div style={{ position: 'relative', zIndex: 2 }}>
+        <HeaderConsole
+          activeView={activeView}
+          onChangeView={setActiveView}
+          onOpenDemo={() => setIsDemoModalOpen(true)}
+          onOpenPasskeyModal={() => setIsPasskeyModalOpen(true)}
+        />
+      </div>
 
       {/* Main Container */}
-      <main style={{ maxWidth: '1360px', width: '100%', margin: '0 auto', padding: '24px 20px', flex: 1 }}>
+      <main style={{ maxWidth: '1360px', width: '100%', margin: '0 auto', padding: '24px 20px', flex: 1, position: 'relative', zIndex: 1 }}>
         {activeView === 'landing' ? (
           <LandingPage
             onLaunchApp={() => setActiveView('console')}
@@ -154,7 +160,9 @@ const MissionControlContent: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: '12px'
+          gap: '12px',
+          position: 'relative',
+          zIndex: 1
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
