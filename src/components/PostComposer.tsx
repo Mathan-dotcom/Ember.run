@@ -80,7 +80,7 @@ export const PostComposer: React.FC = () => {
             <input
               type="text"
               className="sk-input"
-              placeholder="Signal Title / Key Finding (e.g. Monad Fast Finality Analysis)"
+              placeholder="Ember Title / Key Finding (e.g. Monad Parallel State Proofs)"
               value={title}
               onFocus={() => setIsExpanded(true)}
               onChange={(e) => setTitle(e.target.value)}
@@ -198,7 +198,7 @@ export const PostComposer: React.FC = () => {
             style={{ padding: '8px 20px' }}
           >
             <Send size={15} />
-            <span>{isSubmitting ? 'BROADCASTING...' : 'BROADCAST TO MONAD'}</span>
+            <span>{isSubmitting ? 'DISPATCHING...' : 'DISPATCH EMBER'}</span>
           </button>
         </div>
       </form>

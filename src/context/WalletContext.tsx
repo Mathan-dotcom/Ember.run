@@ -25,8 +25,8 @@ interface WalletContextType {
 const INITIAL_ACCOUNTS: WalletAccount[] = [
   {
     id: 'builder',
-    name: 'Signal Devlog',
-    handle: '@signal_core',
+    name: 'Ember.run Devlog',
+    handle: '@ember_core',
     address: '0x42f7A0923eC46b5a3f124C2dD74D906E0E7Fe3a1',
     balanceMon: 48.25,
     isPasskey: true,
@@ -66,9 +66,9 @@ const INITIAL_POSTS: Post[] = [
   {
     id: 1,
     poster: '0x42f7A0923eC46b5a3f124C2dD74D906E0E7Fe3a1',
-    authorName: 'Signal Devlog',
-    authorHandle: '@signal_core',
-    title: 'Week 3: Envio Indexer & Monad 10,000 TPS Parallel Execution',
+    authorName: 'Ember.run Devlog',
+    authorHandle: '@ember_core',
+    title: 'Week 3: Envio Indexer & Monad 10,000 TPS Parallel Execution on Ember.run',
     body: 'Successfully connected our Envio HyperIndex instance to Monad testnet. Curation decay events are now captured sub-second without RPC bottleneck. Parallel EVM state access enables atomic multi-curator splits with zero contention.',
     tags: ['monad', 'envio', 'parallel-evm', 'curation'],
     linkUrl: 'https://docs.monad.xyz/architecture/parallel-execution',

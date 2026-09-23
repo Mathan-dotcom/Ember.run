@@ -87,11 +87,11 @@ const MissionControlContent: React.FC = () => {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
               <span className="sk-lamp sk-lamp-blue" />
-              <span className="text-micro">RADAR SIGNALS DEPLOYED</span>
+              <span className="text-micro">ACTIVE EMBERS ON RADAR</span>
             </div>
             <div className="text-display-md" style={{ fontSize: '2rem', color: 'var(--ink-hard)' }}>
               {totalPosts}{' '}
-              <span style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', fontFamily: 'var(--font-mono)' }}>POSTS</span>
+              <span style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', fontFamily: 'var(--font-mono)' }}>EMBERS</span>
             </div>
           </div>
 
@@ -162,7 +162,7 @@ const MissionControlContent: React.FC = () => {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span className="sk-lamp sk-lamp-green" />
-          <span>SIGNAL // MONAD METROPOLIS — TRACK 03: SOCIAL, ATTENTION & CULTURE</span>
+          <span>EMBER.RUN // MONAD METROPOLIS — TRACK 03: SOCIAL, ATTENTION & CULTURE</span>
         </div>
         <div style={{ color: 'var(--ledger-muted)' }}>
           MERIDIAN DESIGN SYSTEM 4.0.0 // INSTRUMENT-PANEL SKEUOMORPHISM

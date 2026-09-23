@@ -1,8 +1,8 @@
-# Signal — A Time-Decaying Curation Market
+# Ember.run — A Time-Decaying Curation Market
 > **Built for Monad Metropolis — Track 03: Social, Attention & Culture**  
 > **Design Direction:** Meridian Instrument-Panel Skeuomorphism (v4.0.0)
 
-Signal turns content curation into a provable, onchain financial asset class. Boosting a post costs real **MON** on Monad Testnet. Boost weight decays continuously over time, and earlier curators automatically earn an instant 45% cut when a post gets boosted again later.
+Ember.run turns content curation into a provable, onchain financial asset class. Boosting an ember costs real **MON** on Monad Testnet. Boost weight decays continuously over time, and earlier curators automatically earn an instant 45% cut when an ember gets boosted again later.
 
 ---
 

@@ -3,7 +3,7 @@ import { useWallet } from '../context/WalletContext';
 import { formatAddress, formatMon } from '../utils/decay';
 import { MONAD_TESTNET_CONFIG } from '../contracts/config';
 import { sound } from '../utils/sound';
-import { Shield, Fingerprint, Coins, Play, ChevronDown, Radio } from 'lucide-react';
+import { Shield, Fingerprint, Coins, Play, ChevronDown, Flame } from 'lucide-react';
 
 interface HeaderConsoleProps {
   onOpenDemo: () => void;
@@ -48,15 +48,15 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                 width: '34px',
                 height: '34px',
                 borderRadius: '8px',
-                background: 'radial-gradient(circle at 35% 35%, #3b6fd6 0%, #1d3557 100%)',
-                boxShadow: '0 0 10px rgba(59, 111, 214, 0.6), inset 0 1px 0 rgba(255,255,255,0.4)',
+                background: 'radial-gradient(circle at 35% 35%, #f5a623 0%, #e0392f 60%, #5c1813 100%)',
+                boxShadow: '0 0 12px rgba(245, 166, 35, 0.6), inset 0 1px 0 rgba(255,255,255,0.4)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '1px solid rgba(255,255,255,0.15)'
+                border: '1px solid rgba(255,255,255,0.2)'
               }}
             >
-              <Radio size={18} color="#ffffff" />
+              <Flame size={19} color="#ffffff" />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -67,10 +67,10 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                     fontWeight: 700,
                     letterSpacing: '0.04em',
                     color: '#f2eee3',
-                    textShadow: '0 1px 0 rgba(0,0,0,0.8), 0 0 12px rgba(255,255,255,0.15)'
+                    textShadow: '0 1px 0 rgba(0,0,0,0.8), 0 0 14px rgba(245, 166, 35, 0.25)'
                   }}
                 >
-                  SIGNAL
+                  EMBER.RUN
                 </span>
                 <span
                   style={{

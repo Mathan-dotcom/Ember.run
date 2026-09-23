@@ -298,7 +298,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
               style={{ padding: '8px 18px', fontSize: '0.88rem' }}
             >
               <Zap size={15} color="#f5a623" />
-              <span>BOOST SIGNAL</span>
+              <span>BOOST EMBER</span>
             </button>
           )}
         </div>

@@ -165,7 +165,7 @@ export const AuditLedger: React.FC = () => {
           color: 'var(--ledger-muted)'
         }}
       >
-        <span>PRD 5.3 COMPLIANCE: ATOMIC ONCHAIN SPLITS WITHOUT MANUAL CLAIMS</span>
+        <span>EMBER.RUN // ATOMIC ONCHAIN SPLITS WITHOUT MANUAL CLAIMS</span>
         <span>ALL TRANSACTIONS BROADCAST TO MONAD TESTNET</span>
       </div>
     </section>
