@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { WalletProvider, useWallet } from './context/WalletContext';
 import { HeaderConsole } from './components/HeaderConsole';
+import { LandingPage } from './components/LandingPage';
 import { PostComposer } from './components/PostComposer';
 import { FeedRadar } from './components/FeedRadar';
 import { BoostModal } from './components/BoostModal';
@@ -15,6 +16,7 @@ import { Radio, Activity, Cpu, Layers, Award } from 'lucide-react';
 
 const MissionControlContent: React.FC = () => {
   const { posts, auditLogs, isPasskeyModalOpen, setIsPasskeyModalOpen } = useWallet();
+  const [activeView, setActiveView] = useState<'landing' | 'console'>('landing');
   const [activeBoostPost, setActiveBoostPost] = useState<Post | null>(null);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState<boolean>(false);
 
@@ -29,14 +31,24 @@ const MissionControlContent: React.FC = () => {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Instrument Console Header */}
       <HeaderConsole
+        activeView={activeView}
+        onChangeView={setActiveView}
         onOpenDemo={() => setIsDemoModalOpen(true)}
         onOpenPasskeyModal={() => setIsPasskeyModalOpen(true)}
       />
 
-      {/* Main Mission Control Console Body */}
+      {/* Main Container */}
       <main style={{ maxWidth: '1360px', width: '100%', margin: '0 auto', padding: '24px 20px', flex: 1 }}>
-        {/* Physical Instrument Telemetry Ribbon */}
-        <section className="sk-panel telemetry-ribbon">
+        {activeView === 'landing' ? (
+          <LandingPage
+            onLaunchApp={() => setActiveView('console')}
+            onOpenDemo={() => setIsDemoModalOpen(true)}
+            onOpenPasskeyModal={() => setIsPasskeyModalOpen(true)}
+          />
+        ) : (
+          <>
+            {/* Physical Instrument Telemetry Ribbon */}
+            <section className="sk-panel telemetry-ribbon">
           {/* Rivets in corners */}
           <div style={{ position: 'absolute', top: '8px', left: '8px' }} className="sk-rivet" />
           <div style={{ position: 'absolute', top: '8px', right: '8px' }} className="sk-rivet" />
@@ -125,6 +137,8 @@ const MissionControlContent: React.FC = () => {
             <AntiGamingTelemetry />
           </div>
         </div>
+          </>
+        )}
       </main>
 
       {/* Footer Housing */}

@@ -6,11 +6,15 @@ import { sound } from '../utils/sound';
 import { Shield, Fingerprint, Coins, Play, ChevronDown, Flame } from 'lucide-react';
 
 interface HeaderConsoleProps {
+  activeView: 'landing' | 'console';
+  onChangeView: (view: 'landing' | 'console') => void;
   onOpenDemo: () => void;
   onOpenPasskeyModal: () => void;
 }
 
 export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
+  activeView,
+  onChangeView,
   onOpenDemo,
   onOpenPasskeyModal
 }) => {
@@ -108,6 +112,32 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             <span className="sk-lamp sk-lamp-green" />
             <span style={{ fontFamily: 'var(--font-mono)' }}>MONAD TESTNET : 10143</span>
           </div>
+        </div>
+
+        {/* Navigation Tabs: Overview vs Mission Control */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button
+            onClick={() => {
+              sound.playSwitchClick();
+              onChangeView('landing');
+            }}
+            className={`sk-button ${activeView === 'landing' ? 'sk-button-primary' : ''}`}
+            style={{ padding: '6px 14px', fontSize: '0.78rem' }}
+          >
+            <span>OVERVIEW</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playSwitchClick();
+              onChangeView('console');
+            }}
+            className={`sk-button ${activeView === 'console' ? 'sk-button-primary' : ''}`}
+            style={{ padding: '6px 14px', fontSize: '0.78rem' }}
+          >
+            <Flame size={13} color={activeView === 'console' ? '#f5a623' : '#cfccc2'} />
+            <span>MISSION CONTROL</span>
+          </button>
         </div>
 
         {/* Center/Right: Actions & Passkey Wallet Mission Control */}
