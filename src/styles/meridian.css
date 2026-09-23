@@ -131,6 +131,18 @@ body {
   line-height: 1.6;
   font-weight: 400;
   color: var(--ink-hard);
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+p, .text-body, .card-description, article p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.text-justify {
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .text-data {
