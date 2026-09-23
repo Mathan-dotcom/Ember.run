@@ -504,3 +504,112 @@ input.sk-input::placeholder, textarea.sk-input::placeholder {
 .ledger-row:nth-child(odd) {
   background: transparent;
 }
+
+/* -------------------------------------------------------------------------
+   Responsive & Mobile Layout Adaptations
+   ------------------------------------------------------------------------- */
+.mission-console-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.postcard-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+}
+
+.postcard-gauge-container {
+  padding-left: 8px;
+}
+
+.telemetry-ribbon {
+  padding: 16px 24px;
+  margin-bottom: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: center;
+}
+
+@media (max-width: 960px) {
+  .mission-console-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 0.875rem;
+  }
+
+  .mission-console-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+
+  .postcard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .postcard-gauge-container {
+    padding-left: 0 !important;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .telemetry-ribbon {
+    padding: 14px 16px !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .sk-panel {
+    padding: 16px !important;
+    border-radius: var(--radius-pulse-sm) !important;
+  }
+
+  .sk-panel-raised {
+    padding: 18px !important;
+    border-radius: var(--radius-pulse-sm) !important;
+  }
+
+  .text-display-xl {
+    font-size: 2.2rem !important;
+  }
+
+  .text-display-md {
+    font-size: 1.45rem !important;
+  }
+
+  header {
+    padding: 10px 14px !important;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .header-account-select {
+    max-width: 130px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .telemetry-ribbon {
+    grid-template-columns: 1fr !important;
+  }
+
+  .text-display-md {
+    font-size: 1.3rem !important;
+  }
+}

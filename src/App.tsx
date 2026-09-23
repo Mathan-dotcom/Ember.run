@@ -36,17 +36,7 @@ const MissionControlContent: React.FC = () => {
       {/* Main Mission Control Console Body */}
       <main style={{ maxWidth: '1360px', width: '100%', margin: '0 auto', padding: '24px 20px', flex: 1 }}>
         {/* Physical Instrument Telemetry Ribbon */}
-        <section
-          className="sk-panel"
-          style={{
-            padding: '16px 24px',
-            marginBottom: '28px',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '20px',
-            alignItems: 'center'
-          }}
-        >
+        <section className="sk-panel telemetry-ribbon">
           {/* Rivets in corners */}
           <div style={{ position: 'absolute', top: '8px', left: '8px' }} className="sk-rivet" />
           <div style={{ position: 'absolute', top: '8px', right: '8px' }} className="sk-rivet" />
@@ -120,15 +110,8 @@ const MissionControlContent: React.FC = () => {
           </div>
         </section>
 
-        {/* Console Grid Layout: 2 Columns */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 1fr)',
-            gap: '28px',
-            alignItems: 'start'
-          }}
-        >
+        {/* Console Grid Layout: Responsive 2-Columns */}
+        <div className="mission-console-grid">
           {/* Left Column: Post Composer & Live Decay Feed */}
           <div style={{ minWidth: 0 }}>
             <PostComposer />

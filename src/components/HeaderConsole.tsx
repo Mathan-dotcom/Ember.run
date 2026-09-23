@@ -189,6 +189,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             {/* Account Switcher / Passkey Badge */}
             <div style={{ position: 'relative' }}>
               <select
+                className="header-account-select"
                 value={currentAccount.id}
                 onChange={(e) => {
                   if (e.target.value === 'new_passkey') {

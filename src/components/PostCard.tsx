@@ -88,14 +88,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
       </div>
 
       {/* Main Content Area: Body & Decay Instrument Gauge */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr auto',
-          gap: '24px',
-          alignItems: 'start'
-        }}
-      >
+      <div className="postcard-grid">
         {/* Left: Content & Tags */}
         <div>
           <h3
@@ -164,7 +157,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
         </div>
 
         {/* Right: Analog Decay Gauge Meter */}
-        <div style={{ paddingLeft: '8px' }}>
+        <div className="postcard-gauge-container">
           <AnalogDecayGauge
             createdAt={post.createdAt}
             totalWeight={post.totalWeight}
