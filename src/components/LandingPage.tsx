@@ -102,7 +102,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               style={{
                 fontSize: '1.05rem',
                 lineHeight: 1.65,
-                color: '#38342f',
+                color: '#d1cde8',
                 marginBottom: '28px',
                 maxWidth: '56ch'
               }}
@@ -269,11 +269,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           <div className="sk-panel card-hover" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
               <span className="sk-lamp sk-lamp-red" />
-              <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.05rem', fontWeight: 700 }}>
+              <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.05rem', fontWeight: 700, color: '#ffffff' }}>
                 Traditional Social Likes = $0
               </h3>
             </div>
-            <p className="text-body" style={{ fontSize: '0.88rem', color: '#44403b', lineHeight: 1.6 }}>
+            <p className="text-body" style={{ fontSize: '0.88rem', color: '#d1cde8', lineHeight: 1.6 }}>
               On Twitter and Farcaster, likes cost nothing. There is zero separation between genuine early discovery
               and algorithmic noise. Curators who spot great creators or alpha signals months in advance get the exact
               same reward as someone who likes a post after it has already gone viral: <strong>nothing</strong>.
@@ -284,11 +284,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           <div className="sk-panel card-hover" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
               <span className="sk-lamp sk-lamp-green" />
-              <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.05rem', fontWeight: 700 }}>
+              <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.05rem', fontWeight: 700, color: '#ffffff' }}>
                 Ember.run = Paid Taste Arbitrage
               </h3>
             </div>
-            <p className="text-body" style={{ fontSize: '0.88rem', color: '#44403b', lineHeight: 1.6 }}>
+            <p className="text-body" style={{ fontSize: '0.88rem', color: '#d1cde8', lineHeight: 1.6 }}>
               When boosting requires real capital, curation transforms into an onchain asset class. Every boost is split
               atomically: 40% to the creator and 45% distributed proportionally to earlier curators. If you identify a gem
               early, your taste becomes provably recorded and automatically compensated.
@@ -318,20 +318,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 width: '36px',
                 height: '36px',
                 borderRadius: '8px',
-                background: 'radial-gradient(circle at 35% 35%, #3b6fd6, #1d3557)',
+                background: 'linear-gradient(135deg, #836ef9, #4f46e5)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '14px',
-                boxShadow: '0 0 10px rgba(59, 111, 214, 0.4)'
+                boxShadow: '0 0 16px rgba(131, 110, 249, 0.6)'
               }}
             >
               <Zap size={18} color="#ffffff" />
             </div>
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '8px' }}>
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '8px', color: '#ffffff' }}>
               Atomic 40 / 45 / 15 Splits
             </h3>
-            <p className="text-body" style={{ fontSize: '0.85rem', color: '#44403b', lineHeight: 1.55 }}>
+            <p className="text-body" style={{ fontSize: '0.85rem', color: '#d1cde8', lineHeight: 1.55 }}>
               Smart contract distributes payouts in the exact same transaction. 40% goes directly to the author, 45% is
               streamed proportionally to earlier curators, and 15% is retained in the post's pool reserve. No manual claiming
               portals or lockup periods.
@@ -345,20 +345,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 width: '36px',
                 height: '36px',
                 borderRadius: '8px',
-                background: 'radial-gradient(circle at 35% 35%, #f5a623, #a46d0a)',
+                background: 'linear-gradient(135deg, #00f0ff, #0088cc)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '14px',
-                boxShadow: '0 0 10px rgba(245, 166, 35, 0.4)'
+                boxShadow: '0 0 16px rgba(0, 240, 255, 0.6)'
               }}
             >
               <Clock size={18} color="#ffffff" />
             </div>
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '8px' }}>
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '8px', color: '#ffffff' }}>
               Continuous Half-Life Decay
             </h3>
-            <p className="text-body" style={{ fontSize: '0.85rem', color: '#44403b', lineHeight: 1.55 }}>
+            <p className="text-body" style={{ fontSize: '0.85rem', color: '#d1cde8', lineHeight: 1.55 }}>
               Boost weight decays continuously on an exponential half-life curve (W(t) = W₀ · 2^(-Δt / 6h)).
               The feed is ranked live by current active weight — old posts decay off the radar unless stoked by sustained
               interest.
@@ -372,20 +372,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 width: '36px',
                 height: '36px',
                 borderRadius: '8px',
-                background: 'radial-gradient(circle at 35% 35%, #34c76f, #1b6337)',
+                background: 'linear-gradient(135deg, #00ff9d, #059669)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '14px',
-                boxShadow: '0 0 10px rgba(52, 199, 111, 0.4)'
+                boxShadow: '0 0 16px rgba(0, 255, 157, 0.6)'
               }}
             >
               <ShieldCheck size={18} color="#ffffff" />
             </div>
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '8px' }}>
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '8px', color: '#ffffff' }}>
               Anti-Gaming Protocol Shields
             </h3>
-            <p className="text-body" style={{ fontSize: '0.85rem', color: '#44403b', lineHeight: 1.55 }}>
+            <p className="text-body" style={{ fontSize: '0.85rem', color: '#d1cde8', lineHeight: 1.55 }}>
               Onchain rule 1 strictly rejects self-boosting. Onchain rule 2 applies diminishing returns multipliers to repeat
               boosts from the same wallet (10000 / (10000 + 5000 · n)), making wash-curation via alt accounts
               mathematically negative-EV.
@@ -472,34 +472,35 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             }}
           >
             <div>
-              <div className="text-micro" style={{ color: 'var(--ink-soft)' }}>
+              <div className="text-micro" style={{ color: 'var(--cyan-accent)' }}>
                 PROJECTED ATOMIC RETURN
               </div>
               <div
                 className="text-display-md"
                 style={{
-                  color: '#279a52',
+                  color: '#00ff9d',
                   fontSize: '2.2rem',
                   display: 'flex',
                   alignItems: 'baseline',
-                  gap: '6px'
+                  gap: '6px',
+                  textShadow: '0 0 16px rgba(0, 255, 157, 0.5)'
                 }}
               >
                 +{formatMon(estimatedEarned, 2)}
-                <span style={{ fontSize: '1rem', color: '#f5a623', fontFamily: 'var(--font-mono)' }}>MON</span>
+                <span style={{ fontSize: '1rem', color: '#00f0ff', fontFamily: 'var(--font-mono)' }}>MON</span>
               </div>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
               <span style={{ color: 'var(--ink-soft)' }}>Estimated Net ROI:</span>
-              <span style={{ fontWeight: 700, color: estimatedRoi >= 100 ? '#279a52' : '#f5a623' }}>
+              <span style={{ fontWeight: 700, color: estimatedRoi >= 100 ? '#00ff9d' : '#00f0ff' }}>
                 {estimatedRoi}%
               </span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
               <span style={{ color: 'var(--ink-soft)' }}>Decay Multiplier:</span>
-              <span style={{ fontWeight: 700 }}>{Math.round(decayPenalty * 100)}%</span>
+              <span style={{ fontWeight: 700, color: '#ffffff' }}>{Math.round(decayPenalty * 100)}%</span>
             </div>
           </div>
         </div>
@@ -509,46 +510,49 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <section
         className="sk-panel-walnut"
         style={{
-          padding: '32px',
+          padding: '36px',
           textAlign: 'center',
           borderRadius: 'var(--radius-pulse)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '16px'
+          gap: '16px',
+          border: '1px solid rgba(131, 110, 249, 0.4)',
+          boxShadow: '0 0 40px rgba(131, 110, 249, 0.2), 0 20px 50px rgba(0,0,0,0.85)'
         }}
       >
         <div
           style={{
-            width: '42px',
-            height: '42px',
+            width: '46px',
+            height: '46px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle at 35% 35%, #f5a623, #e0392f)',
+            background: 'linear-gradient(135deg, #836ef9, #ff5722)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 16px rgba(245, 166, 35, 0.6)'
+            boxShadow: '0 0 24px rgba(131, 110, 249, 0.8)'
           }}
         >
-          <Flame size={22} color="#ffffff" />
+          <Flame size={24} color="#ffffff" />
         </div>
 
         <h2
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: '1.8rem',
-            color: '#f4f1e8',
-            maxWidth: '40ch'
+            fontSize: '1.9rem',
+            color: '#ffffff',
+            maxWidth: '40ch',
+            textShadow: '0 0 20px rgba(131, 110, 249, 0.5)'
           }}
         >
           Ready to turn your taste into an onchain asset class?
         </h2>
 
-        <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.9rem', color: '#cfccc2', maxWidth: '52ch' }}>
+        <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.95rem', color: '#d1cde8', maxWidth: '52ch' }}>
           Connect seamlessly using Passkey biometric authentication. No seed phrases, instant Monad testnet transactions.
         </p>
 
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', justifyContent: 'center' }}>
           <button
             onClick={() => {
               sound.playSwitchClick();
@@ -568,13 +572,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             }}
             className="sk-button"
             style={{
-              background: 'linear-gradient(180deg, #3d3932, #201e1a)',
-              color: '#ffffff',
-              padding: '12px 20px',
+              padding: '12px 22px',
               fontSize: '0.9rem'
             }}
           >
-            <Fingerprint size={16} color="#3b6fd6" />
+            <Fingerprint size={16} color="#00f0ff" />
             <span>CREATE PASSKEY WALLET</span>
           </button>
         </div>

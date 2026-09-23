@@ -17,7 +17,7 @@ export const AntiGamingTelemetry: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           marginBottom: '18px',
-          borderBottom: '1px solid rgba(0,0,0,0.08)',
+          borderBottom: '1px solid rgba(131, 110, 249, 0.25)',
           paddingBottom: '12px'
         }}
       >
@@ -47,25 +47,26 @@ export const AntiGamingTelemetry: React.FC = () => {
         {/* Defense Rule 1: No Self-Boosting */}
         <div className="sk-well" style={{ padding: '18px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-            <AlertOctagon size={18} color="#e0392f" />
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '0.95rem', fontWeight: 600 }}>
+            <AlertOctagon size={18} color="#ff0055" />
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '0.95rem', fontWeight: 600, color: '#ffffff' }}>
               RULE 01: ZERO SELF-BOOSTING
             </h3>
           </div>
 
-          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: 'var(--ink-hard)', marginBottom: '12px', lineHeight: 1.5 }}>
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: '#d1cde8', marginBottom: '12px', lineHeight: 1.5 }}>
             Authors cannot artificially inflate their own signals. The smart contract validates:
           </p>
 
           <div
             style={{
-              background: '#181614',
+              background: 'rgba(5, 4, 10, 0.95)',
               borderRadius: '6px',
               padding: '8px 12px',
               fontFamily: 'var(--font-mono)',
               fontSize: '0.75rem',
-              color: '#34c76f',
-              border: '1px solid rgba(255,255,255,0.08)',
+              color: '#00ff9d',
+              border: '1px solid rgba(255, 0, 85, 0.3)',
+              boxShadow: '0 0 10px rgba(255, 0, 85, 0.1)',
               marginBottom: '12px'
             }}
           >
@@ -81,13 +82,13 @@ export const AntiGamingTelemetry: React.FC = () => {
         {/* Defense Rule 2: Diminishing Returns per Wallet */}
         <div className="sk-well" style={{ padding: '18px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-            <TrendingDown size={18} color="#f5a623" />
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '0.95rem', fontWeight: 600 }}>
+            <TrendingDown size={18} color="#00f0ff" />
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '0.95rem', fontWeight: 600, color: '#ffffff' }}>
               RULE 02: DIMINISHING RETURNS MULTIPLIER
             </h3>
           </div>
 
-          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: 'var(--ink-hard)', marginBottom: '12px', lineHeight: 1.5 }}>
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: '#d1cde8', marginBottom: '12px', lineHeight: 1.5 }}>
             Each subsequent boost from the same wallet yields an asymptotically smaller curation weight:
           </p>
 

@@ -57,8 +57,9 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(15, 14, 12, 0.7)',
-        backdropFilter: 'blur(6px)',
+        backgroundColor: 'rgba(6, 5, 12, 0.85)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         zIndex: 100,
         display: 'flex',
         alignItems: 'center',
@@ -86,30 +87,30 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
             alignItems: 'center',
             justifyContent: 'space-between',
             marginBottom: '16px',
-            borderBottom: '1px solid rgba(0,0,0,0.1)',
+            borderBottom: '1px solid rgba(131, 110, 249, 0.25)',
             paddingBottom: '12px'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div
               style={{
-                width: '30px',
-                height: '30px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
-                background: 'radial-gradient(circle at 35% 35%, #f5a623, #c47d0f)',
+                background: 'linear-gradient(135deg, #836ef9 0%, #00f0ff 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 8px rgba(245, 166, 35, 0.5)'
+                boxShadow: '0 0 14px rgba(131, 110, 249, 0.6)'
               }}
             >
-              <Zap size={16} color="#1c1a17" />
+              <Zap size={18} color="#ffffff" />
             </div>
             <div>
-              <h3 className="text-heading" style={{ fontSize: '1.15rem' }}>
+              <h3 className="text-heading" style={{ fontSize: '1.15rem', color: '#ffffff' }}>
                 Precision Boost Cockpit
               </h3>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--ink-soft)' }}>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--cyan-accent)' }}>
                 ATOMIC DISBURSEMENT // MONAD TESTNET
               </p>
             </div>
@@ -280,7 +281,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
             {/* Poster 40% */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 600 }}>
+                <div style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 600, color: '#ffffff' }}>
                   Original Author Cut (40%)
                 </div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--ink-soft)' }}>
@@ -292,20 +293,20 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.1rem',
                   fontWeight: 700,
-                  color: 'var(--ink-hard)'
+                  color: '#ffffff'
                 }}
               >
-                +{formatMon(preview.posterCut, 3)} <span style={{ fontSize: '0.75rem', color: '#f5a623' }}>MON</span>
+                +{formatMon(preview.posterCut, 3)} <span style={{ fontSize: '0.75rem', color: '#00f0ff' }}>MON</span>
               </div>
             </div>
 
-            <div style={{ height: '1px', background: 'rgba(0,0,0,0.08)' }} />
+            <div style={{ height: '1px', background: 'rgba(131, 110, 249, 0.15)' }} />
 
             {/* Earlier Curators 45% */}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
                 <div>
-                  <div style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 600 }}>
+                  <div style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 600, color: '#ffffff' }}>
                     Earlier Curators Share (45%)
                   </div>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--ink-soft)' }}>
@@ -319,10 +320,11 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                     fontFamily: 'var(--font-display)',
                     fontSize: '1.1rem',
                     fontWeight: 700,
-                    color: '#34c76f'
+                    color: '#00ff9d',
+                    textShadow: '0 0 10px rgba(0, 255, 157, 0.4)'
                   }}
                 >
-                  +{formatMon(preview.curatorCutTotal, 3)} <span style={{ fontSize: '0.75rem', color: '#34c76f' }}>MON</span>
+                  +{formatMon(preview.curatorCutTotal, 3)} <span style={{ fontSize: '0.75rem', color: '#00ff9d' }}>MON</span>
                 </div>
               </div>
 
@@ -330,7 +332,8 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
               {preview.curatorBreakdown.length > 0 && (
                 <div
                   style={{
-                    background: 'rgba(0,0,0,0.04)',
+                    background: 'rgba(131, 110, 249, 0.08)',
+                    border: '1px solid rgba(131, 110, 249, 0.2)',
                     borderRadius: '4px',
                     padding: '6px 8px',
                     marginTop: '6px',
@@ -350,10 +353,10 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                         fontSize: '0.7rem'
                       }}
                     >
-                      <span style={{ color: 'var(--ink-hard)' }}>
+                      <span style={{ color: '#ffffff' }}>
                         #{idx + 1} {c.name} ({Math.round(c.sharePercent)}% weight)
                       </span>
-                      <span style={{ fontWeight: 600, color: '#279a52' }}>
+                      <span style={{ fontWeight: 600, color: '#00ff9d' }}>
                         +{formatMon(c.estimatedPayout, 3)} MON
                       </span>
                     </div>
@@ -362,12 +365,12 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
               )}
             </div>
 
-            <div style={{ height: '1px', background: 'rgba(0,0,0,0.08)' }} />
+            <div style={{ height: '1px', background: 'rgba(131, 110, 249, 0.15)' }} />
 
             {/* Reserve 15% */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 600 }}>
+                <div style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 600, color: '#ffffff' }}>
                   Post Pool Reserve ({curators.length === 0 ? '60%' : '15%'})
                 </div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--ink-soft)' }}>
@@ -383,7 +386,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                 }}
               >
                 +{formatMon(curators.length === 0 ? preview.reserveCut + preview.curatorCutTotal : preview.reserveCut, 3)}{' '}
-                <span style={{ fontSize: '0.75rem' }}>MON</span>
+                <span style={{ fontSize: '0.75rem', color: '#00f0ff' }}>MON</span>
               </div>
             </div>
           </div>
@@ -399,8 +402,9 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
             padding: '14px',
             fontSize: '1rem',
             background: preview.isSelfBoost
-              ? '#42201d'
-              : 'linear-gradient(180deg, #322e28 0%, var(--panel-walnut) 60%, #141311 100%)'
+              ? 'rgba(60, 20, 30, 0.9)'
+              : undefined,
+            border: preview.isSelfBoost ? '1px solid rgba(255, 0, 85, 0.5)' : undefined
           }}
         >
           <Zap size={18} />

@@ -15,7 +15,7 @@ export const CuratorLeaderboard: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           marginBottom: '20px',
-          borderBottom: '1px solid rgba(0,0,0,0.08)',
+          borderBottom: '1px solid rgba(131, 110, 249, 0.25)',
           paddingBottom: '12px'
         }}
       >
@@ -42,7 +42,7 @@ export const CuratorLeaderboard: React.FC = () => {
           <thead>
             <tr
               style={{
-                borderBottom: '1px solid rgba(0,0,0,0.12)',
+                borderBottom: '1px solid rgba(131, 110, 249, 0.2)',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.72rem',
                 color: 'var(--ink-soft)'
@@ -65,8 +65,8 @@ export const CuratorLeaderboard: React.FC = () => {
                   key={leader.wallet}
                   className="card-hover"
                   style={{
-                    borderBottom: '1px solid rgba(0,0,0,0.05)',
-                    background: isCurrent ? 'rgba(59, 111, 214, 0.08)' : 'transparent'
+                    borderBottom: '1px solid rgba(131, 110, 249, 0.1)',
+                    background: isCurrent ? 'rgba(131, 110, 249, 0.16)' : 'transparent'
                   }}
                 >
                   {/* Rank */}
@@ -78,18 +78,18 @@ export const CuratorLeaderboard: React.FC = () => {
                         borderRadius: '50%',
                         background:
                           leader.rank === 1
-                            ? 'radial-gradient(circle at 35% 35%, #ffd700, #b8860b)'
+                            ? 'linear-gradient(135deg, #00f0ff, #836ef9)'
                             : leader.rank === 2
-                            ? 'radial-gradient(circle at 35% 35%, #e4e1d8, #a8a499)'
-                            : 'radial-gradient(circle at 35% 35%, #cd7f32, #8b4513)',
+                            ? 'linear-gradient(135deg, #a78bfa, #6366f1)'
+                            : 'linear-gradient(135deg, #ff7844, #d9531e)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontFamily: 'var(--font-mono)',
                         fontWeight: 700,
                         fontSize: '0.8rem',
-                        color: leader.rank === 1 ? '#221f1c' : '#ffffff',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                        color: '#ffffff',
+                        boxShadow: '0 0 10px rgba(131, 110, 249, 0.4)'
                       }}
                     >
                       {leader.rank}
@@ -101,8 +101,8 @@ export const CuratorLeaderboard: React.FC = () => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span className="sk-lamp sk-lamp-green" />
                       <div>
-                        <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, fontSize: '0.88rem' }}>
-                          {leader.name} {isCurrent && <span style={{ color: '#3b6fd6' }}>(You)</span>}
+                        <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, fontSize: '0.88rem', color: '#ffffff' }}>
+                          {leader.name} {isCurrent && <span style={{ color: 'var(--cyan-accent)' }}>(You)</span>}
                         </div>
                         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--ink-soft)' }}>
                           {leader.handle} • {formatAddress(leader.wallet)}
@@ -118,12 +118,13 @@ export const CuratorLeaderboard: React.FC = () => {
                         fontFamily: 'var(--font-display)',
                         fontSize: '1.2rem',
                         fontWeight: 700,
-                        color: '#279a52'
+                        color: '#00ff9d',
+                        textShadow: '0 0 10px rgba(0, 255, 157, 0.4)'
                       }}
                     >
-                      +{formatMon(leader.totalEarned, 2)} <span style={{ fontSize: '0.75rem', color: '#f5a623' }}>MON</span>
+                      +{formatMon(leader.totalEarned, 2)} <span style={{ fontSize: '0.75rem', color: '#00f0ff' }}>MON</span>
                     </div>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--ledger-muted)' }}>
+                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--ink-soft)' }}>
                       ROI: {leader.roiPercent}%
                     </div>
                   </td>
@@ -131,8 +132,8 @@ export const CuratorLeaderboard: React.FC = () => {
                   {/* Accuracy */}
                   <td style={{ padding: '14px 12px' }}>
                     <div className="sk-badge" style={{ padding: '3px 8px', fontSize: '0.72rem' }}>
-                      <CheckCircle2 size={12} color="#34c76f" />
-                      <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                      <CheckCircle2 size={12} color="#00ff9d" />
+                      <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#00ff9d' }}>
                         {leader.accuracyRate}%
                       </span>
                     </div>

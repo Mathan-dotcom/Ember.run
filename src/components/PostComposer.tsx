@@ -51,7 +51,7 @@ export const PostComposer: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           marginBottom: '16px',
-          borderBottom: '1px solid rgba(0,0,0,0.08)',
+          borderBottom: '1px solid rgba(131, 110, 249, 0.2)',
           paddingBottom: '10px'
         }}
       >
@@ -172,7 +172,7 @@ export const PostComposer: React.FC = () => {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '12px',
-            borderTop: '1px solid rgba(0,0,0,0.08)',
+            borderTop: '1px solid rgba(131, 110, 249, 0.2)',
             paddingTop: '12px'
           }}
         >
@@ -187,7 +187,7 @@ export const PostComposer: React.FC = () => {
               color: 'var(--ink-soft)'
             }}
           >
-            <ShieldAlert size={14} color="#f5a623" />
+            <ShieldAlert size={14} color="#00f0ff" />
             <span>Anti-Gaming: Posters cannot boost their own content. 40% of future boosts go to you.</span>
           </div>
 

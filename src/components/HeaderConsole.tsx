@@ -1,9 +1,8 @@
 import React from 'react';
 import { useWallet } from '../context/WalletContext';
 import { formatAddress, formatMon } from '../utils/decay';
-import { MONAD_TESTNET_CONFIG } from '../contracts/config';
 import { sound } from '../utils/sound';
-import { Shield, Fingerprint, Coins, Play, ChevronDown, Flame } from 'lucide-react';
+import { Fingerprint, Coins, Play, ChevronDown, Flame, Zap } from 'lucide-react';
 
 interface HeaderConsoleProps {
   activeView: 'landing' | 'console';
@@ -23,11 +22,13 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
   return (
     <header
       style={{
-        background: 'linear-gradient(180deg, #2e2a25 0%, var(--panel-walnut) 60%, #131210 100%)',
-        borderBottom: '1px solid rgba(0,0,0,0.7)',
-        boxShadow: '0 4px 18px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.08) inset',
+        background: 'rgba(9, 7, 16, 0.85)',
+        backdropFilter: 'blur(28px) saturate(200%)',
+        WebkitBackdropFilter: 'blur(28px) saturate(200%)',
+        borderBottom: '1px solid rgba(131, 110, 249, 0.28)',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.8), 0 0 20px rgba(131, 110, 249, 0.1)',
         padding: '12px 24px',
-        color: 'var(--panel-alu)',
+        color: '#ffffff',
         position: 'sticky',
         top: 0,
         zIndex: 50
@@ -35,7 +36,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
     >
       <div
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1360px',
           margin: '0 auto',
           display: 'flex',
           alignItems: 'center',
@@ -44,34 +45,34 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
           gap: '16px'
         }}
       >
-        {/* Left: Brand Identity & Hardware Lamps */}
+        {/* Left: Cyber Brand Identity & Network HUD */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div
               style={{
-                width: '34px',
-                height: '34px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '8px',
-                background: 'radial-gradient(circle at 35% 35%, #f5a623 0%, #e0392f 60%, #5c1813 100%)',
-                boxShadow: '0 0 12px rgba(245, 166, 35, 0.6), inset 0 1px 0 rgba(255,255,255,0.4)',
+                background: 'linear-gradient(135deg, #836ef9 0%, #ff5722 100%)',
+                boxShadow: '0 0 16px rgba(131, 110, 249, 0.7), 0 0 8px rgba(255, 87, 34, 0.5)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '1px solid rgba(255,255,255,0.2)'
+                border: '1px solid rgba(255,255,255,0.4)'
               }}
             >
-              <Flame size={19} color="#ffffff" />
+              <Flame size={20} color="#ffffff" />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span
                   style={{
                     fontFamily: 'var(--font-display)',
-                    fontSize: '1.35rem',
+                    fontSize: '1.4rem',
                     fontWeight: 700,
                     letterSpacing: '0.04em',
-                    color: '#f2eee3',
-                    textShadow: '0 1px 0 rgba(0,0,0,0.8), 0 0 14px rgba(245, 166, 35, 0.25)'
+                    color: '#ffffff',
+                    textShadow: '0 0 16px rgba(131, 110, 249, 0.6), 0 0 30px rgba(0, 240, 255, 0.3)'
                   }}
                 >
                   EMBER.RUN
@@ -80,22 +81,25 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                   style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.65rem',
-                    padding: '2px 6px',
+                    padding: '2px 8px',
                     borderRadius: '4px',
-                    background: 'rgba(255,255,255,0.1)',
-                    color: '#cfccc2',
-                    border: '1px solid rgba(255,255,255,0.15)'
+                    background: 'rgba(131, 110, 249, 0.15)',
+                    color: '#00f0ff',
+                    border: '1px solid rgba(0, 240, 255, 0.35)',
+                    textShadow: '0 0 8px rgba(0, 240, 255, 0.6)',
+                    fontWeight: 700
                   }}
                 >
-                  METROPOLIS // T03
+                  MONAD // T03
                 </span>
               </div>
               <p
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.68rem',
-                  color: 'var(--ledger-muted)',
-                  marginTop: '-2px'
+                  color: 'var(--ink-soft)',
+                  marginTop: '-2px',
+                  letterSpacing: '0.04em'
                 }}
               >
                 TIME-DECAYING CURATION MARKET
@@ -107,22 +111,41 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
           <div
             className="sk-badge sk-badge--inverted"
             title="Monad Testnet RPC Connected (Chain ID: 10143)"
-            style={{ fontSize: '0.72rem', padding: '4px 10px' }}
+            style={{ fontSize: '0.72rem', padding: '5px 12px' }}
           >
             <span className="sk-lamp sk-lamp-green" />
-            <span style={{ fontFamily: 'var(--font-mono)' }}>MONAD TESTNET : 10143</span>
+            <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.06em' }}>
+              MONAD TESTNET : 10143
+            </span>
           </div>
         </div>
 
         {/* Navigation Tabs: Overview vs Mission Control */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            background: 'rgba(15, 12, 26, 0.8)',
+            padding: '4px',
+            borderRadius: '8px',
+            border: '1px solid rgba(131, 110, 249, 0.25)'
+          }}
+        >
           <button
             onClick={() => {
               sound.playSwitchClick();
               onChangeView('landing');
             }}
             className={`sk-button ${activeView === 'landing' ? 'sk-button-primary' : ''}`}
-            style={{ padding: '6px 14px', fontSize: '0.78rem' }}
+            style={{
+              padding: '6px 14px',
+              fontSize: '0.78rem',
+              borderRadius: '6px',
+              border: activeView === 'landing' ? '1px solid rgba(255, 255, 255, 0.4)' : 'none',
+              background: activeView === 'landing' ? undefined : 'transparent',
+              boxShadow: activeView === 'landing' ? undefined : 'none'
+            }}
           >
             <span>OVERVIEW</span>
           </button>
@@ -133,9 +156,16 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               onChangeView('console');
             }}
             className={`sk-button ${activeView === 'console' ? 'sk-button-primary' : ''}`}
-            style={{ padding: '6px 14px', fontSize: '0.78rem' }}
+            style={{
+              padding: '6px 14px',
+              fontSize: '0.78rem',
+              borderRadius: '6px',
+              border: activeView === 'console' ? '1px solid rgba(255, 255, 255, 0.4)' : 'none',
+              background: activeView === 'console' ? undefined : 'transparent',
+              boxShadow: activeView === 'console' ? undefined : 'none'
+            }}
           >
-            <Flame size={13} color={activeView === 'console' ? '#f5a623' : '#cfccc2'} />
+            <Zap size={13} color={activeView === 'console' ? '#00f0ff' : '#a5a0cc'} />
             <span>MISSION CONTROL</span>
           </button>
         </div>
@@ -150,16 +180,16 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             }}
             className="sk-button"
             style={{
-              background: 'linear-gradient(180deg, #3d3932 0%, #22201c 100%)',
-              color: '#f4f1e8',
-              border: '1px solid rgba(255,255,255,0.2)',
-              boxShadow: '0 0 10px rgba(59, 111, 214, 0.4), inset 0 1px 0 rgba(255,255,255,0.15)',
+              background: 'rgba(25, 20, 42, 0.9)',
+              color: '#ffffff',
+              border: '1px solid rgba(0, 255, 157, 0.4)',
+              boxShadow: '0 0 15px rgba(0, 255, 157, 0.25)',
               padding: '6px 14px',
               fontSize: '0.8rem'
             }}
           >
-            <Play size={14} color="#34c76f" fill="#34c76f" />
-            <span>30-SEC DEMO</span>
+            <Play size={13} color="#00ff9d" fill="#00ff9d" />
+            <span style={{ fontWeight: 700 }}>30-SEC DEMO</span>
           </button>
 
           {/* Testnet Faucet Button */}
@@ -168,14 +198,14 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             className="sk-button"
             title="Request 5.0 testnet MON from the faucet"
             style={{
-              background: 'linear-gradient(180deg, #322e28 0%, #1e1c19 100%)',
-              color: '#cfccc2',
-              borderColor: 'rgba(255,255,255,0.15)',
+              background: 'rgba(28, 23, 48, 0.85)',
+              color: '#f8f7ff',
+              borderColor: 'rgba(131, 110, 249, 0.4)',
               padding: '6px 12px',
               fontSize: '0.78rem'
             }}
           >
-            <Coins size={14} color="#f5a623" />
+            <Coins size={14} color="#00f0ff" />
             <span>+5.0 MON FAUCET</span>
           </button>
 
@@ -184,12 +214,12 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             style={{
               display: 'flex',
               alignItems: 'center',
-              background: '#181614',
-              border: '1px solid rgba(255,255,255,0.12)',
+              background: 'rgba(14, 11, 24, 0.95)',
+              border: '1px solid rgba(131, 110, 249, 0.35)',
               borderRadius: 'var(--radius-pulse-sm)',
-              padding: '4px 6px 4px 12px',
+              padding: '4px 6px 4px 14px',
               gap: '12px',
-              boxShadow: 'inset 0 2px 5px rgba(0,0,0,0.6)'
+              boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.8), 0 0 16px rgba(131, 110, 249, 0.15)'
             }}
           >
             {/* Balance in MON */}
@@ -203,13 +233,16 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                   lineHeight: 1
                 }}
               >
-                {formatMon(currentAccount.balanceMon, 2)} <span style={{ fontSize: '0.75rem', color: '#f5a623' }}>MON</span>
+                {formatMon(currentAccount.balanceMon, 2)}{' '}
+                <span style={{ fontSize: '0.75rem', color: '#00f0ff', fontFamily: 'var(--font-mono)' }}>
+                  MON
+                </span>
               </div>
               <div
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.65rem',
-                  color: 'var(--ledger-muted)'
+                  color: 'var(--ink-soft)'
                 }}
               >
                 TESTNET LIQUIDITY
@@ -230,27 +263,29 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                 }}
                 style={{
                   appearance: 'none',
-                  background: 'linear-gradient(180deg, #2c2823, #1e1c19)',
-                  border: '1px solid rgba(255,255,255,0.2)',
+                  background: 'rgba(24, 20, 42, 0.95)',
+                  border: '1px solid rgba(131, 110, 249, 0.4)',
                   borderRadius: '6px',
-                  color: '#f0ece1',
+                  color: '#ffffff',
                   fontFamily: 'var(--font-ui)',
                   fontSize: '0.8rem',
                   fontWeight: 600,
-                  padding: '5px 28px 5px 10px',
+                  padding: '6px 28px 6px 10px',
                   cursor: 'pointer',
                   outline: 'none'
                 }}
               >
                 <optgroup label="Simulated Seed Wallets (Real Tx)">
                   {accounts.map((acc) => (
-                    <option key={acc.id} value={acc.id}>
+                    <option key={acc.id} value={acc.id} style={{ background: '#141124', color: '#ffffff' }}>
                       {acc.name} ({formatAddress(acc.address)})
                     </option>
                   ))}
                 </optgroup>
                 <optgroup label="Biometric Passkey (No Seed Phrase)">
-                  <option value="new_passkey">+ Create Passkey Wallet...</option>
+                  <option value="new_passkey" style={{ background: '#141124', color: '#00f0ff' }}>
+                    + Create Passkey Wallet...
+                  </option>
                 </optgroup>
               </select>
               <ChevronDown
@@ -261,7 +296,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                   top: '50%',
                   transform: 'translateY(-50%)',
                   pointerEvents: 'none',
-                  color: '#aaa'
+                  color: '#00f0ff'
                 }}
               />
             </div>
@@ -271,16 +306,17 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               onClick={onOpenPasskeyModal}
               title="Passkey Security Console"
               style={{
-                background: 'rgba(59, 111, 214, 0.2)',
-                border: '1px solid rgba(59, 111, 214, 0.4)',
+                background: 'rgba(131, 110, 249, 0.25)',
+                border: '1px solid rgba(131, 110, 249, 0.5)',
                 borderRadius: '6px',
                 padding: '6px',
                 display: 'flex',
                 alignItems: 'center',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                boxShadow: '0 0 10px rgba(131, 110, 249, 0.3)'
               }}
             >
-              <Fingerprint size={16} color="#3b6fd6" />
+              <Fingerprint size={16} color="#00f0ff" />
             </button>
           </div>
         </div>
@@ -288,3 +324,5 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
     </header>
   );
 };
+
+export default HeaderConsole;

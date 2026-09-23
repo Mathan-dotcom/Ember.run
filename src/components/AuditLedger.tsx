@@ -8,30 +8,30 @@ export const AuditLedger: React.FC = () => {
 
   return (
     <section className="sk-panel" style={{ padding: '0', overflow: 'hidden', marginBottom: '32px' }}>
-      {/* Walnut Casing Bar Header */}
+      {/* Dark Glass Bar Header */}
       <div
         style={{
-          background: 'linear-gradient(180deg, #2b2824 0%, var(--panel-walnut) 70%, #131210 100%)',
-          color: 'var(--panel-alu)',
+          background: 'rgba(12, 10, 22, 0.95)',
+          color: '#ffffff',
           padding: '14px 20px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderBottom: '1px solid rgba(0,0,0,0.5)',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.3)'
+          borderBottom: '1px solid rgba(131, 110, 249, 0.25)',
+          boxShadow: '0 2px 10px rgba(0,0,0,0.5)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span className="sk-index" data-index="03" style={{ color: '#d4cfc2' }} />
+          <span className="sk-index" data-index="03" style={{ color: 'var(--cyan-accent)' }} />
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Terminal size={17} color="#34c76f" />
+            <Terminal size={17} color="#00f0ff" />
             <h2
               style={{
                 fontFamily: 'var(--font-ui)',
                 fontSize: '1rem',
                 fontWeight: 600,
                 letterSpacing: '0.04em',
-                color: '#f4f1e8'
+                color: '#ffffff'
               }}
             >
               IMMUTABLE TERMINAL AUDIT LEDGER
@@ -45,7 +45,7 @@ export const AuditLedger: React.FC = () => {
             style={{ fontSize: '0.7rem', padding: '3px 8px' }}
           >
             <span className="sk-lamp sk-lamp-green" />
-            <span style={{ fontFamily: 'var(--font-mono)' }}>STREAM: MONAD TESTNET</span>
+            <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--cyan-accent)' }}>STREAM: MONAD TESTNET</span>
           </div>
         </div>
       </div>
@@ -59,11 +59,11 @@ export const AuditLedger: React.FC = () => {
           maxHeight: '340px',
           overflowY: 'auto',
           borderRadius: 'var(--radius-pulse-sm)',
-          border: '1px solid rgba(0,0,0,0.22)'
+          border: '1px solid rgba(131, 110, 249, 0.25)'
         }}
       >
         {auditLogs.length === 0 ? (
-          <div style={{ padding: '24px', textAlign: 'center', color: 'var(--ledger-muted)', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ padding: '24px', textAlign: 'center', color: 'var(--ink-soft)', fontFamily: 'var(--font-mono)' }}>
             NO ONCHAIN TRANSACTIONS RECORDED YET
           </div>
         ) : (
@@ -83,14 +83,14 @@ export const AuditLedger: React.FC = () => {
                     justifyContent: 'space-between',
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.78rem',
-                    borderBottom: '1px solid rgba(0,0,0,0.04)',
+                    borderBottom: '1px solid rgba(131, 110, 249, 0.1)',
                     gap: '12px',
                     flexWrap: 'wrap'
                   }}
                 >
                   {/* Left: Index + Status Lamp + TxHash */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ color: 'var(--ledger-muted)', fontWeight: 700 }}>
+                    <span style={{ color: 'var(--ink-soft)', fontWeight: 700 }}>
                       #{String(auditLogs.length - index).padStart(4, '0')}
                     </span>
 
@@ -104,20 +104,21 @@ export const AuditLedger: React.FC = () => {
                     <span
                       style={{
                         fontWeight: 700,
-                        color: isBlocked ? '#e0392f' : '#279a52'
+                        color: isBlocked ? '#ff0055' : '#00ff9d',
+                        textShadow: isBlocked ? '0 0 8px rgba(255, 0, 85, 0.5)' : '0 0 8px rgba(0, 255, 157, 0.5)'
                       }}
                     >
                       {log.status}
                     </span>
 
-                    <span style={{ color: 'var(--ledger-muted)' }}>
+                    <span style={{ color: 'var(--ink-soft)' }}>
                       TX:{log.txHash}
                     </span>
                   </div>
 
                   {/* Center: Recipient & Note */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontWeight: 600, color: 'var(--ink-hard)' }}>
+                    <span style={{ fontWeight: 600, color: '#f8f7ff' }}>
                       {log.role === 'POSTER'
                         ? `[POSTER CUT] -> ${log.recipientName}`
                         : log.role === 'CURATOR'
@@ -129,10 +130,12 @@ export const AuditLedger: React.FC = () => {
                       <span
                         style={{
                           fontWeight: 700,
-                          color: isBlocked ? '#e0392f' : '#1b356b',
-                          background: 'rgba(255,255,255,0.4)',
-                          padding: '1px 6px',
-                          borderRadius: '4px'
+                          color: isBlocked ? '#ff0055' : '#00f0ff',
+                          background: 'rgba(0, 240, 255, 0.12)',
+                          border: '1px solid rgba(0, 240, 255, 0.3)',
+                          padding: '1px 8px',
+                          borderRadius: '4px',
+                          textShadow: '0 0 6px rgba(0, 240, 255, 0.4)'
                         }}
                       >
                         +{formatMon(log.amount, 3)} MON
@@ -141,7 +144,7 @@ export const AuditLedger: React.FC = () => {
                   </div>
 
                   {/* Right: Timestamp */}
-                  <div style={{ color: 'var(--ledger-muted)', fontSize: '0.72rem' }}>
+                  <div style={{ color: 'var(--ink-soft)', fontSize: '0.72rem' }}>
                     {formatRelativeTime(secondsAgo)}
                   </div>
                 </div>
@@ -155,14 +158,14 @@ export const AuditLedger: React.FC = () => {
       <div
         style={{
           padding: '10px 20px',
-          background: 'rgba(0,0,0,0.03)',
-          borderTop: '1px solid rgba(0,0,0,0.06)',
+          background: 'rgba(131, 110, 249, 0.05)',
+          borderTop: '1px solid rgba(131, 110, 249, 0.15)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           fontFamily: 'var(--font-mono)',
           fontSize: '0.7rem',
-          color: 'var(--ledger-muted)'
+          color: 'var(--ink-soft)'
         }}
       >
         <span>EMBER.RUN // ATOMIC ONCHAIN SPLITS WITHOUT MANUAL CLAIMS</span>

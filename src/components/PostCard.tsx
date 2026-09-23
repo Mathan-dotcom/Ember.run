@@ -35,7 +35,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '8px',
-          borderBottom: '1px solid rgba(0,0,0,0.08)',
+          borderBottom: '1px solid rgba(131, 110, 249, 0.2)',
           paddingBottom: '12px'
         }}
       >
@@ -46,8 +46,8 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
               fontSize: '0.82rem',
-              color: 'var(--ink-soft)',
-              textShadow: '0 1px 0 var(--bevel-light)'
+              color: 'var(--cyan-accent)',
+              textShadow: '0 0 8px rgba(0, 240, 255, 0.5)'
             }}
           >
             #{String(post.id).padStart(4, '0')}
@@ -56,7 +56,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
           {/* Author Badge */}
           <div className="sk-badge" style={{ padding: '3px 10px' }}>
             <span className="sk-lamp sk-lamp-green" />
-            <span style={{ fontWeight: 600 }}>{post.authorName}</span>
+            <span style={{ fontWeight: 600, color: '#ffffff' }}>{post.authorName}</span>
             <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink-soft)', fontSize: '0.7rem' }}>
               ({formatAddress(post.poster)})
             </span>
@@ -67,7 +67,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
               className="sk-badge sk-badge--inverted"
               style={{ fontSize: '0.68rem', padding: '2px 8px' }}
             >
-              <UserCheck size={12} color="#34c76f" />
+              <UserCheck size={12} color="#00ff9d" />
               <span>YOUR POST</span>
             </span>
           )}
@@ -79,7 +79,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.75rem',
-              color: 'var(--ledger-muted)'
+              color: 'var(--ink-soft)'
             }}
           >
             {formatRelativeTime(secondsAgo)}
@@ -96,7 +96,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
               fontFamily: 'var(--font-ui)',
               fontSize: '1.25rem',
               fontWeight: 700,
-              color: 'var(--ink-hard)',
+              color: '#ffffff',
               lineHeight: 1.3,
               marginBottom: '10px'
             }}
@@ -107,7 +107,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
           <p
             className="text-body"
             style={{
-              color: '#34312d',
+              color: '#d5d1eb',
               marginBottom: '14px',
               whiteSpace: 'pre-line'
             }}
@@ -127,9 +127,10 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
                 gap: '5px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.75rem',
-                color: '#2a5bb5',
+                color: 'var(--cyan-accent)',
                 textDecoration: 'none',
-                marginBottom: '12px'
+                marginBottom: '12px',
+                textShadow: '0 0 8px rgba(0, 240, 255, 0.4)'
               }}
             >
               <ExternalLink size={13} />
@@ -146,8 +147,9 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
                 style={{
                   fontSize: '0.7rem',
                   padding: '2px 8px',
-                  background: 'rgba(0,0,0,0.04)',
-                  border: '1px solid rgba(0,0,0,0.1)'
+                  background: 'rgba(131, 110, 249, 0.12)',
+                  border: '1px solid rgba(131, 110, 249, 0.25)',
+                  color: '#e5e2fc'
                 }}
               >
                 #{tag}
@@ -168,7 +170,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
         </div>
       </div>
 
-      {/* AI Trend Blurb (PRD Section 5.6: Kimi / Qwen style velocity intelligence) */}
+      {/* AI Trend Blurb */}
       {post.aiTrendBlurb && (
         <div
           className="sk-well"
@@ -177,20 +179,21 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            background: 'linear-gradient(90deg, rgba(59, 111, 214, 0.08) 0%, rgba(207, 204, 194, 0.4) 100%)',
-            borderLeft: '3px solid #3b6fd6'
+            background: 'rgba(131, 110, 249, 0.12)',
+            borderLeft: '3px solid var(--signal-accent)',
+            boxShadow: '0 0 15px rgba(131, 110, 249, 0.1)'
           }}
         >
-          <Sparkles size={16} color="#3b6fd6" style={{ flexShrink: 0 }} />
+          <Sparkles size={16} color="#00f0ff" style={{ flexShrink: 0 }} />
           <span
             style={{
               fontFamily: 'var(--font-ui)',
               fontSize: '0.8rem',
-              color: 'var(--ink-hard)',
+              color: '#f8f7ff',
               lineHeight: 1.4
             }}
           >
-            <strong>Curation Intelligence:</strong> {post.aiTrendBlurb}
+            <strong style={{ color: '#00f0ff' }}>Curation Intelligence:</strong> {post.aiTrendBlurb}
           </span>
         </div>
       )}
@@ -203,7 +206,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '16px',
-          borderTop: '1px solid rgba(0,0,0,0.08)',
+          borderTop: '1px solid rgba(131, 110, 249, 0.2)',
           paddingTop: '14px'
         }}
       >
@@ -211,7 +214,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
           {/* Decayed Weight Score */}
           <div>
-            <div className="text-micro" style={{ fontSize: '0.68rem', color: 'var(--ink-soft)' }}>
+            <div className="text-micro" style={{ fontSize: '0.68rem', color: 'var(--cyan-accent)' }}>
               DECAYED WEIGHT
             </div>
             <div
@@ -219,8 +222,9 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.4rem',
                 fontWeight: 700,
-                color: '#1b356b',
-                lineHeight: 1
+                color: '#00f0ff',
+                lineHeight: 1,
+                textShadow: '0 0 10px rgba(0, 240, 255, 0.4)'
               }}
             >
               {formatMon(post.decayedWeight, 2)} <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>SCORE</span>
@@ -237,11 +241,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.4rem',
                 fontWeight: 700,
-                color: 'var(--ink-hard)',
+                color: '#ffffff',
                 lineHeight: 1
               }}
             >
-              {formatMon(post.totalBoosted, 2)} <span style={{ fontSize: '0.75rem', color: '#f5a623' }}>MON</span>
+              {formatMon(post.totalBoosted, 2)} <span style={{ fontSize: '0.75rem', color: '#00ff9d' }}>MON</span>
             </div>
           </div>
 
@@ -255,7 +259,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.4rem',
                 fontWeight: 700,
-                color: 'var(--ink-hard)',
+                color: '#ffffff',
                 lineHeight: 1
               }}
             >
@@ -272,13 +276,15 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
               className="sk-button"
               title="Anti-gaming rule: You cannot boost your own post"
               style={{
-                opacity: 0.6,
+                opacity: 0.65,
                 cursor: 'not-allowed',
                 padding: '8px 16px',
-                fontSize: '0.85rem'
+                fontSize: '0.85rem',
+                border: '1px solid rgba(255, 0, 85, 0.4)',
+                color: '#ff0055'
               }}
             >
-              <ShieldAlert size={14} color="#e0392f" />
+              <ShieldAlert size={14} color="#ff0055" />
               <span>SELF-BOOST BLOCKED</span>
             </button>
           ) : (
@@ -290,7 +296,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
               className="sk-button-primary"
               style={{ padding: '8px 18px', fontSize: '0.88rem' }}
             >
-              <Zap size={15} color="#f5a623" />
+              <Zap size={15} color="#00f0ff" />
               <span>BOOST EMBER</span>
             </button>
           )}

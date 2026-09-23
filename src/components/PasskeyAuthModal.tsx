@@ -47,8 +47,9 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(15, 14, 12, 0.65)',
-        backdropFilter: 'blur(6px)',
+        backgroundColor: 'rgba(6, 5, 12, 0.85)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         zIndex: 100,
         display: 'flex',
         alignItems: 'center',
@@ -64,8 +65,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
         style={{
           width: '100%',
           maxWidth: '460px',
-          padding: '28px',
-          boxShadow: '0 24px 60px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.7) inset'
+          padding: '28px'
         }}
       >
         {/* Header */}
@@ -73,17 +73,17 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div
               style={{
-                width: '32px',
-                height: '32px',
+                width: '34px',
+                height: '34px',
                 borderRadius: '8px',
-                background: 'radial-gradient(circle at 35% 35%, #3b6fd6, #1b356b)',
+                background: 'linear-gradient(135deg, #836ef9, #00f0ff)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 8px rgba(59, 111, 214, 0.5)'
+                boxShadow: '0 0 16px rgba(131, 110, 249, 0.7)'
               }}
             >
-              <Fingerprint size={18} color="#ffffff" />
+              <Fingerprint size={19} color="#ffffff" />
             </div>
             <div>
               <h3
@@ -91,13 +91,12 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.25rem',
                   fontWeight: 600,
-                  color: 'var(--ink-hard)',
-                  textShadow: '0 1px 0 var(--bevel-light)'
+                  color: '#ffffff'
                 }}
               >
                 Passkey Mission Control
               </h3>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--ink-soft)' }}>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--cyan-accent)' }}>
                 ONE PASSKEY, ZERO SEED PHRASES
               </p>
             </div>
@@ -122,10 +121,10 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
         {/* Biometric Scanner Visualizer */}
         <div
           style={{
-            background: 'radial-gradient(circle at 50% 50%, #2a2722 0%, #151412 100%)',
+            background: 'rgba(8, 7, 16, 0.95)',
             borderRadius: 'var(--radius-pulse-sm)',
-            border: '1px solid rgba(0,0,0,0.4)',
-            boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.8), 0 1px 0 var(--bevel-light)',
+            border: '1px solid rgba(131, 110, 249, 0.35)',
+            boxShadow: 'inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 16px rgba(131, 110, 249, 0.15)',
             padding: '24px 16px',
             textAlign: 'center',
             marginBottom: '20px',
@@ -135,35 +134,35 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
         >
           <div
             style={{
-              width: '64px',
-              height: '64px',
+              width: '68px',
+              height: '68px',
               borderRadius: '50%',
               margin: '0 auto 12px auto',
               background: isAuthenticating
-                ? 'radial-gradient(circle, rgba(59, 111, 214, 0.4) 0%, rgba(59, 111, 214, 0.05) 70%)'
+                ? 'radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, transparent 70%)'
                 : success
-                ? 'radial-gradient(circle, rgba(52, 199, 111, 0.4) 0%, rgba(52, 199, 111, 0.05) 70%)'
-                : 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%)',
+                ? 'radial-gradient(circle, rgba(0, 255, 157, 0.3) 0%, transparent 70%)'
+                : 'radial-gradient(circle, rgba(131, 110, 249, 0.15) 0%, transparent 70%)',
               border: `2px solid ${
-                isAuthenticating ? '#3b6fd6' : success ? '#34c76f' : 'rgba(255,255,255,0.15)'
+                isAuthenticating ? '#00f0ff' : success ? '#00ff9d' : 'rgba(131, 110, 249, 0.4)'
               }`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               boxShadow: isAuthenticating
-                ? '0 0 16px rgba(59, 111, 214, 0.6)'
+                ? '0 0 20px rgba(0, 240, 255, 0.7)'
                 : success
-                ? '0 0 16px rgba(52, 199, 111, 0.7)'
-                : 'none',
+                ? '0 0 20px rgba(0, 255, 157, 0.8)'
+                : '0 0 10px rgba(131, 110, 249, 0.25)',
               transition: 'all 0.3s ease'
             }}
           >
             {success ? (
-              <CheckCircle2 size={32} color="#34c76f" />
+              <CheckCircle2 size={34} color="#00ff9d" />
             ) : (
               <Fingerprint
-                size={32}
-                color={isAuthenticating ? '#3b6fd6' : '#d4cfc2'}
+                size={34}
+                color={isAuthenticating ? '#00f0ff' : '#836ef9'}
                 className={isAuthenticating ? 'anim-lamp-pulse-blue' : ''}
               />
             )}
@@ -174,7 +173,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
               fontFamily: 'var(--font-mono)',
               fontSize: '0.8rem',
               fontWeight: 600,
-              color: '#d4cfc2',
+              color: '#ffffff',
               letterSpacing: '0.04em'
             }}
           >
@@ -189,7 +188,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
             style={{
               fontFamily: 'var(--font-ui)',
               fontSize: '0.75rem',
-              color: 'var(--ledger-muted)',
+              color: 'var(--ink-soft)',
               marginTop: '6px'
             }}
           >
