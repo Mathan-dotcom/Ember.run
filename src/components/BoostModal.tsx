@@ -53,6 +53,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
 
   return (
     <div
+      className="modal-overlay-fade"
       style={{
         position: 'fixed',
         inset: 0,
@@ -69,7 +70,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
       }}
     >
       <div
-        className="sk-panel-raised"
+        className="sk-panel-raised modal-box-fade"
         style={{
           width: '100%',
           maxWidth: '520px',

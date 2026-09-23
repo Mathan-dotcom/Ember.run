@@ -75,7 +75,7 @@ export const AuditLedger: React.FC = () => {
               return (
                 <div
                   key={log.id}
-                  className="ledger-row"
+                  className="ledger-row fade-in-card"
                   style={{
                     padding: '8px 16px',
                     display: 'flex',

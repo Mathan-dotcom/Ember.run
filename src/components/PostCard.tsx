@@ -18,7 +18,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
 
   return (
     <article
-      className="sk-panel card-hover"
+      className="sk-panel card-hover fade-in-card"
       style={{
         padding: '24px',
         marginBottom: '20px',

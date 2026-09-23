@@ -43,6 +43,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
 
   return (
     <div
+      className="modal-overlay-fade"
       style={{
         position: 'fixed',
         inset: 0,
@@ -59,7 +60,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
       }}
     >
       <div
-        className="sk-panel-raised"
+        className="sk-panel-raised modal-box-fade"
         style={{
           width: '100%',
           maxWidth: '460px',

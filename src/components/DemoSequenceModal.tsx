@@ -129,6 +129,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
 
   return (
     <div
+      className="modal-overlay-fade"
       style={{
         position: 'fixed',
         inset: 0,
@@ -145,7 +146,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
       }}
     >
       <div
-        className="sk-panel-raised"
+        className="sk-panel-raised modal-box-fade"
         style={{
           width: '100%',
           maxWidth: '680px',
