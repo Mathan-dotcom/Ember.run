@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Post, BoosterRecord } from '../types/signal';
+import { Post } from '../types/signal';
 import { useWallet } from '../context/WalletContext';
 import { calculateBoostSplitPreview, formatAddress, formatMon } from '../utils/decay';
 import { sound } from '../utils/sound';
-import { X, Zap, ShieldAlert, AlertTriangle, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { X, Zap, ShieldAlert, AlertTriangle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface BoostModalProps {
@@ -33,8 +33,8 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
     try {
       await boostPost(post.id, boostAmount);
       confetti({
-        particleCount: 60,
-        spread: 70,
+        particleCount: 50,
+        spread: 60,
         origin: { y: 0.7 }
       });
       setTimeout(() => {
@@ -57,7 +57,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(6, 5, 12, 0.85)',
+        backgroundColor: 'rgba(0, 0, 0, 0.88)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         zIndex: 100,
@@ -77,7 +77,9 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
           maxWidth: '520px',
           padding: '28px',
           maxHeight: '92vh',
-          overflowY: 'auto'
+          overflowY: 'auto',
+          background: '#0d0d0d',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
         }}
       >
         {/* Header */}
@@ -87,7 +89,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
             alignItems: 'center',
             justifyContent: 'space-between',
             marginBottom: '16px',
-            borderBottom: '1px solid rgba(131, 110, 249, 0.25)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
             paddingBottom: '12px'
           }}
         >
@@ -96,21 +98,20 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
               style={{
                 width: '32px',
                 height: '32px',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #836ef9 0%, #00f0ff 100%)',
+                borderRadius: '6px',
+                background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 0 14px rgba(131, 110, 249, 0.6)'
+                justifyContent: 'center'
               }}
             >
-              <Zap size={18} color="#ffffff" />
+              <Zap size={16} color="#000000" fill="#000000" />
             </div>
             <div>
-              <h3 className="text-heading" style={{ fontSize: '1.15rem', color: '#ffffff' }}>
+              <h3 className="text-heading" style={{ fontSize: '1.1rem', color: '#ffffff' }}>
                 Precision Boost Cockpit
               </h3>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--cyan-accent)' }}>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'var(--ink-soft)' }}>
                 ATOMIC DISBURSEMENT // MONAD TESTNET
               </p>
             </div>
@@ -125,7 +126,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
               padding: '4px'
             }}
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
@@ -135,13 +136,13 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
           style={{
             padding: '12px 14px',
             marginBottom: '18px',
-            borderLeft: '4px solid #3b6fd6'
+            borderLeft: '3px solid #ffffff'
           }}
         >
-          <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, fontSize: '0.9rem', marginBottom: '2px' }}>
+          <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '2px', color: '#ffffff' }}>
             {post.title}
           </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--ink-soft)' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: 'var(--ink-soft)' }}>
             Author: {post.authorName} ({formatAddress(post.poster)})
           </div>
         </div>
@@ -150,22 +151,21 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
         {preview.isSelfBoost && (
           <div
             style={{
-              background: 'linear-gradient(180deg, #3d1b19 0%, #200f0e 100%)',
-              border: '1px solid #e0392f',
+              background: '#161616',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
               borderRadius: 'var(--radius-pulse-sm)',
               padding: '12px 14px',
-              color: '#f8d7da',
-              marginBottom: '18px',
-              boxShadow: '0 0 12px rgba(224, 57, 47, 0.4)'
+              color: '#ffffff',
+              marginBottom: '18px'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-              <span className="sk-lamp sk-lamp-red anim-lamp-pulse-red" />
-              <strong style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', letterSpacing: '0.04em' }}>
+              <ShieldAlert size={15} color="#ffffff" />
+              <strong style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', letterSpacing: '0.04em' }}>
                 ANTI-GAMING RULE 1 TRIGGERED
               </strong>
             </div>
-            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.78rem', lineHeight: 1.4 }}>
+            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.78rem', lineHeight: 1.4, color: '#d4d4d8' }}>
               You are the author of this post. The onchain contract strictly blocks self-boosting to ensure organic market signal.
             </p>
           </div>
@@ -175,22 +175,21 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
         {!preview.isSelfBoost && preview.multiplierPercent < 100 && (
           <div
             style={{
-              background: 'linear-gradient(180deg, #3a2e18 0%, #1c160a 100%)',
-              border: '1px solid #f5a623',
+              background: '#141414',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
               borderRadius: 'var(--radius-pulse-sm)',
               padding: '10px 14px',
-              color: '#fff3cd',
-              marginBottom: '18px',
-              boxShadow: '0 0 10px rgba(245, 166, 35, 0.3)'
+              color: '#ffffff',
+              marginBottom: '18px'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
-              <span className="sk-lamp sk-lamp-amber" />
-              <strong style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem' }}>
+              <AlertTriangle size={14} color="#ffffff" />
+              <strong style={{ fontFamily: 'var(--font-mono)', fontSize: '0.76rem' }}>
                 ANTI-GAMING RULE 2: DIMINISHING RETURNS APPLIED
               </strong>
             </div>
-            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.76rem', lineHeight: 1.4 }}>
+            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.76rem', lineHeight: 1.4, color: '#a1a1aa' }}>
               Repeat boost detected from this wallet. Curation multiplier scaled to{' '}
               <strong>{preview.multiplierPercent}%</strong> effective weight to disincentivize wash-boosting.
             </p>
@@ -201,11 +200,11 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
         {errorMessage && (
           <div
             style={{
-              background: '#f8d7da',
-              border: '1px solid #f5c2c7',
+              background: '#181818',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
               borderRadius: 'var(--radius-pulse-sm)',
               padding: '10px 14px',
-              color: '#842029',
+              color: '#ffffff',
               fontSize: '0.8rem',
               marginBottom: '16px'
             }}
@@ -218,31 +217,34 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
         <div style={{ marginBottom: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
             <label className="text-micro">Select Boost Quantum (MON)</label>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--ink-soft)' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--ink-soft)' }}>
               Available: {formatMon(currentAccount.balanceMon, 2)} MON
             </span>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px', marginBottom: '10px' }}>
-            {PRESET_AMOUNTS.map((amt) => (
-              <button
-                key={amt}
-                type="button"
-                onClick={() => {
-                  sound.playDialTick();
-                  setBoostAmount(amt);
-                }}
-                className={`sk-button ${boostAmount === amt ? 'sk-button-primary' : ''}`}
-                style={{
-                  padding: '8px 0',
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1rem',
-                  fontWeight: 600
-                }}
-              >
-                {amt} MON
-              </button>
-            ))}
+            {PRESET_AMOUNTS.map((amt) => {
+              const isSelected = boostAmount === amt;
+              return (
+                <button
+                  key={amt}
+                  type="button"
+                  onClick={() => {
+                    sound.playDialTick();
+                    setBoostAmount(amt);
+                  }}
+                  className={`sk-button ${isSelected ? 'sk-button-primary' : ''}`}
+                  style={{
+                    padding: '8px 0',
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '0.95rem',
+                    fontWeight: 600
+                  }}
+                >
+                  {amt} MON
+                </button>
+              );
+            })}
           </div>
 
           <div className="sk-well" style={{ display: 'flex', alignItems: 'center', padding: '2px 12px' }}>
@@ -264,7 +266,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
         <div style={{ marginBottom: '22px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
             <label className="text-micro">Live Onchain Disbursement Preview</label>
-            <span className="sk-badge" style={{ fontSize: '0.68rem', padding: '2px 8px' }}>
+            <span className="sk-badge" style={{ fontSize: '0.65rem', padding: '2px 8px' }}>
               ATOMIC 40 / 45 / 15
             </span>
           </div>
@@ -296,11 +298,11 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                   color: '#ffffff'
                 }}
               >
-                +{formatMon(preview.posterCut, 3)} <span style={{ fontSize: '0.75rem', color: '#00f0ff' }}>MON</span>
+                +{formatMon(preview.posterCut, 3)} <span style={{ fontSize: '0.75rem', color: 'var(--ink-soft)' }}>MON</span>
               </div>
             </div>
 
-            <div style={{ height: '1px', background: 'rgba(131, 110, 249, 0.15)' }} />
+            <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.1)' }} />
 
             {/* Earlier Curators 45% */}
             <div>
@@ -320,11 +322,10 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                     fontFamily: 'var(--font-display)',
                     fontSize: '1.1rem',
                     fontWeight: 700,
-                    color: '#00ff9d',
-                    textShadow: '0 0 10px rgba(0, 255, 157, 0.4)'
+                    color: '#ffffff'
                   }}
                 >
-                  +{formatMon(preview.curatorCutTotal, 3)} <span style={{ fontSize: '0.75rem', color: '#00ff9d' }}>MON</span>
+                  +{formatMon(preview.curatorCutTotal, 3)} <span style={{ fontSize: '0.75rem', color: 'var(--ink-soft)' }}>MON</span>
                 </div>
               </div>
 
@@ -332,8 +333,8 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
               {preview.curatorBreakdown.length > 0 && (
                 <div
                   style={{
-                    background: 'rgba(131, 110, 249, 0.08)',
-                    border: '1px solid rgba(131, 110, 249, 0.2)',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
                     borderRadius: '4px',
                     padding: '6px 8px',
                     marginTop: '6px',
@@ -356,7 +357,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                       <span style={{ color: '#ffffff' }}>
                         #{idx + 1} {c.name} ({Math.round(c.sharePercent)}% weight)
                       </span>
-                      <span style={{ fontWeight: 600, color: '#00ff9d' }}>
+                      <span style={{ fontWeight: 600, color: '#ffffff' }}>
                         +{formatMon(c.estimatedPayout, 3)} MON
                       </span>
                     </div>
@@ -365,7 +366,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
               )}
             </div>
 
-            <div style={{ height: '1px', background: 'rgba(131, 110, 249, 0.15)' }} />
+            <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.1)' }} />
 
             {/* Reserve 15% */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -386,7 +387,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                 }}
               >
                 +{formatMon(curators.length === 0 ? preview.reserveCut + preview.curatorCutTotal : preview.reserveCut, 3)}{' '}
-                <span style={{ fontSize: '0.75rem', color: '#00f0ff' }}>MON</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--ink-soft)' }}>MON</span>
               </div>
             </div>
           </div>
@@ -399,15 +400,11 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
           className="sk-button-primary"
           style={{
             width: '100%',
-            padding: '14px',
-            fontSize: '1rem',
-            background: preview.isSelfBoost
-              ? 'rgba(60, 20, 30, 0.9)'
-              : undefined,
-            border: preview.isSelfBoost ? '1px solid rgba(255, 0, 85, 0.5)' : undefined
+            padding: '13px',
+            fontSize: '0.95rem'
           }}
         >
-          <Zap size={18} />
+          <Zap size={16} />
           <span>
             {preview.isSelfBoost
               ? 'SELF-BOOST PROHIBITED'
@@ -420,3 +417,5 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
     </div>
   );
 };
+
+export default BoostModal;

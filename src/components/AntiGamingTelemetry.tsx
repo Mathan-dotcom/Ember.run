@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { calculateDiminishingMultiplier } from '../utils/decay';
 import { sound } from '../utils/sound';
-import { ShieldCheck, ShieldAlert, Cpu, AlertOctagon, TrendingDown } from 'lucide-react';
+import { AlertOctagon, TrendingDown } from 'lucide-react';
 
 export const AntiGamingTelemetry: React.FC = () => {
   const [simulatedBoostCount, setSimulatedBoostCount] = useState<number>(1);
@@ -17,19 +17,19 @@ export const AntiGamingTelemetry: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           marginBottom: '18px',
-          borderBottom: '1px solid rgba(131, 110, 249, 0.25)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
           paddingBottom: '12px'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="sk-index" data-index="05" />
           <h2 className="text-heading">ANTI-GAMING & SYBIL DEFENSE MATRIX</h2>
-          <span className="sk-badge" style={{ fontSize: '0.7rem' }}>
+          <span className="sk-badge" style={{ fontSize: '0.68rem' }}>
             ONCHAIN PROTOCOL LOGIC
           </span>
         </div>
 
-        <div className="sk-badge sk-badge--inverted" style={{ fontSize: '0.72rem' }}>
+        <div className="sk-badge sk-badge--inverted" style={{ fontSize: '0.70rem' }}>
           <span className="sk-lamp sk-lamp-green" />
           <span style={{ fontFamily: 'var(--font-mono)' }}>RULES ARMED & ENFORCED</span>
         </div>
@@ -45,50 +45,49 @@ export const AntiGamingTelemetry: React.FC = () => {
         }}
       >
         {/* Defense Rule 1: No Self-Boosting */}
-        <div className="sk-well" style={{ padding: '18px' }}>
+        <div className="sk-well" style={{ padding: '18px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-            <AlertOctagon size={18} color="#ff0055" />
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '0.95rem', fontWeight: 600, color: '#ffffff' }}>
+            <AlertOctagon size={16} color="#ffffff" />
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '0.92rem', fontWeight: 600, color: '#ffffff' }}>
               RULE 01: ZERO SELF-BOOSTING
             </h3>
           </div>
 
-          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: '#d1cde8', marginBottom: '12px', lineHeight: 1.5 }}>
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: '#d4d4d8', marginBottom: '12px', lineHeight: 1.5 }}>
             Authors cannot artificially inflate their own signals. The smart contract validates:
           </p>
 
           <div
             style={{
-              background: 'rgba(5, 4, 10, 0.95)',
-              borderRadius: '6px',
+              background: '#000000',
+              borderRadius: '4px',
               padding: '8px 12px',
               fontFamily: 'var(--font-mono)',
               fontSize: '0.75rem',
-              color: '#00ff9d',
-              border: '1px solid rgba(255, 0, 85, 0.3)',
-              boxShadow: '0 0 10px rgba(255, 0, 85, 0.1)',
+              color: '#ffffff',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
               marginBottom: '12px'
             }}
           >
             require(msg.sender != post.poster, "Signal: Self-boosting prohibited");
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: 'var(--ink-soft)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.74rem', color: 'var(--ink-soft)' }}>
             <span className="sk-lamp sk-lamp-green" />
             <span>Result: Transaction immediately reverts onchain; gas wasted with 0 payout.</span>
           </div>
         </div>
 
         {/* Defense Rule 2: Diminishing Returns per Wallet */}
-        <div className="sk-well" style={{ padding: '18px' }}>
+        <div className="sk-well" style={{ padding: '18px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-            <TrendingDown size={18} color="#00f0ff" />
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '0.95rem', fontWeight: 600, color: '#ffffff' }}>
+            <TrendingDown size={16} color="#ffffff" />
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '0.92rem', fontWeight: 600, color: '#ffffff' }}>
               RULE 02: DIMINISHING RETURNS MULTIPLIER
             </h3>
           </div>
 
-          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: '#d1cde8', marginBottom: '12px', lineHeight: 1.5 }}>
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: '#d4d4d8', marginBottom: '12px', lineHeight: 1.5 }}>
             Each subsequent boost from the same wallet yields an asymptotically smaller curation weight:
           </p>
 
@@ -123,18 +122,19 @@ export const AntiGamingTelemetry: React.FC = () => {
 
           <div
             style={{
-              background: '#181614',
-              borderRadius: '6px',
+              background: '#000000',
+              borderRadius: '4px',
               padding: '8px 12px',
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.75rem',
-              color: '#d4cfc2',
+              fontSize: '0.74rem',
+              color: '#ffffff',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
               display: 'flex',
               justifyContent: 'space-between'
             }}
           >
             <span>BOOST #{simulatedBoostCount} WEIGHT:</span>
-            <span style={{ color: '#f5a623', fontWeight: 700 }}>
+            <span style={{ color: '#ffffff', fontWeight: 700 }}>
               {(calculateDiminishingMultiplier(simulatedBoostCount - 1) * 100).toFixed(1)}% EFFECTIVE SHARE
             </span>
           </div>
@@ -155,3 +155,5 @@ export const AntiGamingTelemetry: React.FC = () => {
     </section>
   );
 };
+
+export default AntiGamingTelemetry;

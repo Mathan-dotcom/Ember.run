@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { sound } from '../utils/sound';
 import { formatAddress } from '../utils/decay';
-import { Send, Tag, Link2, ShieldAlert, Sparkles } from 'lucide-react';
+import { Send, Tag, Link2, ShieldAlert } from 'lucide-react';
 
 export const PostComposer: React.FC = () => {
   const { currentAccount, createPost } = useWallet();
@@ -51,21 +51,21 @@ export const PostComposer: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           marginBottom: '16px',
-          borderBottom: '1px solid rgba(131, 110, 249, 0.2)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
           paddingBottom: '10px'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="sk-index" data-index="01" />
           <h2 className="text-heading">DISPATCH CONSOLE</h2>
-          <span className="sk-badge" style={{ fontSize: '0.7rem' }}>
+          <span className="sk-badge" style={{ fontSize: '0.68rem' }}>
             ONCHAIN REGISTRY
           </span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="text-micro">POSTER:</span>
-          <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.72rem' }}>
+          <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.70rem' }}>
             <span className="sk-lamp sk-lamp-green" />
             <span style={{ fontFamily: 'var(--font-mono)' }}>{currentAccount.handle}</span>
             <span style={{ fontFamily: 'var(--font-mono)', opacity: 0.7 }}>({formatAddress(currentAccount.address)})</span>
@@ -76,7 +76,7 @@ export const PostComposer: React.FC = () => {
       <form onSubmit={handleSubmit}>
         {/* Title Recessed Input */}
         <div style={{ marginBottom: '12px' }}>
-          <div className="sk-well" style={{ padding: '2px' }}>
+          <div className="sk-well" style={{ padding: '2px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
             <input
               type="text"
               className="sk-input"
@@ -92,7 +92,7 @@ export const PostComposer: React.FC = () => {
 
         {/* Content Recessed Well */}
         <div style={{ marginBottom: '12px' }}>
-          <div className="sk-well" style={{ padding: '2px' }}>
+          <div className="sk-well" style={{ padding: '2px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
             <textarea
               className="sk-input"
               placeholder="Describe your thesis, alpha discovery, or technical review..."
@@ -112,9 +112,9 @@ export const PostComposer: React.FC = () => {
             <div style={{ marginBottom: '14px' }}>
               <div
                 className="sk-well"
-                style={{ display: 'flex', alignItems: 'center', padding: '2px 10px' }}
+                style={{ display: 'flex', alignItems: 'center', padding: '2px 10px', border: '1px solid rgba(255, 255, 255, 0.12)' }}
               >
-                <Link2 size={16} color="var(--ink-soft)" style={{ marginRight: '6px' }} />
+                <Link2 size={15} color="var(--ink-soft)" style={{ marginRight: '6px' }} />
                 <input
                   type="url"
                   className="sk-input"
@@ -150,11 +150,13 @@ export const PostComposer: React.FC = () => {
                       style={{
                         cursor: 'pointer',
                         padding: '3px 10px',
-                        fontSize: '0.72rem',
-                        transition: 'all 0.15s ease'
+                        fontSize: '0.70rem',
+                        transition: 'all 0.15s ease',
+                        border: isSelected ? '1px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.14)',
+                        background: isSelected ? '#ffffff' : 'transparent',
+                        color: isSelected ? '#000000' : 'var(--ink-soft)'
                       }}
                     >
-                      {isSelected && <span className="sk-lamp sk-lamp-blue" />}
                       <span>#{tag}</span>
                     </button>
                   );
@@ -172,7 +174,7 @@ export const PostComposer: React.FC = () => {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '12px',
-            borderTop: '1px solid rgba(131, 110, 249, 0.2)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.12)',
             paddingTop: '12px'
           }}
         >
@@ -183,11 +185,11 @@ export const PostComposer: React.FC = () => {
               alignItems: 'center',
               gap: '6px',
               fontFamily: 'var(--font-ui)',
-              fontSize: '0.75rem',
+              fontSize: '0.74rem',
               color: 'var(--ink-soft)'
             }}
           >
-            <ShieldAlert size={14} color="#00f0ff" />
+            <ShieldAlert size={14} color="#ffffff" />
             <span>Anti-Gaming: Posters cannot boost their own content. 40% of future boosts go to you.</span>
           </div>
 
@@ -195,9 +197,9 @@ export const PostComposer: React.FC = () => {
             type="submit"
             className="sk-button-primary"
             disabled={!title.trim() || !body.trim() || isSubmitting}
-            style={{ padding: '8px 20px' }}
+            style={{ padding: '8px 20px', fontSize: '0.85rem' }}
           >
-            <Send size={15} />
+            <Send size={14} />
             <span>{isSubmitting ? 'DISPATCHING...' : 'DISPATCH EMBER'}</span>
           </button>
         </div>
@@ -205,3 +207,5 @@ export const PostComposer: React.FC = () => {
     </section>
   );
 };
+
+export default PostComposer;

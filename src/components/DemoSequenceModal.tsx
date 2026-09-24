@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { sound } from '../utils/sound';
-import { formatMon, formatAddress } from '../utils/decay';
-import { Play, Pause, RotateCcw, X, CheckCircle2, Zap, ShieldAlert, TrendingUp, Sparkles } from 'lucide-react';
+import { Play, RotateCcw, X, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface DemoSequenceModalProps {
@@ -70,7 +69,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
         const latestPost = posts[0] || posts[posts.length - 1];
         if (latestPost) {
           await boostPost(latestPost.id, 3.0, carolAcc);
-          confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
+          confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
         }
       }
     },
@@ -124,7 +123,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
     }
     setIsPlaying(false);
     setStepStatus('Demo sequence completed successfully!');
-    confetti({ particleCount: 100, spread: 90, origin: { y: 0.5 } });
+    confetti({ particleCount: 80, spread: 80, origin: { y: 0.5 } });
   };
 
   return (
@@ -133,7 +132,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(6, 5, 12, 0.85)',
+        backgroundColor: 'rgba(0, 0, 0, 0.88)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         zIndex: 100,
@@ -153,7 +152,9 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
           maxWidth: '680px',
           padding: '28px',
           maxHeight: '92vh',
-          overflowY: 'auto'
+          overflowY: 'auto',
+          background: '#0d0d0d',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
         }}
       >
         {/* Header */}
@@ -163,7 +164,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
             alignItems: 'center',
             justifyContent: 'space-between',
             marginBottom: '18px',
-            borderBottom: '1px solid rgba(131, 110, 249, 0.25)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
             paddingBottom: '12px'
           }}
         >
@@ -172,19 +173,18 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
               style={{
                 width: '32px',
                 height: '32px',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #00ff9d 0%, #0088cc 100%)',
+                borderRadius: '6px',
+                background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 0 14px rgba(0, 255, 157, 0.5)'
+                justifyContent: 'center'
               }}
             >
-              <Play size={16} color="#ffffff" fill="#ffffff" />
+              <Play size={16} color="#000000" fill="#000000" />
             </div>
             <div>
-              <h3 className="text-heading" style={{ color: '#ffffff' }}>30-Second Guided Demo Sequence</h3>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--cyan-accent)' }}>
+              <h3 className="text-heading" style={{ color: '#ffffff', fontSize: '1.05rem' }}>30-Second Guided Demo Sequence</h3>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'var(--ink-soft)' }}>
                 PRD SECTION 11 COMPLIANCE // REAL ONCHAIN FLOW
               </p>
             </div>
@@ -199,7 +199,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
               padding: '4px'
             }}
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
@@ -214,7 +214,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '10px',
-            border: '1px solid rgba(131, 110, 249, 0.25)'
+            border: '1px solid rgba(255, 255, 255, 0.14)'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -229,9 +229,9 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
               onClick={handleAutoRun}
               disabled={isPlaying}
               className="sk-button-primary"
-              style={{ padding: '6px 14px', fontSize: '0.8rem' }}
+              style={{ padding: '6px 14px', fontSize: '0.78rem' }}
             >
-              <Play size={13} fill="#ffffff" />
+              <Play size={12} fill="#000000" color="#000000" />
               <span>{isPlaying ? 'RUNNING...' : 'AUTO-RUN ALL (30s)'}</span>
             </button>
             <button
@@ -244,7 +244,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
               style={{ padding: '6px 10px' }}
               title="Reset sequence"
             >
-              <RotateCcw size={13} />
+              <RotateCcw size={12} />
             </button>
           </div>
         </div>
@@ -261,37 +261,30 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
                 className="sk-panel card-hover"
                 style={{
                   padding: '16px',
-                  background: isActive
-                    ? 'rgba(131, 110, 249, 0.16)'
-                    : undefined,
-                  border: isActive ? '1px solid #00f0ff' : '1px solid rgba(131, 110, 249, 0.2)',
-                  boxShadow: isActive ? '0 0 16px rgba(0, 240, 255, 0.3)' : undefined
+                  background: isActive ? 'rgba(255, 255, 255, 0.06)' : undefined,
+                  border: isActive ? '1px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.12)'
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                     <div
                       style={{
-                        width: '26px',
-                        height: '26px',
-                        borderRadius: '50%',
-                        background: isDone
-                          ? '#00ff9d'
-                          : isActive
-                          ? '#00f0ff'
-                          : 'rgba(255, 255, 255, 0.1)',
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '4px',
+                        background: isDone || isActive ? '#ffffff' : '#141414',
                         color: isDone || isActive ? '#000000' : 'var(--ink-soft)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.75rem',
+                        fontSize: '0.72rem',
                         fontWeight: 700,
-                        flexShrink: 0,
-                        boxShadow: isDone || isActive ? '0 0 8px currentColor' : undefined
+                        flexShrink: 0
                       }}
                     >
-                      {isDone ? <CheckCircle2 size={16} /> : step.num}
+                      {isDone ? <CheckCircle2 size={14} /> : step.num}
                     </div>
 
                     <div>
@@ -299,14 +292,14 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
                         style={{
                           fontFamily: 'var(--font-ui)',
                           fontWeight: 700,
-                          fontSize: '0.9rem',
+                          fontSize: '0.88rem',
                           color: '#ffffff',
                           marginBottom: '2px'
                         }}
                       >
                         {step.title}
                       </div>
-                      <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.8rem', color: '#d1cde8', lineHeight: 1.4 }}>
+                      <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.80rem', color: '#d4d4d8', lineHeight: 1.4 }}>
                         {step.desc}
                       </p>
                     </div>
@@ -330,8 +323,8 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
         <div
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: '0.72rem',
-            color: 'var(--ledger-muted)',
+            fontSize: '0.70rem',
+            color: 'var(--ink-soft)',
             textAlign: 'center'
           }}
         >
@@ -341,3 +334,5 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
     </div>
   );
 };
+
+export default DemoSequenceModal;

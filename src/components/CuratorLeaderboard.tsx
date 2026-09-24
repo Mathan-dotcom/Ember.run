@@ -1,7 +1,7 @@
 import React from 'react';
 import { useWallet } from '../context/WalletContext';
 import { formatAddress, formatMon } from '../utils/decay';
-import { Trophy, Award, TrendingUp, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Sparkles, CheckCircle2 } from 'lucide-react';
 
 export const CuratorLeaderboard: React.FC = () => {
   const { curatorLeaderboard, currentAccount } = useWallet();
@@ -15,21 +15,21 @@ export const CuratorLeaderboard: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           marginBottom: '20px',
-          borderBottom: '1px solid rgba(131, 110, 249, 0.25)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
           paddingBottom: '12px'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="sk-index" data-index="04" />
           <h2 className="text-heading">TASTE ARBITRAGE LEADERBOARD</h2>
-          <span className="sk-badge" style={{ fontSize: '0.7rem' }}>
+          <span className="sk-badge" style={{ fontSize: '0.68rem' }}>
             ONCHAIN REPUTATION
           </span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="text-micro">INDEXED VIA ENVIO:</span>
-          <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.7rem' }}>
+          <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.68rem' }}>
             <span className="sk-lamp sk-lamp-green" />
             <span style={{ fontFamily: 'var(--font-mono)' }}>PROVABLE EARNINGS</span>
           </span>
@@ -42,9 +42,9 @@ export const CuratorLeaderboard: React.FC = () => {
           <thead>
             <tr
               style={{
-                borderBottom: '1px solid rgba(131, 110, 249, 0.2)',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.72rem',
+                fontSize: '0.70rem',
                 color: 'var(--ink-soft)'
               }}
             >
@@ -65,31 +65,26 @@ export const CuratorLeaderboard: React.FC = () => {
                   key={leader.wallet}
                   className="card-hover"
                   style={{
-                    borderBottom: '1px solid rgba(131, 110, 249, 0.1)',
-                    background: isCurrent ? 'rgba(131, 110, 249, 0.16)' : 'transparent'
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: isCurrent ? 'rgba(255, 255, 255, 0.06)' : 'transparent'
                   }}
                 >
                   {/* Rank */}
                   <td style={{ padding: '14px 12px' }}>
                     <div
                       style={{
-                        width: '28px',
-                        height: '28px',
-                        borderRadius: '50%',
-                        background:
-                          leader.rank === 1
-                            ? 'linear-gradient(135deg, #00f0ff, #836ef9)'
-                            : leader.rank === 2
-                            ? 'linear-gradient(135deg, #a78bfa, #6366f1)'
-                            : 'linear-gradient(135deg, #ff7844, #d9531e)',
+                        width: '26px',
+                        height: '26px',
+                        borderRadius: '4px',
+                        background: leader.rank === 1 ? '#ffffff' : '#141414',
+                        color: leader.rank === 1 ? '#000000' : '#ffffff',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontFamily: 'var(--font-mono)',
                         fontWeight: 700,
-                        fontSize: '0.8rem',
-                        color: '#ffffff',
-                        boxShadow: '0 0 10px rgba(131, 110, 249, 0.4)'
+                        fontSize: '0.78rem'
                       }}
                     >
                       {leader.rank}
@@ -102,9 +97,9 @@ export const CuratorLeaderboard: React.FC = () => {
                       <span className="sk-lamp sk-lamp-green" />
                       <div>
                         <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, fontSize: '0.88rem', color: '#ffffff' }}>
-                          {leader.name} {isCurrent && <span style={{ color: 'var(--cyan-accent)' }}>(You)</span>}
+                          {leader.name} {isCurrent && <span style={{ color: 'var(--ink-soft)' }}>(You)</span>}
                         </div>
-                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--ink-soft)' }}>
+                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: 'var(--ink-soft)' }}>
                           {leader.handle} • {formatAddress(leader.wallet)}
                         </div>
                       </div>
@@ -116,36 +111,35 @@ export const CuratorLeaderboard: React.FC = () => {
                     <div
                       style={{
                         fontFamily: 'var(--font-display)',
-                        fontSize: '1.2rem',
+                        fontSize: '1.15rem',
                         fontWeight: 700,
-                        color: '#00ff9d',
-                        textShadow: '0 0 10px rgba(0, 255, 157, 0.4)'
+                        color: '#ffffff'
                       }}
                     >
-                      +{formatMon(leader.totalEarned, 2)} <span style={{ fontSize: '0.75rem', color: '#00f0ff' }}>MON</span>
+                      +{formatMon(leader.totalEarned, 2)} <span style={{ fontSize: '0.75rem', color: 'var(--ink-soft)' }}>MON</span>
                     </div>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--ink-soft)' }}>
+                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'var(--ink-soft)' }}>
                       ROI: {leader.roiPercent}%
                     </div>
                   </td>
 
                   {/* Accuracy */}
                   <td style={{ padding: '14px 12px' }}>
-                    <div className="sk-badge" style={{ padding: '3px 8px', fontSize: '0.72rem' }}>
-                      <CheckCircle2 size={12} color="#00ff9d" />
-                      <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#00ff9d' }}>
+                    <div className="sk-badge" style={{ padding: '3px 8px', fontSize: '0.70rem' }}>
+                      <CheckCircle2 size={11} color="#ffffff" />
+                      <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#ffffff' }}>
                         {leader.accuracyRate}%
                       </span>
                     </div>
                   </td>
 
                   {/* Signals */}
-                  <td style={{ padding: '14px 12px', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', fontWeight: 600 }}>
+                  <td style={{ padding: '14px 12px', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: 600, color: '#ffffff' }}>
                     {leader.totalBoosts}
                   </td>
 
                   {/* Avg Discovery */}
-                  <td style={{ padding: '14px 12px', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--ink-soft)' }}>
+                  <td style={{ padding: '14px 12px', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--ink-soft)' }}>
                     {leader.earliestDiscoveryTime}
                   </td>
                 </tr>
@@ -159,7 +153,8 @@ export const CuratorLeaderboard: React.FC = () => {
         style={{
           marginTop: '16px',
           padding: '10px 14px',
-          background: 'rgba(0,0,0,0.03)',
+          background: 'rgba(255, 255, 255, 0.04)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
           borderRadius: 'var(--radius-pulse-sm)',
           display: 'flex',
           alignItems: 'center',
@@ -169,7 +164,7 @@ export const CuratorLeaderboard: React.FC = () => {
           color: 'var(--ink-soft)'
         }}
       >
-        <Sparkles size={14} color="#f5a623" />
+        <Sparkles size={13} color="#ffffff" />
         <span>
           <strong>How Taste Arbitrage Works:</strong> Early curators who identify high-value content before the decay cliff
           earn automatic 45% cuts on subsequent boosts. Accuracy is proven onchain, never self-reported.
@@ -178,3 +173,5 @@ export const CuratorLeaderboard: React.FC = () => {
     </section>
   );
 };
+
+export default CuratorLeaderboard;

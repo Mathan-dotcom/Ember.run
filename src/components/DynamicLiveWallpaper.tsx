@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Sliders, Activity, Eye, EyeOff, Radio, Network } from 'lucide-react';
+import { Sliders, Network } from 'lucide-react';
 
 export type AmbienceMode = 'network' | 'glow' | 'grid';
 
@@ -27,7 +27,7 @@ interface AmbientOrb {
 export const DynamicLiveWallpaper: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  // Professional Ambience Settings
+  // Minimalist Monochrome Ambience Settings
   const [mode, setMode] = useState<AmbienceMode>('network');
   const [intensity, setIntensity] = useState<'subtle' | 'balanced' | 'elevated'>('balanced');
   const [showCursorGlow, setShowCursorGlow] = useState<boolean>(true);
@@ -68,54 +68,54 @@ export const DynamicLiveWallpaper: React.FC = () => {
 
     // Dynamic node count based on screen size & intensity
     const getNodeCount = () => {
-      const base = width < 768 ? 32 : width < 1200 ? 50 : 70;
+      const base = width < 768 ? 30 : width < 1200 ? 46 : 64;
       if (intensity === 'subtle') return Math.floor(base * 0.6);
       if (intensity === 'elevated') return Math.floor(base * 1.3);
       return base;
     };
 
-    // Initialize institutional ambient glowing light orbs
+    // Initialize minimalist monochrome ambient light orbs (diffuse white / silver)
     orbsRef.current = [
       {
         x: width * 0.25,
         y: height * 0.2,
-        vx: 0.12,
-        vy: 0.08,
+        vx: 0.1,
+        vy: 0.07,
         radius: Math.min(width, height) * 0.45,
-        color: 'rgba(131, 110, 249, 0.07)' // Monad Violet
+        color: 'rgba(255, 255, 255, 0.035)' // Pure white diffuse
       },
       {
         x: width * 0.75,
         y: height * 0.65,
-        vx: -0.1,
-        vy: -0.07,
+        vx: -0.09,
+        vy: -0.06,
         radius: Math.min(width, height) * 0.4,
-        color: 'rgba(0, 240, 255, 0.04)' // Cyber Cyan
+        color: 'rgba(215, 215, 215, 0.025)' // Silver diffuse
       },
       {
         x: width * 0.5,
         y: height * 0.85,
-        vx: 0.08,
-        vy: -0.11,
+        vx: 0.07,
+        vy: -0.1,
         radius: Math.min(width, height) * 0.35,
-        color: 'rgba(99, 102, 241, 0.05)' // Electric Indigo
+        color: 'rgba(180, 180, 180, 0.02)' // Soft gray diffuse
       }
     ];
 
-    // Initialize clean technical network nodes
+    // Initialize clean minimalist network nodes
     const count = getNodeCount();
     nodesRef.current = Array.from({ length: count }, () => {
-      const speed = 0.22;
+      const speed = 0.2;
       return {
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * speed,
         vy: (Math.random() - 0.5) * speed,
-        size: Math.random() * 1.2 + 1.0,
-        baseAlpha: Math.random() * 0.35 + 0.2,
-        alpha: 0.3,
+        size: Math.random() * 1.1 + 0.9,
+        baseAlpha: Math.random() * 0.3 + 0.15,
+        alpha: 0.25,
         pulsePhase: Math.random() * Math.PI * 2,
-        pulseSpeed: Math.random() * 0.015 + 0.008
+        pulseSpeed: Math.random() * 0.012 + 0.006
       };
     });
 
@@ -125,7 +125,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
       time += 0.01;
       ctx.clearRect(0, 0, width, height);
 
-      // Smooth cursor lerp physics (delicate spotlight follows smoothly)
+      // Smooth cursor lerp physics (delicate white spotlight)
       const mouse = mouseRef.current;
       if (mouse.active) {
         mouse.x += (mouse.targetX - mouse.x) * 0.08;
@@ -133,7 +133,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
       }
 
       // -----------------------------------------------------------------
-      // Layer 1: Ambient Floating Light Orbs (Linear/Vercel style)
+      // Layer 1: Minimalist Ambient Floating White Light Orbs
       // -----------------------------------------------------------------
       if (mode === 'network' || mode === 'glow') {
         const alphaFactor = intensity === 'subtle' ? 0.6 : intensity === 'elevated' ? 1.4 : 1.0;
@@ -142,7 +142,6 @@ export const DynamicLiveWallpaper: React.FC = () => {
           orb.x += orb.vx;
           orb.y += orb.vy;
 
-          // Gentle bounce off viewport edges
           if (orb.x < -orb.radius * 0.2 || orb.x > width + orb.radius * 0.2) orb.vx *= -1;
           if (orb.y < -orb.radius * 0.2 || orb.y > height + orb.radius * 0.2) orb.vy *= -1;
 
@@ -161,13 +160,13 @@ export const DynamicLiveWallpaper: React.FC = () => {
       }
 
       // -----------------------------------------------------------------
-      // Layer 2: Subtle Interactive Cursor Spotlight
+      // Layer 2: Subtle White Cursor Spotlight
       // -----------------------------------------------------------------
       if (showCursorGlow && mouse.active && mouse.x > 0) {
-        const spotRadius = width < 768 ? 220 : 360;
+        const spotRadius = width < 768 ? 200 : 340;
         const spotGrad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, spotRadius);
-        spotGrad.addColorStop(0, 'rgba(131, 110, 249, 0.065)');
-        spotGrad.addColorStop(0.5, 'rgba(0, 240, 255, 0.025)');
+        spotGrad.addColorStop(0, 'rgba(255, 255, 255, 0.038)');
+        spotGrad.addColorStop(0.5, 'rgba(200, 200, 200, 0.012)');
         spotGrad.addColorStop(1, 'transparent');
 
         ctx.fillStyle = spotGrad;
@@ -177,14 +176,14 @@ export const DynamicLiveWallpaper: React.FC = () => {
       }
 
       // -----------------------------------------------------------------
-      // Layer 3: Minimalist Technical Grid / Constellation Mesh
+      // Layer 3: Minimalist Technical Monochrome Mesh
       // -----------------------------------------------------------------
       if (mode === 'network' || mode === 'grid') {
         const nodes = nodesRef.current;
-        const maxDist = width < 768 ? 90 : 130;
-        const alphaScale = intensity === 'subtle' ? 0.6 : intensity === 'elevated' ? 1.25 : 0.9;
+        const maxDist = width < 768 ? 85 : 125;
+        const alphaScale = intensity === 'subtle' ? 0.6 : intensity === 'elevated' ? 1.25 : 0.85;
 
-        // Draw clean connecting filaments between neighbor nodes
+        // Draw clean hairline filaments in monochrome white
         if (showNetworkMesh && mode === 'network') {
           for (let i = 0; i < nodes.length; i++) {
             for (let j = i + 1; j < nodes.length; j++) {
@@ -193,49 +192,46 @@ export const DynamicLiveWallpaper: React.FC = () => {
               const dist = Math.hypot(dx, dy);
 
               if (dist < maxDist) {
-                const lineAlpha = (1 - dist / maxDist) * 0.16 * alphaScale;
+                const lineAlpha = (1 - dist / maxDist) * 0.14 * alphaScale;
                 ctx.beginPath();
                 ctx.moveTo(nodes[i].x, nodes[i].y);
                 ctx.lineTo(nodes[j].x, nodes[j].y);
-                ctx.strokeStyle = '#836ef9';
+                ctx.strokeStyle = '#ffffff';
                 ctx.globalAlpha = lineAlpha;
-                ctx.lineWidth = 0.8;
+                ctx.lineWidth = 0.75;
                 ctx.stroke();
               }
             }
           }
         }
 
-        // Draw and update each individual node point
+        // Draw and update each individual node point in white
         for (let i = 0; i < nodes.length; i++) {
           const n = nodes[i];
 
-          // Slow drift
           n.x += n.vx;
           n.y += n.vy;
 
-          // Wrap around edges smoothly
           if (n.x < -10) n.x = width + 10;
           if (n.x > width + 10) n.x = -10;
           if (n.y < -10) n.y = height + 10;
           if (n.y > height + 10) n.y = -10;
 
-          // Gentle breathing pulse
           n.pulsePhase += n.pulseSpeed;
-          n.alpha = (n.baseAlpha + Math.sin(n.pulsePhase) * 0.15) * alphaScale;
+          n.alpha = (n.baseAlpha + Math.sin(n.pulsePhase) * 0.12) * alphaScale;
 
-          // Render node
+          // Render node point
           ctx.save();
-          ctx.globalAlpha = Math.max(0.08, n.alpha);
-          ctx.fillStyle = '#00f0ff';
+          ctx.globalAlpha = Math.max(0.06, n.alpha);
+          ctx.fillStyle = '#ffffff';
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
           ctx.fill();
 
           // Subtle pin-point aura
-          ctx.globalAlpha = n.alpha * 0.35;
+          ctx.globalAlpha = n.alpha * 0.25;
           ctx.beginPath();
-          ctx.arc(n.x, n.y, n.size * 2.5, 0, Math.PI * 2);
+          ctx.arc(n.x, n.y, n.size * 2, 0, Math.PI * 2);
           ctx.fill();
           ctx.restore();
         }
@@ -244,9 +240,9 @@ export const DynamicLiveWallpaper: React.FC = () => {
       animFrameRef.current = requestAnimationFrame(render);
     };
 
-    animFrameRef.current = requestAnimationFrame(render);
+    render();
 
-    // Track mouse coordinates for smooth spotlight
+    // Mouse Tracking with smooth lerp target
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current.targetX = e.clientX;
       mouseRef.current.targetY = e.clientY;
@@ -258,44 +254,62 @@ export const DynamicLiveWallpaper: React.FC = () => {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animFrameRef.current);
     };
-  }, [mode, intensity, showCursorGlow, showNetworkMesh, isEnabled]);
+  }, [isEnabled, mode, intensity, showCursorGlow, showNetworkMesh]);
 
   return (
     <>
-      {/* Clean Technical Canvas Layer */}
-      {isEnabled && (
-        <canvas
-          ref={canvasRef}
-          id="ember-professional-wallpaper"
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            pointerEvents: 'none',
-            zIndex: 0,
-            transition: 'opacity 0.6s ease'
-          }}
-        />
-      )}
+      {/* Background HTML5 Canvas */}
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: -1,
+          pointerEvents: 'none',
+          backgroundColor: '#000000',
+          opacity: isEnabled ? 1 : 0,
+          transition: 'opacity 0.6s ease'
+        }}
+      />
 
-      {/* Sleek Professional Ambience Tuner (Pinned Bottom-Right) */}
+      {/* Subtle Micro-Noise Overlay */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: -1,
+          pointerEvents: 'none',
+          opacity: 0.025,
+          backgroundImage:
+            'radial-gradient(circle at 50% 50%, #ffffff 0.5px, transparent 0.5px)',
+          backgroundSize: '16px 16px'
+        }}
+      />
+
+      {/* Floating Minimalist Ambience Controller (Bottom Right) */}
       <aside
-        aria-label="Professional Ambience Settings"
+        aria-label="Wallpaper controls"
         style={{
           position: 'fixed',
           bottom: '20px',
           right: '20px',
-          zIndex: 900,
+          zIndex: 40,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-end',
@@ -309,10 +323,10 @@ export const DynamicLiveWallpaper: React.FC = () => {
             style={{
               width: '280px',
               padding: '16px',
-              background: 'rgba(14, 11, 24, 0.95)',
-              backdropFilter: 'blur(28px)',
-              border: '1px solid rgba(131, 110, 249, 0.35)',
-              boxShadow: '0 16px 40px rgba(0,0,0,0.85), 0 0 20px rgba(131, 110, 249, 0.15)',
+              background: 'rgba(12, 12, 12, 0.96)',
+              backdropFilter: 'blur(24px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 16px 40px rgba(0,0,0,0.9), 0 0 1px rgba(255, 255, 255, 0.2)',
               position: 'relative'
             }}
           >
@@ -331,9 +345,10 @@ export const DynamicLiveWallpaper: React.FC = () => {
                 style={{
                   fontSize: '0.65rem',
                   cursor: 'pointer',
-                  border: '1px solid rgba(131, 110, 249, 0.3)',
-                  background: isEnabled ? 'rgba(0, 255, 157, 0.15)' : 'rgba(255,255,255,0.05)',
-                  color: isEnabled ? '#00ff9d' : 'var(--ink-soft)'
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  background: isEnabled ? '#ffffff' : 'transparent',
+                  color: isEnabled ? '#000000' : 'var(--ink-soft)',
+                  fontWeight: 600
                 }}
               >
                 {isEnabled ? 'ACTIVE' : 'MUTED'}
@@ -359,15 +374,15 @@ export const DynamicLiveWallpaper: React.FC = () => {
                       key={m.id}
                       type="button"
                       onClick={() => setMode(m.id)}
-                      className={`sk-btn ${isCurrent ? 'sk-btn-primary' : ''}`}
+                      className={`sk-button ${isCurrent ? 'sk-button-primary' : ''}`}
                       style={{
                         padding: '6px 4px',
                         fontSize: '0.68rem',
                         fontWeight: isCurrent ? 700 : 500,
                         textAlign: 'center',
-                        color: isCurrent ? '#ffffff' : 'var(--ink-soft)',
-                        background: isCurrent ? 'rgba(131, 110, 249, 0.25)' : 'rgba(255,255,255,0.04)',
-                        border: isCurrent ? '1px solid #00f0ff' : '1px solid rgba(255,255,255,0.08)'
+                        color: isCurrent ? '#000000' : '#ffffff',
+                        background: isCurrent ? '#ffffff' : '#111111',
+                        border: isCurrent ? '1px solid #ffffff' : '1px solid rgba(255,255,255,0.15)'
                       }}
                     >
                       {m.label}
@@ -383,24 +398,27 @@ export const DynamicLiveWallpaper: React.FC = () => {
                 ILLUMINATION INTENSITY
               </label>
               <div style={{ display: 'flex', gap: '4px' }}>
-                {(['subtle', 'balanced', 'elevated'] as const).map((lvl) => (
-                  <button
-                    key={lvl}
-                    type="button"
-                    onClick={() => setIntensity(lvl)}
-                    className="sk-btn"
-                    style={{
-                      flex: 1,
-                      padding: '5px',
-                      fontSize: '0.68rem',
-                      background: intensity === lvl ? 'rgba(131, 110, 249, 0.2)' : 'transparent',
-                      border: intensity === lvl ? '1px solid var(--signal-accent)' : '1px solid rgba(255,255,255,0.08)',
-                      color: intensity === lvl ? '#00f0ff' : 'var(--ink-soft)'
-                    }}
-                  >
-                    {lvl.toUpperCase()}
-                  </button>
-                ))}
+                {(['subtle', 'balanced', 'elevated'] as const).map((lvl) => {
+                  const isCurrent = intensity === lvl;
+                  return (
+                    <button
+                      key={lvl}
+                      type="button"
+                      onClick={() => setIntensity(lvl)}
+                      className={`sk-button ${isCurrent ? 'sk-button-primary' : ''}`}
+                      style={{
+                        flex: 1,
+                        padding: '5px',
+                        fontSize: '0.68rem',
+                        background: isCurrent ? '#ffffff' : 'transparent',
+                        border: isCurrent ? '1px solid #ffffff' : '1px solid rgba(255,255,255,0.15)',
+                        color: isCurrent ? '#000000' : 'var(--ink-soft)'
+                      }}
+                    >
+                      {lvl.toUpperCase()}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -415,13 +433,13 @@ export const DynamicLiveWallpaper: React.FC = () => {
                   fontSize: '0.68rem',
                   cursor: 'pointer',
                   justifyContent: 'space-between',
-                  background: showCursorGlow ? 'rgba(131, 110, 249, 0.15)' : 'transparent',
-                  border: '1px solid rgba(131, 110, 249, 0.2)',
+                  background: showCursorGlow ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+                  border: '1px solid rgba(255, 255, 255, 0.18)',
                   color: showCursorGlow ? '#ffffff' : 'var(--ink-soft)'
                 }}
               >
                 <span>CURSOR SPOTLIGHT</span>
-                <span style={{ color: showCursorGlow ? '#00f0ff' : 'var(--ink-soft)', fontWeight: 700 }}>
+                <span style={{ color: showCursorGlow ? '#ffffff' : 'var(--ink-muted)', fontWeight: 700 }}>
                   {showCursorGlow ? 'ON' : 'OFF'}
                 </span>
               </button>
@@ -435,13 +453,13 @@ export const DynamicLiveWallpaper: React.FC = () => {
                   fontSize: '0.68rem',
                   cursor: 'pointer',
                   justifyContent: 'space-between',
-                  background: showNetworkMesh ? 'rgba(131, 110, 249, 0.15)' : 'transparent',
-                  border: '1px solid rgba(131, 110, 249, 0.2)',
+                  background: showNetworkMesh ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+                  border: '1px solid rgba(255, 255, 255, 0.18)',
                   color: showNetworkMesh ? '#ffffff' : 'var(--ink-soft)'
                 }}
               >
                 <span>CONSENSUS FILAMENTS</span>
-                <span style={{ color: showNetworkMesh ? '#00ff9d' : 'var(--ink-soft)', fontWeight: 700 }}>
+                <span style={{ color: showNetworkMesh ? '#ffffff' : 'var(--ink-muted)', fontWeight: 700 }}>
                   {showNetworkMesh ? 'ON' : 'OFF'}
                 </span>
               </button>
@@ -449,23 +467,23 @@ export const DynamicLiveWallpaper: React.FC = () => {
           </div>
         )}
 
-        {/* Minimalist Pill Trigger */}
+        {/* Minimalist Monochrome Pill Trigger */}
         <button
           type="button"
           onClick={() => setIsTunerOpen(!isTunerOpen)}
-          className="sk-btn card-hover"
-          title="Toggle Professional Ambience Settings"
+          className="sk-button card-hover"
+          title="Toggle Minimalist Ambience Settings"
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
             padding: '7px 14px',
             borderRadius: '24px',
-            background: 'rgba(14, 11, 24, 0.9)',
+            background: 'rgba(10, 10, 10, 0.9)',
             backdropFilter: 'blur(20px)',
-            color: '#f4f1e8',
-            border: '1px solid rgba(131, 110, 249, 0.35)',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.6), 0 0 10px rgba(131, 110, 249, 0.15)',
+            color: '#ffffff',
+            border: '1px solid rgba(255, 255, 255, 0.22)',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.7)',
             cursor: 'pointer',
             fontSize: '0.72rem',
             fontFamily: 'var(--font-mono)',
@@ -473,9 +491,9 @@ export const DynamicLiveWallpaper: React.FC = () => {
           }}
         >
           <span className={`sk-lamp ${isEnabled ? 'sk-lamp-green' : 'sk-lamp-dim'}`} />
-          <Network size={13} color="#00f0ff" />
+          <Network size={13} color="#ffffff" />
           <span>AMBIENCE: {isEnabled ? mode.toUpperCase() : 'MUTED'}</span>
-          <Sliders size={12} color="rgba(255,255,255,0.6)" style={{ marginLeft: '2px' }} />
+          <Sliders size={12} color="rgba(255,255,255,0.7)" style={{ marginLeft: '2px' }} />
         </button>
       </aside>
     </>

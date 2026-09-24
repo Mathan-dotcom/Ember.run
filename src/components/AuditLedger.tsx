@@ -1,36 +1,35 @@
 import React from 'react';
 import { useWallet } from '../context/WalletContext';
 import { formatAddress, formatMon, formatRelativeTime } from '../utils/decay';
-import { Terminal, ShieldCheck, ShieldAlert } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 
 export const AuditLedger: React.FC = () => {
   const { auditLogs } = useWallet();
 
   return (
     <section className="sk-panel" style={{ padding: '0', overflow: 'hidden', marginBottom: '32px' }}>
-      {/* Dark Glass Bar Header */}
+      {/* Dark Bar Header */}
       <div
         style={{
-          background: 'rgba(12, 10, 22, 0.95)',
+          background: '#0a0a0a',
           color: '#ffffff',
           padding: '14px 20px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderBottom: '1px solid rgba(131, 110, 249, 0.25)',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.5)'
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span className="sk-index" data-index="03" style={{ color: 'var(--cyan-accent)' }} />
+          <span className="sk-index" data-index="03" style={{ color: '#ffffff' }} />
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Terminal size={17} color="#00f0ff" />
+            <Terminal size={16} color="#ffffff" />
             <h2
               style={{
                 fontFamily: 'var(--font-ui)',
-                fontSize: '1rem',
+                fontSize: '0.95rem',
                 fontWeight: 600,
-                letterSpacing: '0.04em',
+                letterSpacing: '0.02em',
                 color: '#ffffff'
               }}
             >
@@ -42,10 +41,10 @@ export const AuditLedger: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div
             className="sk-badge sk-badge--inverted"
-            style={{ fontSize: '0.7rem', padding: '3px 8px' }}
+            style={{ fontSize: '0.68rem', padding: '3px 8px' }}
           >
             <span className="sk-lamp sk-lamp-green" />
-            <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--cyan-accent)' }}>STREAM: MONAD TESTNET</span>
+            <span style={{ fontFamily: 'var(--font-mono)', color: '#ffffff' }}>STREAM: MONAD TESTNET</span>
           </div>
         </div>
       </div>
@@ -59,7 +58,7 @@ export const AuditLedger: React.FC = () => {
           maxHeight: '340px',
           overflowY: 'auto',
           borderRadius: 'var(--radius-pulse-sm)',
-          border: '1px solid rgba(131, 110, 249, 0.25)'
+          border: '1px solid rgba(255, 255, 255, 0.12)'
         }}
       >
         {auditLogs.length === 0 ? (
@@ -82,8 +81,8 @@ export const AuditLedger: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.78rem',
-                    borderBottom: '1px solid rgba(131, 110, 249, 0.1)',
+                    fontSize: '0.76rem',
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
                     gap: '12px',
                     flexWrap: 'wrap'
                   }}
@@ -104,8 +103,7 @@ export const AuditLedger: React.FC = () => {
                     <span
                       style={{
                         fontWeight: 700,
-                        color: isBlocked ? '#ff0055' : '#00ff9d',
-                        textShadow: isBlocked ? '0 0 8px rgba(255, 0, 85, 0.5)' : '0 0 8px rgba(0, 255, 157, 0.5)'
+                        color: isBlocked ? '#d4d4d8' : '#ffffff'
                       }}
                     >
                       {log.status}
@@ -118,7 +116,7 @@ export const AuditLedger: React.FC = () => {
 
                   {/* Center: Recipient & Note */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontWeight: 600, color: '#f8f7ff' }}>
+                    <span style={{ fontWeight: 600, color: '#ffffff' }}>
                       {log.role === 'POSTER'
                         ? `[POSTER CUT] -> ${log.recipientName}`
                         : log.role === 'CURATOR'
@@ -130,12 +128,11 @@ export const AuditLedger: React.FC = () => {
                       <span
                         style={{
                           fontWeight: 700,
-                          color: isBlocked ? '#ff0055' : '#00f0ff',
-                          background: 'rgba(0, 240, 255, 0.12)',
-                          border: '1px solid rgba(0, 240, 255, 0.3)',
+                          color: '#ffffff',
+                          background: 'rgba(255, 255, 255, 0.08)',
+                          border: '1px solid rgba(255, 255, 255, 0.2)',
                           padding: '1px 8px',
-                          borderRadius: '4px',
-                          textShadow: '0 0 6px rgba(0, 240, 255, 0.4)'
+                          borderRadius: '4px'
                         }}
                       >
                         +{formatMon(log.amount, 3)} MON
@@ -144,7 +141,7 @@ export const AuditLedger: React.FC = () => {
                   </div>
 
                   {/* Right: Timestamp */}
-                  <div style={{ color: 'var(--ink-soft)', fontSize: '0.72rem' }}>
+                  <div style={{ color: 'var(--ink-soft)', fontSize: '0.70rem' }}>
                     {formatRelativeTime(secondsAgo)}
                   </div>
                 </div>
@@ -158,13 +155,13 @@ export const AuditLedger: React.FC = () => {
       <div
         style={{
           padding: '10px 20px',
-          background: 'rgba(131, 110, 249, 0.05)',
-          borderTop: '1px solid rgba(131, 110, 249, 0.15)',
+          background: 'rgba(255, 255, 255, 0.03)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           fontFamily: 'var(--font-mono)',
-          fontSize: '0.7rem',
+          fontSize: '0.68rem',
           color: 'var(--ink-soft)'
         }}
       >
@@ -174,3 +171,5 @@ export const AuditLedger: React.FC = () => {
     </section>
   );
 };
+
+export default AuditLedger;

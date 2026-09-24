@@ -68,7 +68,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost }) => {
             style={{ padding: '5px 10px', fontSize: '0.75rem' }}
             title="Sorted by Boost Velocity (MON / hour)"
           >
-            <Flame size={13} color="#f5a623" />
+            <Flame size={13} color={sortMode === 'velocity' ? '#000000' : '#ffffff'} />
             <span>VELOCITY</span>
           </button>
 
@@ -81,7 +81,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost }) => {
             style={{ padding: '5px 10px', fontSize: '0.75rem' }}
             title="Sorted by Total MON Boosted"
           >
-            <Coins size={13} color="#cfccc2" />
+            <Coins size={13} color={sortMode === 'capital' ? '#000000' : '#ffffff'} />
             <span>TOTAL POOL</span>
           </button>
 

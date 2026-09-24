@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { sound } from '../utils/sound';
-import { Fingerprint, ShieldCheck, KeyRound, X, CheckCircle2 } from 'lucide-react';
+import { Fingerprint, KeyRound, X, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface PasskeyAuthModalProps {
@@ -10,7 +10,7 @@ interface PasskeyAuthModalProps {
 }
 
 export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onClose }) => {
-  const { createPasskeyAccount, currentAccount } = useWallet();
+  const { createPasskeyAccount } = useWallet();
   const [username, setUsername] = useState('');
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -47,7 +47,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(6, 5, 12, 0.85)',
+        backgroundColor: 'rgba(0, 0, 0, 0.88)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         zIndex: 100,
@@ -65,7 +65,9 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
         style={{
           width: '100%',
           maxWidth: '460px',
-          padding: '28px'
+          padding: '28px',
+          background: '#0d0d0d',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
         }}
       >
         {/* Header */}
@@ -73,30 +75,29 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div
               style={{
-                width: '34px',
-                height: '34px',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #836ef9, #00f0ff)',
+                width: '32px',
+                height: '32px',
+                borderRadius: '6px',
+                background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 0 16px rgba(131, 110, 249, 0.7)'
+                justifyContent: 'center'
               }}
             >
-              <Fingerprint size={19} color="#ffffff" />
+              <Fingerprint size={18} color="#000000" />
             </div>
             <div>
               <h3
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: '1.25rem',
-                  fontWeight: 600,
+                  fontSize: '1.20rem',
+                  fontWeight: 700,
                   color: '#ffffff'
                 }}
               >
                 Passkey Mission Control
               </h3>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--cyan-accent)' }}>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'var(--ink-soft)' }}>
                 ONE PASSKEY, ZERO SEED PHRASES
               </p>
             </div>
@@ -114,17 +115,16 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
               padding: '4px'
             }}
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
         {/* Biometric Scanner Visualizer */}
         <div
           style={{
-            background: 'rgba(8, 7, 16, 0.95)',
+            background: '#050505',
             borderRadius: 'var(--radius-pulse-sm)',
-            border: '1px solid rgba(131, 110, 249, 0.35)',
-            boxShadow: 'inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 16px rgba(131, 110, 249, 0.15)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
             padding: '24px 16px',
             textAlign: 'center',
             marginBottom: '20px',
@@ -134,36 +134,25 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
         >
           <div
             style={{
-              width: '68px',
-              height: '68px',
+              width: '64px',
+              height: '64px',
               borderRadius: '50%',
               margin: '0 auto 12px auto',
-              background: isAuthenticating
-                ? 'radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, transparent 70%)'
-                : success
-                ? 'radial-gradient(circle, rgba(0, 255, 157, 0.3) 0%, transparent 70%)'
-                : 'radial-gradient(circle, rgba(131, 110, 249, 0.15) 0%, transparent 70%)',
-              border: `2px solid ${
-                isAuthenticating ? '#00f0ff' : success ? '#00ff9d' : 'rgba(131, 110, 249, 0.4)'
-              }`,
+              background: '#141414',
+              border: `2px solid ${isAuthenticating || success ? '#ffffff' : 'rgba(255, 255, 255, 0.4)'}`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: isAuthenticating
-                ? '0 0 20px rgba(0, 240, 255, 0.7)'
-                : success
-                ? '0 0 20px rgba(0, 255, 157, 0.8)'
-                : '0 0 10px rgba(131, 110, 249, 0.25)',
+              boxShadow: isAuthenticating || success ? '0 0 16px rgba(255, 255, 255, 0.5)' : 'none',
               transition: 'all 0.3s ease'
             }}
           >
             {success ? (
-              <CheckCircle2 size={34} color="#00ff9d" />
+              <CheckCircle2 size={32} color="#ffffff" />
             ) : (
               <Fingerprint
-                size={34}
-                color={isAuthenticating ? '#00f0ff' : '#836ef9'}
-                className={isAuthenticating ? 'anim-lamp-pulse-blue' : ''}
+                size={32}
+                color="#ffffff"
               />
             )}
           </div>
@@ -171,7 +160,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
           <div
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.8rem',
+              fontSize: '0.78rem',
               fontWeight: 600,
               color: '#ffffff',
               letterSpacing: '0.04em'
@@ -187,7 +176,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
           <p
             style={{
               fontFamily: 'var(--font-ui)',
-              fontSize: '0.75rem',
+              fontSize: '0.74rem',
               color: 'var(--ink-soft)',
               marginTop: '6px'
             }}
@@ -205,7 +194,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
             >
               Curator Identity / Username
             </label>
-            <div className="sk-well" style={{ padding: '2px' }}>
+            <div className="sk-well" style={{ padding: '2px', border: '1px solid rgba(255, 255, 255, 0.15)' }}>
               <input
                 type="text"
                 className="sk-input"
@@ -226,7 +215,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
               gap: '6px',
               marginBottom: '22px',
               fontFamily: 'var(--font-ui)',
-              fontSize: '0.75rem',
+              fontSize: '0.74rem',
               color: 'var(--ink-soft)'
             }}
           >
@@ -239,7 +228,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
               <span>Pre-funded with +10.0 testnet MON upon initialization</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span className="sk-lamp sk-lamp-blue" />
+              <span className="sk-lamp sk-lamp-green" />
               <span>Permanent session tied to device biometric authentication</span>
             </div>
           </div>
@@ -248,10 +237,10 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
           <button
             type="submit"
             className="sk-button-primary"
-            style={{ width: '100%', padding: '12px', fontSize: '0.95rem' }}
+            style={{ width: '100%', padding: '12px', fontSize: '0.90rem' }}
             disabled={!username.trim() || isAuthenticating || success}
           >
-            <KeyRound size={16} />
+            <KeyRound size={15} />
             <span>
               {isAuthenticating
                 ? 'INITIALIZING PASSKEY...'
@@ -265,3 +254,5 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
     </div>
   );
 };
+
+export default PasskeyAuthModal;
