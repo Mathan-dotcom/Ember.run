@@ -1,0 +1,63 @@
+type Post @entity {
+  id: ID!
+  postId: BigInt!
+  poster: String!
+  content: String!
+  createdAt: BigInt!
+  totalBoosted: BigInt!
+  poolReserve: BigInt!
+  curatorCount: BigInt!
+  totalWeight: BigInt!
+  boosts: [Boost!]! @derivedFrom(field: "post")
+  payouts: [Payout!]! @derivedFrom(field: "post")
+}
+
+type Curator @entity {
+  id: ID! # wallet address
+  address: String!
+  totalBoosts: BigInt!
+  totalContributed: BigInt!
+  totalEarnings: BigInt!
+  effectiveWeight: BigInt!
+  firstBoostTime: BigInt!
+  lastBoostTime: BigInt!
+}
+
+type Boost @entity {
+  id: ID! # txHash-logIndex
+  post: Post!
+  booster: Curator!
+  amount: BigInt!
+  effectiveWeightAdded: BigInt!
+  boostNumber: BigInt!
+  timestamp: BigInt!
+  txHash: String!
+}
+
+type Payout @entity {
+  id: ID! # txHash-logIndex
+  post: Post!
+  recipient: String!
+  amount: BigInt!
+  role: String! # POSTER or CURATOR
+  timestamp: BigInt!
+  txHash: String!
+}
+
+type AntiGamingLog @entity {
+  id: ID!
+  post: Post!
+  booster: String!
+  boostNumber: BigInt!
+  multiplierBps: BigInt!
+  timestamp: BigInt!
+}
+
+type ProtocolStats @entity {
+  id: ID! # singleton "protocol-stats"
+  totalPosts: BigInt!
+  totalVolumeBoosted: BigInt!
+  totalDistributedPoster: BigInt!
+  totalDistributedCurator: BigInt!
+  totalPoolReserves: BigInt!
+}

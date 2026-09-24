@@ -1,0 +1,18 @@
+name: ember-run-indexer
+description: High-throughput curation market indexer for Ember.run on Monad Testnet
+ecosystem: evm
+networks:
+  - id: 10143
+    rpc_config:
+      url: https://testnet-rpc.monad.xyz
+    start_block: 0
+    contracts:
+      - name: SignalMarket
+        address:
+          - "0x7e8C545E5b4c483d47C88dE2d24296615bB4278F"
+        handler: src/EventHandlers.ts
+        events:
+          - event: PostCreated(uint256 indexed postId, address indexed poster, string content, uint256 createdAt)
+          - event: Boosted(uint256 indexed postId, address indexed booster, uint256 amount, uint256 effectiveWeightAdded, uint256 boostNumber, uint256 timestamp)
+          - event: PayoutDistributed(uint256 indexed postId, address indexed recipient, uint256 amount, string role)
+          - event: AntiGamingDiminishingReturn(uint256 indexed postId, address indexed booster, uint256 boostNumber, uint256 effectiveMultiplierBps)

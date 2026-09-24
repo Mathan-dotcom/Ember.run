@@ -1,0 +1,14 @@
+{
+  "name": "ember-run-indexer",
+  "version": "1.0.0",
+  "description": "Envio HyperIndex for Ember.run Curation Market on Monad Testnet",
+  "scripts": {
+    "codegen": "envio codegen",
+    "dev": "envio dev",
+    "build": "envio build",
+    "start": "envio start"
+  },
+  "dependencies": {
+    "envio": "^2.0.0"
+  }
+}

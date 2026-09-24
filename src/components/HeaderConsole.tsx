@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { formatAddress, formatMon } from '../utils/decay';
 import { sound } from '../utils/sound';
-import { Fingerprint, Coins, Play, ChevronDown, Flame, Zap } from 'lucide-react';
+import { Fingerprint, Coins, Play, ChevronDown, Flame, Zap, Server } from 'lucide-react';
+import { backendApi, BackendHealth } from '../services/api';
 
 interface HeaderConsoleProps {
   activeView: 'landing' | 'console';
@@ -18,6 +19,23 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
   onOpenPasskeyModal
 }) => {
   const { currentAccount, accounts, switchAccount, requestFaucet } = useWallet();
+  const [backendHealth, setBackendHealth] = useState<BackendHealth | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    backendApi.checkHealth().then((health) => {
+      if (mounted) setBackendHealth(health);
+    });
+    const interval = setInterval(() => {
+      backendApi.checkHealth().then((health) => {
+        if (mounted) setBackendHealth(health);
+      });
+    }, 15000);
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <header
@@ -116,6 +134,34 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             <span className="sk-lamp sk-lamp-green" />
             <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.06em' }}>
               MONAD TESTNET : 10143
+            </span>
+          </div>
+
+          {/* Offchain API & Envio HyperIndex HUD */}
+          <div
+            className="sk-badge sk-badge--inverted"
+            title={backendHealth ? `Ember Offchain Service Online (${backendHealth.monadTestnet.latencyMs})` : 'Offchain Indexer & Profile Cache Standby'}
+            style={{
+              fontSize: '0.70rem',
+              padding: '5px 10px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              border: backendHealth ? '1px solid rgba(0, 240, 255, 0.4)' : '1px solid rgba(131, 110, 249, 0.2)'
+            }}
+          >
+            <Server size={11} color={backendHealth ? '#00f0ff' : '#8882a8'} />
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: backendHealth ? '#00f0ff' : '#666',
+                boxShadow: backendHealth ? '0 0 6px #00f0ff' : 'none'
+              }}
+            />
+            <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.06em', color: backendHealth ? '#00f0ff' : 'var(--ink-soft)' }}>
+              {backendHealth ? 'API : ACTIVE' : 'API : STANDBY'}
             </span>
           </div>
         </div>
