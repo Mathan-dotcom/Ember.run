@@ -41,10 +41,10 @@ export const AuditLedger: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div
             className="sk-badge sk-badge--inverted"
-            style={{ fontSize: '0.68rem', padding: '3px 8px' }}
+            style={{ fontSize: '0.68rem', padding: '3px 8px', borderRadius: '0px', border: '1.5px solid #ffffff', boxShadow: '2px 2px 0px #ffffff' }}
           >
             <span className="sk-lamp sk-lamp-green" />
-            <span style={{ fontFamily: 'var(--font-mono)', color: '#ffffff' }}>STREAM: MONAD TESTNET</span>
+            <span style={{ fontFamily: 'var(--font-mono)', color: '#000000', fontWeight: 700 }}>STREAM: MONAD TESTNET</span>
           </div>
         </div>
       </div>
@@ -57,8 +57,9 @@ export const AuditLedger: React.FC = () => {
           padding: '12px 0',
           maxHeight: '340px',
           overflowY: 'auto',
-          borderRadius: 'var(--radius-pulse-sm)',
-          border: '1px solid rgba(255, 255, 255, 0.12)'
+          borderRadius: '0px',
+          border: '1.5px solid #ffffff',
+          boxShadow: '3px 3px 0px #ffffff'
         }}
       >
         {auditLogs.length === 0 ? (

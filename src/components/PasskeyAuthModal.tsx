@@ -67,21 +67,25 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
           maxWidth: '460px',
           padding: '28px',
           background: '#0d0d0d',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
+          border: '2px solid #ffffff',
+          borderRadius: '0px',
+          boxShadow: '8px 8px 0px #ffffff'
         }}
       >
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', borderBottom: '1.5px solid #ffffff', paddingBottom: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div
               style={{
                 width: '32px',
                 height: '32px',
-                borderRadius: '6px',
+                borderRadius: '0px',
                 background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                border: '1.5px solid #ffffff',
+                boxShadow: '2px 2px 0px #ffffff'
               }}
             >
               <Fingerprint size={18} color="#000000" />
@@ -123,8 +127,9 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
         <div
           style={{
             background: '#050505',
-            borderRadius: 'var(--radius-pulse-sm)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            borderRadius: '0px',
+            border: '1.5px solid #ffffff',
+            boxShadow: '4px 4px 0px #ffffff',
             padding: '24px 16px',
             textAlign: 'center',
             marginBottom: '20px',
@@ -136,15 +141,15 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
             style={{
               width: '64px',
               height: '64px',
-              borderRadius: '50%',
+              borderRadius: '0px',
               margin: '0 auto 12px auto',
               background: '#141414',
-              border: `2px solid ${isAuthenticating || success ? '#ffffff' : 'rgba(255, 255, 255, 0.4)'}`,
+              border: `2px solid ${isAuthenticating || success ? '#ffffff' : '#ffffff'}`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: isAuthenticating || success ? '0 0 16px rgba(255, 255, 255, 0.5)' : 'none',
-              transition: 'all 0.3s ease'
+              boxShadow: isAuthenticating || success ? '4px 4px 0px #ffffff' : '2px 2px 0px #ffffff',
+              transition: 'all 0.2s ease'
             }}
           >
             {success ? (
@@ -194,7 +199,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
             >
               Curator Identity / Username
             </label>
-            <div className="sk-well" style={{ padding: '2px', border: '1px solid rgba(255, 255, 255, 0.15)' }}>
+            <div className="sk-well" style={{ padding: '2px', border: '1.5px solid #ffffff', borderRadius: '0px', boxShadow: '2px 2px 0px #ffffff' }}>
               <input
                 type="text"
                 className="sk-input"

@@ -1,51 +1,53 @@
 /* =========================================================================
-   Minimalist Monochrome Design System (White & Black)
+   Partial Neo-Brutalism Design System (Monochrome White & Black)
    Brand: Ember.run — Time-Decaying Curation Market on Monad Metropolis
-   Theme: [data-theme="minimalist"] / [data-theme="cyberglass"] / [data-theme="meridian"]
+   Theme: [data-theme="brutalist"] / [data-theme="minimalist"] / [data-theme="meridian"]
    ========================================================================= */
 
-:root, [data-theme="meridian"], [data-theme="cyberglass"], [data-theme="minimalist"] {
-  /* Substrates — Pure Obsidian & Minimalist Architectural Glass */
-  --panel-alu: #000000;                     /* Deepest pure black canvas base */
-  --panel-alu-shadow: rgba(18, 18, 18, 0.85); /* Dark minimalist well */
-  --panel-walnut: #0a0a0a;                  /* Inverted navigation plate */
-  --panel-walnut-surface: #121212;          /* Raised plate */
+:root, [data-theme="meridian"], [data-theme="cyberglass"], [data-theme="minimalist"], [data-theme="brutalist"] {
+  /* Substrates — Stark Black Surfaces */
+  --panel-alu: #000000;
+  --panel-alu-shadow: #0a0a0a;
+  --panel-walnut: #000000;
+  --panel-walnut-surface: #0c0c0c;
 
-  /* Minimalist Monochrome Card Surfaces */
-  --glass-surface: rgba(14, 14, 14, 0.82);
-  --glass-surface-elevated: rgba(20, 20, 20, 0.92);
-  --glass-surface-subtle: rgba(24, 24, 24, 0.5);
-  --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-border-hover: rgba(255, 255, 255, 0.38);
-  --glass-border-cyan: rgba(255, 255, 255, 0.25);
+  /* Brutalist Card Surfaces */
+  --glass-surface: #0a0a0a;
+  --glass-surface-elevated: #111111;
+  --glass-surface-subtle: #161616;
+  --glass-border: #ffffff;
+  --glass-border-hover: #ffffff;
+  --glass-border-cyan: #ffffff;
 
   /* Typography & Ink Contrast */
-  --ink-hard: #ffffff;                      /* Pure white text */
-  --ink-soft: #a1a1aa;                      /* Neutral silver secondary text */
-  --ink-muted: #71717a;                     /* Muted architectural gray */
-  --bevel-light: rgba(255, 255, 255, 0.2);  /* Crisp top highlight */
-  --bevel-dark: rgba(0, 0, 0, 0.95);        /* Deep void shadow */
+  --ink-hard: #ffffff;                      /* Crisp pure white */
+  --ink-soft: #a1a1aa;                      /* Silver secondary */
+  --ink-muted: #71717a;                     /* Charcoal */
+  --bevel-light: #ffffff;
+  --bevel-dark: #000000;
 
-  /* Shadows & Subtle White Diffusion */
-  --sk-shadow: rgba(0, 0, 0, 0.85);
-  --sk-shadow-tight: rgba(0, 0, 0, 0.6);
-  --neon-glow-purple: 0 0 20px rgba(255, 255, 255, 0.12);
-  --neon-glow-cyan: 0 0 20px rgba(255, 255, 255, 0.18);
+  /* Hard Brutalist Geometric Shadows */
+  --brutal-shadow: 4px 4px 0px #ffffff;
+  --brutal-shadow-hover: 7px 7px 0px #ffffff;
+  --brutal-shadow-active: 1px 1px 0px #ffffff;
+  --brutal-shadow-subtle: 3px 3px 0px rgba(255, 255, 255, 0.45);
+  --sk-shadow: rgba(0, 0, 0, 0.95);
+  --sk-shadow-tight: rgba(0, 0, 0, 0.85);
 
-  /* Semantic State Colors — Minimalist Monochrome */
-  --recovered: #0a0a0a;
+  /* Semantic State Colors */
+  --recovered: #000000;
   --recovered-accent: #ffffff;
-  --recovered-mark: #ffffff;                /* Pure Crisp White Indicator */
+  --recovered-mark: #ffffff;
 
-  --at-risk: #0a0a0a;
-  --at-risk-accent: #d4d4d8;                /* Silver Indicator */
+  --at-risk: #000000;
+  --at-risk-accent: #ffffff;
 
-  --critical: #0a0a0a;
-  --critical-accent: #ffffff;               /* High-contrast alert */
+  --critical: #000000;
+  --critical-accent: #ffffff;
 
-  --signal: #0a0a0a;
-  --signal-accent: #ffffff;                 /* Pure White Signal */
-  --cyan-accent: #e4e4e7;                   /* Platinum Accent */
+  --signal: #000000;
+  --signal-accent: #ffffff;
+  --cyan-accent: #ffffff;
 
   /* Financial Ledgers */
   --ledger: #ffffff;
@@ -56,14 +58,14 @@
   --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'Space Mono', 'Courier New', monospace;
 
-  /* Radius — Minimalist Architectural Edge */
-  --radius-pulse: 10px;
-  --radius-pulse-sm: 6px;
-  --radius-pill: 999px;
+  /* Radius — Neo-Brutalist Sharp Edges */
+  --radius-pulse: 0px;
+  --radius-pulse-sm: 0px;
+  --radius-pill: 2px;
 }
 
 /* -------------------------------------------------------------------------
-   Global Resets & Minimalist Dark Base Surface
+   Global Resets & Brutalist Canvas Base
    ------------------------------------------------------------------------- */
 * {
   box-sizing: border-box;
@@ -83,60 +85,59 @@ body {
   overflow-x: hidden;
 }
 
-/* Minimalist Geometric Dot/Grid Texture */
+/* Brutalist Architectural Grid Texture */
 .sk-brushed-texture {
   background-color: #000000;
   background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.06) 0%, transparent 60%);
-  background-size: 32px 32px, 32px 32px, 100% 100%;
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 /* -------------------------------------------------------------------------
-   Typography Scale with Crisp Monochrome Contrast
+   Typography Scale with High-Contrast Brutalist Boldness
    ------------------------------------------------------------------------- */
 .text-display-xl {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 7vw, 5.2rem);
-  line-height: 0.96;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-size: clamp(2.8rem, 6.5vw, 4.8rem);
+  line-height: 0.98;
+  font-weight: 900;
+  letter-spacing: -0.04em;
   color: #ffffff;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+  text-transform: uppercase;
 }
 
 .text-display-md {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
   line-height: 1.05;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   color: #ffffff;
 }
 
 .text-display-sm {
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: #ffffff;
 }
 
 .text-heading {
-  font-family: var(--font-ui);
-  font-size: 1.0rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #ffffff;
 }
 
 .text-subheading {
-  font-family: var(--font-ui);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
@@ -159,196 +160,180 @@ p, .text-body, .card-description, article p {
 .text-mono {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   color: var(--ink-hard);
 }
 
 .text-mono-bold {
   font-family: var(--font-mono);
   font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  font-weight: 800;
+  letter-spacing: 0.03em;
 }
 
 .text-micro {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   line-height: 1.3;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
 
 /* -------------------------------------------------------------------------
-   Minimalist Dark Glass Surfaces & Elevation
+   Brutalist Solid Surfaces & Hard Drop Shadows
    ------------------------------------------------------------------------- */
 
-/* Minimalist Dark Glass Card */
+/* Primary Brutalist Card */
 .sk-panel {
-  background: var(--glass-surface);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid var(--glass-border);
+  background: #0a0a0a;
+  border: 1.5px solid #ffffff;
   border-radius: var(--radius-pulse);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.08) inset,
-    0 12px 32px var(--sk-shadow);
+  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.45);
   position: relative;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s ease;
 }
 
-/* Minimalist Hairline Corner Accents on Panels */
+/* Brutalist Corner Blocks */
 .sk-panel::before {
   content: "";
   position: absolute;
-  top: -1px;
-  left: -1px;
-  width: 10px;
-  height: 10px;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.6);
-  border-left: 1.5px solid rgba(255, 255, 255, 0.6);
-  border-top-left-radius: var(--radius-pulse);
+  top: -3px;
+  left: -3px;
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
   pointer-events: none;
 }
 
 .sk-panel::after {
   content: "";
   position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 10px;
-  height: 10px;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.6);
-  border-right: 1.5px solid rgba(255, 255, 255, 0.6);
-  border-bottom-right-radius: var(--radius-pulse);
+  bottom: -3px;
+  right: -3px;
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
   pointer-events: none;
 }
 
-/* Elevated Minimalist Glass Panel */
+/* Elevated Brutalist Glass Panel */
 .sk-panel-walnut {
-  background: var(--glass-surface-elevated);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #0d0d0d;
+  border: 1.5px solid #ffffff;
   border-radius: var(--radius-pulse);
   color: #ffffff;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.1) inset,
-    0 16px 40px rgba(0, 0, 0, 0.9);
+  box-shadow: 5px 5px 0px #ffffff;
 }
 
 /* Raised Floating Modal Cockpit */
 .sk-panel-raised {
-  background: rgba(10, 10, 10, 0.96);
-  backdrop-filter: blur(32px) saturate(200%);
-  -webkit-backdrop-filter: blur(32px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: calc(var(--radius-pulse) + 2px);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.15) inset,
-    0 24px 60px rgba(0, 0, 0, 0.95);
+  background: #050505;
+  border: 2px solid #ffffff;
+  border-radius: 0px;
+  box-shadow: 8px 8px 0px #ffffff;
   position: relative;
 }
 
-/* Recessed Input Terminal */
+/* Recessed Well Terminal */
 .sk-well {
-  background: rgba(10, 10, 10, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-pulse-sm);
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  background: #000000;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0px;
+  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.2);
   color: #ffffff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .sk-well:focus-within {
   border-color: #ffffff;
-  box-shadow:
-    inset 0 2px 6px rgba(0, 0, 0, 0.85),
-    0 0 12px rgba(255, 255, 255, 0.15);
+  box-shadow: 4px 4px 0px #ffffff;
 }
 
 .sk-well-dark {
-  background: rgba(6, 6, 6, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-pulse-sm);
-  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.85);
+  background: #080808;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0px;
   color: #ffffff;
 }
 
-/* Minimalist Marker Node */
+/* Brutalist Accent Rivet */
 .sk-rivet {
-  width: 5px;
-  height: 5px;
-  border-radius: 1px;
+  width: 6px;
+  height: 6px;
   background: #ffffff;
   display: inline-block;
-  opacity: 0.6;
 }
 
 .sk-seam-top {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1.5px solid #ffffff;
 }
 
 .sk-seam-bottom {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1.5px solid #ffffff;
 }
 
 .sk-index::before {
-  content: attr(data-index);
+  content: "[" attr(data-index) "]";
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: #ffffff;
   margin-right: 0.65rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 /* -------------------------------------------------------------------------
-   Minimalist Buttons & Controls (White & Black)
+   Brutalist Tactile Buttons & Controls
    ------------------------------------------------------------------------- */
 
-/* Secondary Outline Button */
+/* Secondary Brutalist Outline Button */
 .sk-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   padding: 8px 16px;
-  background: #111111;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius-pulse-sm);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  background: #000000;
+  border: 1.5px solid #ffffff;
+  border-radius: 0px;
+  box-shadow: 3px 3px 0px #ffffff;
   color: #ffffff;
-  font-family: var(--font-ui);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
   user-select: none;
   text-decoration: none;
 }
 
 .sk-button:hover:not(:disabled) {
-  background: #1c1c1c;
+  background: #141414;
   border-color: #ffffff;
   color: #ffffff;
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.08);
-  transform: translateY(-1px);
+  box-shadow: 5px 5px 0px #ffffff;
+  transform: translate(-1px, -1px);
 }
 
 .sk-button:active:not(:disabled) {
-  transform: translateY(1px);
-  background: #080808;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #ffffff;
+  background: #ffffff;
+  color: #000000;
 }
 
 .sk-button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+  box-shadow: none;
+  border-color: #555555;
 }
 
-/* Primary Inverted White Action Button */
+/* Primary Inverted Hero Button */
 .sk-button-primary {
   display: inline-flex;
   align-items: center;
@@ -357,29 +342,30 @@ p, .text-body, .card-description, article p {
   padding: 9px 18px;
   background: #ffffff;
   color: #000000;
-  border: 1px solid #ffffff;
-  border-radius: var(--radius-pulse-sm);
-  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.18), 0 2px 6px rgba(0, 0, 0, 0.4);
-  font-family: var(--font-ui);
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  border: 1.5px solid #ffffff;
+  border-radius: 0px;
+  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.45);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
   user-select: none;
 }
 
 .sk-button-primary:hover:not(:disabled) {
-  background: #e4e4e7;
-  border-color: #e4e4e7;
+  background: #ffffff;
   color: #000000;
-  box-shadow: 0 4px 18px rgba(255, 255, 255, 0.25);
-  transform: translateY(-1px);
+  box-shadow: 6px 6px 0px #ffffff;
+  transform: translate(-2px, -2px);
 }
 
 .sk-button-primary:active:not(:disabled) {
-  transform: translateY(1px);
-  background: #d4d4d8;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #ffffff;
+  background: #e4e4e7;
 }
 
 .sk-button-primary:disabled {
@@ -397,108 +383,87 @@ p, .text-body, .card-description, article p {
 }
 
 /* -------------------------------------------------------------------------
-   Interactive Cards with Minimalist Monochrome Elevation
+   Interactive Cards with Neo-Brutalist Hard Drop Shadows
    ------------------------------------------------------------------------- */
 .card-hover {
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.22s ease-out,
-              background 0.22s ease-out;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.15s ease;
   will-change: transform, box-shadow;
   position: relative;
 }
 
 .card-hover:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.38);
-  box-shadow:
-    0 14px 34px rgba(0, 0, 0, 0.8),
-    0 0 20px rgba(255, 255, 255, 0.05);
+  transform: translate(-2px, -2px);
+  border-color: #ffffff;
+  box-shadow: 7px 7px 0px #ffffff;
   z-index: 10;
 }
 
 .card-hover:active {
-  transform: translateY(1px);
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px #ffffff;
 }
 
 /* -------------------------------------------------------------------------
-   HUD Indicator Badges & Monochrome Status Lamps
+   HUD Indicator Badges & Brutalist Monochrome Stamps
    ------------------------------------------------------------------------- */
 .sk-badge {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 4px 12px;
-  background: rgba(18, 18, 18, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius-pill);
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  padding: 4px 10px;
+  background: #000000;
+  border: 1px solid #ffffff;
+  border-radius: 0px;
+  box-shadow: 2px 2px 0px #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: #ffffff;
 }
 
 .sk-badge--inverted {
-  background: #000000;
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.25);
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.4);
 }
 
-/* Monochrome Lamps */
+.sk-badge--inverted .sk-lamp {
+  background: #000000;
+  box-shadow: none;
+}
+
+/* Monochrome Status Lamps */
 .sk-lamp {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 0px;
   display: inline-block;
   background: #ffffff;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
 }
 
 .sk-lamp-green {
   background: #ffffff;
-  box-shadow: 0 0 8px #ffffff;
 }
 
 .sk-lamp-amber {
   background: #a1a1aa;
-  box-shadow: 0 0 6px #a1a1aa;
 }
 
 .sk-lamp-red {
   background: #ffffff;
-  box-shadow: 0 0 10px #ffffff;
 }
 
 .sk-lamp-blue {
   background: #ffffff;
-  box-shadow: 0 0 8px #ffffff;
 }
 
 .sk-lamp-dim {
-  background: #3f3f46;
-  box-shadow: none;
-}
-
-/* -------------------------------------------------------------------------
-   Keyframe Animations
-   ------------------------------------------------------------------------- */
-@keyframes criticalPulse {
-  0%, 100% { box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.6); }
-  50%      { box-shadow: 0 0 14px 4px rgba(255, 255, 255, 0.9); }
-}
-
-@keyframes signalPulse {
-  0%, 100% { box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.5); }
-  50%      { box-shadow: 0 0 12px 3px rgba(255, 255, 255, 0.8); }
-}
-
-.anim-lamp-pulse-red {
-  animation: criticalPulse 2s infinite ease-in-out;
-}
-
-.anim-lamp-pulse-blue {
-  animation: signalPulse 2s infinite ease-in-out;
+  background: #444444;
 }
 
 /* -------------------------------------------------------------------------
@@ -507,22 +472,20 @@ p, .text-body, .card-description, article p {
 @keyframes cardFadeInUp {
   0% {
     opacity: 0;
-    transform: translateY(12px) scale(0.99);
+    transform: translateY(10px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
 @keyframes textFadeIn {
   0% {
     opacity: 0;
-    transform: translateY(2px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -547,35 +510,35 @@ p, .text-body, .card-description, article p {
 }
 
 .fade-in-card {
-  animation: cardFadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: cardFadeInUp 0.28s ease-out both;
 }
 
 .fade-in-text {
-  animation: textFadeIn 0.3s ease-out both;
+  animation: textFadeIn 0.25s ease-out both;
 }
 
 .text-fade-transition {
-  transition: opacity 0.25s ease-out, transform 0.25s ease-out, color 0.25s ease-out;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
 
 .modal-overlay-fade {
-  animation: modalOverlayFadeIn 0.22s ease-out both;
+  animation: modalOverlayFadeIn 0.2s ease-out both;
 }
 
 .modal-box-fade {
-  animation: modalContentPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: modalContentPopIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* -------------------------------------------------------------------------
-   Input Elements
+   Input Elements (Brutalist Squared)
    ------------------------------------------------------------------------- */
 input.sk-input, textarea.sk-input {
   width: 100%;
   background: transparent;
   border: none;
   outline: none;
-  font-family: var(--font-ui);
-  font-size: 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.90rem;
   color: var(--ink-hard);
   padding: 10px 14px;
 }
@@ -584,15 +547,15 @@ input.sk-input::placeholder, textarea.sk-input::placeholder {
   color: var(--ink-muted);
 }
 
-/* Minimalist Ticker-Tape Data Banding */
+/* Brutalist Ticker-Tape Data Banding */
 .ledger-row:nth-child(even) {
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.035);
 }
 .ledger-row:nth-child(odd) {
   background: transparent;
 }
 .ledger-row:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 /* -------------------------------------------------------------------------
@@ -664,12 +627,10 @@ input.sk-input::placeholder, textarea.sk-input::placeholder {
 
   .sk-panel {
     padding: 16px !important;
-    border-radius: var(--radius-pulse-sm) !important;
   }
 
   .sk-panel-raised {
     padding: 16px !important;
-    border-radius: var(--radius-pulse-sm) !important;
   }
 
   .text-display-xl {

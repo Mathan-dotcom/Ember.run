@@ -146,8 +146,10 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
                 style={{
                   fontSize: '0.7rem',
                   padding: '2px 8px',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.16)',
+                  background: '#000000',
+                  border: '1.5px solid #ffffff',
+                  boxShadow: '2px 2px 0px #ffffff',
+                  borderRadius: '0px',
                   color: '#ffffff'
                 }}
               >
@@ -178,8 +180,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            background: 'rgba(255, 255, 255, 0.04)',
-            borderLeft: '3px solid #ffffff'
+            background: '#0a0a0a',
+            border: '1.5px solid #ffffff',
+            borderLeft: '4px solid #ffffff',
+            boxShadow: '2px 2px 0px #ffffff',
+            borderRadius: '0px'
           }}
         >
           <Sparkles size={15} color="#ffffff" style={{ flexShrink: 0 }} />
@@ -191,7 +196,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
               lineHeight: 1.4
             }}
           >
-            <strong style={{ color: '#ffffff' }}>Curation Intelligence:</strong> {post.aiTrendBlurb}
+            <strong style={{ color: '#ffffff' }}>[AI // INTEL]:</strong> {post.aiTrendBlurb}
           </span>
         </div>
       )}

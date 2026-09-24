@@ -159,8 +159,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             className="sk-panel-walnut card-hover"
             style={{
               padding: '24px',
-              borderRadius: 'var(--radius-pulse)',
-              border: '1px solid rgba(255,255,255,0.18)',
+              borderRadius: '0px',
+              border: '1.5px solid #ffffff',
+              boxShadow: '5px 5px 0px #ffffff',
               background: '#0d0d0d'
             }}
           >
@@ -169,7 +170,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                borderBottom: '1px solid rgba(255,255,255,0.1)',
+                borderBottom: '1.5px solid #ffffff',
                 paddingBottom: '12px',
                 marginBottom: '16px'
               }}
@@ -206,7 +207,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 gap: '8px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.76rem',
-                border: '1px solid rgba(255, 255, 255, 0.12)'
+                border: '1.5px solid #ffffff',
+                boxShadow: '2px 2px 0px #ffffff'
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -219,7 +221,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--ink-soft)' }}>ANTI-GAMING:</span>
-                <span style={{ color: '#a1a1aa', fontWeight: 700 }}>SELF-BOOST REVERT ARMED</span>
+                <span style={{ color: '#ffffff', fontWeight: 700 }}>SELF-BOOST REVERT ARMED</span>
               </div>
             </div>
 
@@ -309,12 +311,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               style={{
                 width: '34px',
                 height: '34px',
-                borderRadius: '6px',
+                borderRadius: '0px',
                 background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '14px'
+                marginBottom: '14px',
+                border: '1.5px solid #ffffff',
+                boxShadow: '2px 2px 0px #ffffff'
               }}
             >
               <Zap size={16} color="#000000" />
@@ -335,12 +339,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               style={{
                 width: '34px',
                 height: '34px',
-                borderRadius: '6px',
+                borderRadius: '0px',
                 background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '14px'
+                marginBottom: '14px',
+                border: '1.5px solid #ffffff',
+                boxShadow: '2px 2px 0px #ffffff'
               }}
             >
               <Clock size={16} color="#000000" />
@@ -361,12 +367,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               style={{
                 width: '34px',
                 height: '34px',
-                borderRadius: '6px',
+                borderRadius: '0px',
                 background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '14px'
+                marginBottom: '14px',
+                border: '1.5px solid #ffffff',
+                boxShadow: '2px 2px 0px #ffffff'
               }}
             >
               <ShieldCheck size={16} color="#000000" />
@@ -500,12 +508,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         style={{
           padding: '36px',
           textAlign: 'center',
-          borderRadius: 'var(--radius-pulse)',
+          borderRadius: '0px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: '16px',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
+          border: '2px solid #ffffff',
+          boxShadow: '6px 6px 0px #ffffff',
           background: '#0d0d0d'
         }}
       >
@@ -513,11 +522,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           style={{
             width: '42px',
             height: '42px',
-            borderRadius: '50%',
+            borderRadius: '0px',
             background: '#ffffff',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            border: '1.5px solid #ffffff',
+            boxShadow: '3px 3px 0px #ffffff'
           }}
         >
           <Flame size={22} color="#000000" fill="#000000" />

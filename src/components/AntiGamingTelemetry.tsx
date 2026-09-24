@@ -45,7 +45,7 @@ export const AntiGamingTelemetry: React.FC = () => {
         }}
       >
         {/* Defense Rule 1: No Self-Boosting */}
-        <div className="sk-well" style={{ padding: '18px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+        <div className="sk-well" style={{ padding: '18px', border: '1.5px solid #ffffff', borderRadius: '0px', boxShadow: '3px 3px 0px #ffffff' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
             <AlertOctagon size={16} color="#ffffff" />
             <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '0.92rem', fontWeight: 600, color: '#ffffff' }}>
@@ -60,12 +60,13 @@ export const AntiGamingTelemetry: React.FC = () => {
           <div
             style={{
               background: '#000000',
-              borderRadius: '4px',
+              borderRadius: '0px',
               padding: '8px 12px',
               fontFamily: 'var(--font-mono)',
               fontSize: '0.75rem',
               color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              border: '1.5px solid #ffffff',
+              boxShadow: '2px 2px 0px #ffffff',
               marginBottom: '12px'
             }}
           >
@@ -79,7 +80,7 @@ export const AntiGamingTelemetry: React.FC = () => {
         </div>
 
         {/* Defense Rule 2: Diminishing Returns per Wallet */}
-        <div className="sk-well" style={{ padding: '18px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+        <div className="sk-well" style={{ padding: '18px', border: '1.5px solid #ffffff', borderRadius: '0px', boxShadow: '3px 3px 0px #ffffff' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
             <TrendingDown size={16} color="#ffffff" />
             <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '0.92rem', fontWeight: 600, color: '#ffffff' }}>
@@ -110,7 +111,10 @@ export const AntiGamingTelemetry: React.FC = () => {
                     padding: '6px 0',
                     fontSize: '0.72rem',
                     flexDirection: 'column',
-                    gap: '2px'
+                    gap: '2px',
+                    borderRadius: '0px',
+                    border: '1.5px solid #ffffff',
+                    boxShadow: isSelected ? '2px 2px 0px #ffffff' : '1px 1px 0px rgba(255,255,255,0.3)'
                   }}
                 >
                   <span style={{ fontFamily: 'var(--font-mono)' }}>#{step}</span>
@@ -123,12 +127,13 @@ export const AntiGamingTelemetry: React.FC = () => {
           <div
             style={{
               background: '#000000',
-              borderRadius: '4px',
+              borderRadius: '0px',
               padding: '8px 12px',
               fontFamily: 'var(--font-mono)',
               fontSize: '0.74rem',
               color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
+              border: '1.5px solid #ffffff',
+              boxShadow: '2px 2px 0px #ffffff',
               display: 'flex',
               justifyContent: 'space-between'
             }}

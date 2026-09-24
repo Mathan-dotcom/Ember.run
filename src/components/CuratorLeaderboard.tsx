@@ -75,10 +75,11 @@ export const CuratorLeaderboard: React.FC = () => {
                       style={{
                         width: '26px',
                         height: '26px',
-                        borderRadius: '4px',
+                        borderRadius: '0px',
                         background: leader.rank === 1 ? '#ffffff' : '#141414',
                         color: leader.rank === 1 ? '#000000' : '#ffffff',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        border: '1.5px solid #ffffff',
+                        boxShadow: '2px 2px 0px #ffffff',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -125,7 +126,7 @@ export const CuratorLeaderboard: React.FC = () => {
 
                   {/* Accuracy */}
                   <td style={{ padding: '14px 12px' }}>
-                    <div className="sk-badge" style={{ padding: '3px 8px', fontSize: '0.70rem' }}>
+                    <div className="sk-badge" style={{ padding: '3px 8px', fontSize: '0.70rem', borderRadius: '0px', border: '1.5px solid #ffffff', boxShadow: '2px 2px 0px #ffffff' }}>
                       <CheckCircle2 size={11} color="#ffffff" />
                       <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#ffffff' }}>
                         {leader.accuracyRate}%
@@ -153,15 +154,16 @@ export const CuratorLeaderboard: React.FC = () => {
         style={{
           marginTop: '16px',
           padding: '10px 14px',
-          background: 'rgba(255, 255, 255, 0.04)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          borderRadius: 'var(--radius-pulse-sm)',
+          background: '#0a0a0a',
+          border: '1.5px solid #ffffff',
+          borderRadius: '0px',
+          boxShadow: '3px 3px 0px #ffffff',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
           fontFamily: 'var(--font-ui)',
           fontSize: '0.75rem',
-          color: 'var(--ink-soft)'
+          color: '#d4d4d8'
         }}
       >
         <Sparkles size={13} color="#ffffff" />

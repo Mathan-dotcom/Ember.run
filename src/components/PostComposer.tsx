@@ -76,7 +76,7 @@ export const PostComposer: React.FC = () => {
       <form onSubmit={handleSubmit}>
         {/* Title Recessed Input */}
         <div style={{ marginBottom: '12px' }}>
-          <div className="sk-well" style={{ padding: '2px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+          <div className="sk-well" style={{ padding: '2px', border: '1.5px solid #ffffff', boxShadow: '3px 3px 0px rgba(255, 255, 255, 0.3)', borderRadius: '0px' }}>
             <input
               type="text"
               className="sk-input"
@@ -92,7 +92,7 @@ export const PostComposer: React.FC = () => {
 
         {/* Content Recessed Well */}
         <div style={{ marginBottom: '12px' }}>
-          <div className="sk-well" style={{ padding: '2px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+          <div className="sk-well" style={{ padding: '2px', border: '1.5px solid #ffffff', boxShadow: '3px 3px 0px rgba(255, 255, 255, 0.3)', borderRadius: '0px' }}>
             <textarea
               className="sk-input"
               placeholder="Describe your thesis, alpha discovery, or technical review..."
@@ -112,9 +112,9 @@ export const PostComposer: React.FC = () => {
             <div style={{ marginBottom: '14px' }}>
               <div
                 className="sk-well"
-                style={{ display: 'flex', alignItems: 'center', padding: '2px 10px', border: '1px solid rgba(255, 255, 255, 0.12)' }}
+                style={{ display: 'flex', alignItems: 'center', padding: '2px 10px', border: '1.5px solid #ffffff', boxShadow: '3px 3px 0px rgba(255, 255, 255, 0.3)', borderRadius: '0px' }}
               >
-                <Link2 size={15} color="var(--ink-soft)" style={{ marginRight: '6px' }} />
+                <Link2 size={15} color="#ffffff" style={{ marginRight: '6px' }} />
                 <input
                   type="url"
                   className="sk-input"
@@ -152,9 +152,11 @@ export const PostComposer: React.FC = () => {
                         padding: '3px 10px',
                         fontSize: '0.70rem',
                         transition: 'all 0.15s ease',
-                        border: isSelected ? '1px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.14)',
-                        background: isSelected ? '#ffffff' : 'transparent',
-                        color: isSelected ? '#000000' : 'var(--ink-soft)'
+                        borderRadius: '0px',
+                        border: '1.5px solid #ffffff',
+                        boxShadow: isSelected ? '2px 2px 0px #ffffff' : '1px 1px 0px rgba(255,255,255,0.3)',
+                        background: isSelected ? '#ffffff' : '#000000',
+                        color: isSelected ? '#000000' : '#ffffff'
                       }}
                     >
                       <span>#{tag}</span>

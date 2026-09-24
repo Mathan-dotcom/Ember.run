@@ -154,7 +154,9 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
           maxHeight: '92vh',
           overflowY: 'auto',
           background: '#0d0d0d',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
+          border: '2px solid #ffffff',
+          borderRadius: '0px',
+          boxShadow: '8px 8px 0px #ffffff'
         }}
       >
         {/* Header */}
@@ -164,7 +166,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
             alignItems: 'center',
             justifyContent: 'space-between',
             marginBottom: '18px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+            borderBottom: '1.5px solid #ffffff',
             paddingBottom: '12px'
           }}
         >
@@ -173,11 +175,13 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
               style={{
                 width: '32px',
                 height: '32px',
-                borderRadius: '6px',
+                borderRadius: '0px',
                 background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                border: '1.5px solid #ffffff',
+                boxShadow: '2px 2px 0px #ffffff'
               }}
             >
               <Play size={16} color="#000000" fill="#000000" />
@@ -214,7 +218,9 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '10px',
-            border: '1px solid rgba(255, 255, 255, 0.14)'
+            borderRadius: '0px',
+            border: '1.5px solid #ffffff',
+            boxShadow: '3px 3px 0px #ffffff'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -261,8 +267,10 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
                 className="sk-panel card-hover"
                 style={{
                   padding: '16px',
-                  background: isActive ? 'rgba(255, 255, 255, 0.06)' : undefined,
-                  border: isActive ? '1px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.12)'
+                  borderRadius: '0px',
+                  background: isActive ? '#141414' : '#0a0a0a',
+                  border: '1.5px solid #ffffff',
+                  boxShadow: isActive ? '5px 5px 0px #ffffff' : '3px 3px 0px rgba(255,255,255,0.4)'
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px' }}>
@@ -271,10 +279,11 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
                       style={{
                         width: '24px',
                         height: '24px',
-                        borderRadius: '4px',
+                        borderRadius: '0px',
                         background: isDone || isActive ? '#ffffff' : '#141414',
                         color: isDone || isActive ? '#000000' : 'var(--ink-soft)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        border: '1.5px solid #ffffff',
+                        boxShadow: '1px 1px 0px #ffffff',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',

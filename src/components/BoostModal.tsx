@@ -79,7 +79,9 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
           maxHeight: '92vh',
           overflowY: 'auto',
           background: '#0d0d0d',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
+          border: '2px solid #ffffff',
+          borderRadius: '0px',
+          boxShadow: '8px 8px 0px #ffffff'
         }}
       >
         {/* Header */}
@@ -89,7 +91,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
             alignItems: 'center',
             justifyContent: 'space-between',
             marginBottom: '16px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+            borderBottom: '1.5px solid #ffffff',
             paddingBottom: '12px'
           }}
         >
@@ -98,11 +100,13 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
               style={{
                 width: '32px',
                 height: '32px',
-                borderRadius: '6px',
+                borderRadius: '0px',
                 background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                border: '1.5px solid #ffffff',
+                boxShadow: '2px 2px 0px #ffffff'
               }}
             >
               <Zap size={16} color="#000000" fill="#000000" />
@@ -136,7 +140,10 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
           style={{
             padding: '12px 14px',
             marginBottom: '18px',
-            borderLeft: '3px solid #ffffff'
+            borderRadius: '0px',
+            border: '1.5px solid #ffffff',
+            borderLeft: '4px solid #ffffff',
+            boxShadow: '2px 2px 0px #ffffff'
           }}
         >
           <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '2px', color: '#ffffff' }}>
@@ -152,8 +159,9 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
           <div
             style={{
               background: '#161616',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              borderRadius: 'var(--radius-pulse-sm)',
+              border: '1.5px solid #ffffff',
+              borderRadius: '0px',
+              boxShadow: '2px 2px 0px #ffffff',
               padding: '12px 14px',
               color: '#ffffff',
               marginBottom: '18px'
@@ -176,8 +184,9 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
           <div
             style={{
               background: '#141414',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-              borderRadius: 'var(--radius-pulse-sm)',
+              border: '1.5px solid #ffffff',
+              borderRadius: '0px',
+              boxShadow: '2px 2px 0px #ffffff',
               padding: '10px 14px',
               color: '#ffffff',
               marginBottom: '18px'
@@ -247,7 +256,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
             })}
           </div>
 
-          <div className="sk-well" style={{ display: 'flex', alignItems: 'center', padding: '2px 12px' }}>
+          <div className="sk-well" style={{ display: 'flex', alignItems: 'center', padding: '2px 12px', border: '1.5px solid #ffffff', borderRadius: '0px', boxShadow: '2px 2px 0px #ffffff' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--ink-soft)' }}>Custom:</span>
             <input
               type="number"
@@ -266,7 +275,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
         <div style={{ marginBottom: '22px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
             <label className="text-micro">Live Onchain Disbursement Preview</label>
-            <span className="sk-badge" style={{ fontSize: '0.65rem', padding: '2px 8px' }}>
+            <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.65rem', padding: '2px 8px', borderRadius: '0px', border: '1px solid #ffffff', boxShadow: '1px 1px 0px #ffffff' }}>
               ATOMIC 40 / 45 / 15
             </span>
           </div>
@@ -277,7 +286,10 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
               padding: '12px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '10px'
+              gap: '10px',
+              border: '1.5px solid #ffffff',
+              borderRadius: '0px',
+              boxShadow: '3px 3px 0px #ffffff'
             }}
           >
             {/* Poster 40% */}

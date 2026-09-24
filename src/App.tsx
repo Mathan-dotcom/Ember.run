@@ -54,7 +54,7 @@ const MissionControlContent: React.FC = () => {
         ) : (
           <>
             {/* Physical Instrument Telemetry Ribbon */}
-            <section className="sk-panel telemetry-ribbon">
+            <section className="sk-panel telemetry-ribbon" style={{ border: '1.5px solid #ffffff', borderRadius: '0px', boxShadow: '4px 4px 0px #ffffff', marginBottom: '24px' }}>
           {/* Rivets in corners */}
           <div style={{ position: 'absolute', top: '8px', left: '8px' }} className="sk-rivet" />
           <div style={{ position: 'absolute', top: '8px', right: '8px' }} className="sk-rivet" />
@@ -64,8 +64,8 @@ const MissionControlContent: React.FC = () => {
           {/* Metric 1: Total Curation Volume */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-              <span className="sk-lamp sk-lamp-blue" />
-              <span className="text-micro" style={{ color: 'var(--cyan-accent)' }}>TOTAL CURATION VOLUME</span>
+              <span className="sk-lamp sk-lamp-green" />
+              <span className="text-micro" style={{ color: '#ffffff' }}>TOTAL CURATION VOLUME</span>
             </div>
             <div
               className="text-display-md"
@@ -74,12 +74,11 @@ const MissionControlContent: React.FC = () => {
                 color: '#ffffff',
                 display: 'flex',
                 alignItems: 'baseline',
-                gap: '6px',
-                textShadow: '0 0 16px rgba(0, 240, 255, 0.4)'
+                gap: '6px'
               }}
             >
               {formatMon(totalVolume, 2)}
-              <span style={{ fontSize: '0.9rem', color: '#00f0ff', fontFamily: 'var(--font-mono)' }}>MON</span>
+              <span style={{ fontSize: '0.9rem', color: '#a1a1aa', fontFamily: 'var(--font-mono)' }}>MON</span>
             </div>
           </div>
 
@@ -87,40 +86,38 @@ const MissionControlContent: React.FC = () => {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
               <span className="sk-lamp sk-lamp-green" />
-              <span className="text-micro" style={{ color: '#00ff9d' }}>CURATOR DISBURSEMENTS</span>
-            </div>
-            <div
-              className="text-display-md"
-              style={{
-                fontSize: '2rem',
-                color: '#00ff9d',
-                display: 'flex',
-                alignItems: 'baseline',
-                gap: '6px',
-                textShadow: '0 0 16px rgba(0, 255, 157, 0.5)'
-              }}
-            >
-              +{formatMon(totalCuratorPayouts, 2)}
-              <span style={{ fontSize: '0.9rem', color: '#00ff9d', fontFamily: 'var(--font-mono)' }}>MON</span>
-            </div>
-          </div>
-
-          {/* Metric 3: Active Signals on Radar */}
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-              <span className="sk-lamp sk-lamp-blue" />
-              <span className="text-micro" style={{ color: '#836ef9' }}>ACTIVE EMBERS ON RADAR</span>
+              <span className="text-micro" style={{ color: '#ffffff' }}>CURATOR DISBURSEMENTS</span>
             </div>
             <div
               className="text-display-md"
               style={{
                 fontSize: '2rem',
                 color: '#ffffff',
-                textShadow: '0 0 16px rgba(131, 110, 249, 0.4)'
+                display: 'flex',
+                alignItems: 'baseline',
+                gap: '6px'
+              }}
+            >
+              +{formatMon(totalCuratorPayouts, 2)}
+              <span style={{ fontSize: '0.9rem', color: '#a1a1aa', fontFamily: 'var(--font-mono)' }}>MON</span>
+            </div>
+          </div>
+
+          {/* Metric 3: Active Signals on Radar */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+              <span className="sk-lamp sk-lamp-green" />
+              <span className="text-micro" style={{ color: '#ffffff' }}>ACTIVE EMBERS ON RADAR</span>
+            </div>
+            <div
+              className="text-display-md"
+              style={{
+                fontSize: '2rem',
+                color: '#ffffff'
               }}
             >
               {totalPosts}{' '}
-              <span style={{ fontSize: '0.85rem', color: '#836ef9', fontFamily: 'var(--font-mono)' }}>EMBERS</span>
+              <span style={{ fontSize: '0.85rem', color: '#a1a1aa', fontFamily: 'var(--font-mono)' }}>EMBERS</span>
             </div>
           </div>
 
@@ -132,12 +129,13 @@ const MissionControlContent: React.FC = () => {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
-              border: '1px solid rgba(0, 240, 255, 0.3)',
-              boxShadow: '0 0 14px rgba(0, 240, 255, 0.1)'
+              border: '1.5px solid #ffffff',
+              borderRadius: '0px',
+              boxShadow: '3px 3px 0px #ffffff'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px' }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--cyan-accent)' }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#ffffff', fontWeight: 700 }}>
                 MONAD PARALLEL PIPELINE
               </span>
               <span className="sk-lamp sk-lamp-green" />
@@ -173,13 +171,11 @@ const MissionControlContent: React.FC = () => {
       {/* Footer Housing */}
       <footer
         style={{
-          background: 'rgba(9, 7, 16, 0.9)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
+          background: '#000000',
           color: 'var(--ink-soft)',
           padding: '18px 24px',
-          borderTop: '1px solid rgba(131, 110, 249, 0.25)',
-          boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.6)',
+          borderTop: '1.5px solid #ffffff',
+          boxShadow: '0 -2px 0px #ffffff',
           fontFamily: 'var(--font-mono)',
           fontSize: '0.75rem',
           display: 'flex',
@@ -197,8 +193,8 @@ const MissionControlContent: React.FC = () => {
             EMBER.RUN // MONAD METROPOLIS — TRACK 03: SOCIAL, ATTENTION & CULTURE
           </span>
         </div>
-        <div style={{ color: 'var(--cyan-accent)', textShadow: '0 0 10px rgba(0, 240, 255, 0.4)' }}>
-          CYBERPUNK NEO-BRUTALIST DARK GLASS UI // MONAD HIGH-THROUGHPUT ENGINE
+        <div style={{ color: '#ffffff', fontWeight: 700 }}>
+          PARTIAL NEO-BRUTALIST MONOCHROME UI // MONAD HIGH-THROUGHPUT ENGINE
         </div>
       </footer>
 

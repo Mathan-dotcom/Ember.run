@@ -323,10 +323,10 @@ export const DynamicLiveWallpaper: React.FC = () => {
             style={{
               width: '280px',
               padding: '16px',
-              background: 'rgba(12, 12, 12, 0.96)',
-              backdropFilter: 'blur(24px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 16px 40px rgba(0,0,0,0.9), 0 0 1px rgba(255, 255, 255, 0.2)',
+              background: '#0a0a0a',
+              borderRadius: '0px',
+              border: '2px solid #ffffff',
+              boxShadow: '6px 6px 0px #ffffff',
               position: 'relative'
             }}
           >
@@ -478,16 +478,15 @@ export const DynamicLiveWallpaper: React.FC = () => {
             alignItems: 'center',
             gap: '8px',
             padding: '7px 14px',
-            borderRadius: '24px',
-            background: 'rgba(10, 10, 10, 0.9)',
-            backdropFilter: 'blur(20px)',
+            borderRadius: '0px',
+            background: '#000000',
             color: '#ffffff',
-            border: '1px solid rgba(255, 255, 255, 0.22)',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.7)',
+            border: '1.5px solid #ffffff',
+            boxShadow: '3px 3px 0px #ffffff',
             cursor: 'pointer',
             fontSize: '0.72rem',
             fontFamily: 'var(--font-mono)',
-            fontWeight: 600
+            fontWeight: 700
           }}
         >
           <span className={`sk-lamp ${isEnabled ? 'sk-lamp-green' : 'sk-lamp-dim'}`} />

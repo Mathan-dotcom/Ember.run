@@ -110,7 +110,10 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost }) => {
           justifyContent: 'space-between',
           fontFamily: 'var(--font-mono)',
           fontSize: '0.72rem',
-          color: 'var(--ink-soft)'
+          color: '#ffffff',
+          borderRadius: '0px',
+          border: '1.5px solid #ffffff',
+          boxShadow: '3px 3px 0px #ffffff'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
