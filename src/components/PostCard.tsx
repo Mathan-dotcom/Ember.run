@@ -1,24 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Post } from '../types/signal';
 import { useWallet } from '../context/WalletContext';
 import { AnalogDecayGauge } from './AnalogDecayGauge';
 import { formatAddress, formatMon, formatRelativeTime } from '../utils/decay';
 import { sound } from '../utils/sound';
-import { Zap, ExternalLink, Sparkles, UserCheck, ShieldAlert } from 'lucide-react';
+import { Zap, ExternalLink, Sparkles, UserCheck, ShieldAlert, Bookmark } from 'lucide-react';
+import { backendApi } from '../services/api';
 
 interface PostCardProps {
   post: Post;
   onOpenBoost: (post: Post) => void;
+  onInspectPost?: (post: Post) => void;
 }
 
-export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
+export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspectPost }) => {
   const { currentAccount } = useWallet();
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const isAuthor = currentAccount.address.toLowerCase() === post.poster.toLowerCase();
   const secondsAgo = Math.max(0, Math.floor(Date.now() / 1000) - post.createdAt);
 
+  useEffect(() => {
+    let mounted = true;
+    backendApi.getProfile(currentAccount.address).then((profile) => {
+      if (mounted && profile && profile.bookmarks) {
+        setIsBookmarked(profile.bookmarks.includes(post.id));
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, [currentAccount.address, post.id]);
+
+  const handleToggleBookmark = async () => {
+    sound.playDialTick();
+    const nextState = !isBookmarked;
+    setIsBookmarked(nextState);
+    const updatedBookmarks = await backendApi.toggleBookmark(currentAccount.address, post.id);
+    if (updatedBookmarks) {
+      setIsBookmarked(updatedBookmarks.includes(post.id));
+    }
+  };
+
   return (
     <article
-      className="sk-panel card-hover fade-in-card"
+      className="sk-panel card-hover fade-in-card scroll-fade-card"
       style={{
         padding: '24px',
         marginBottom: '20px',
@@ -91,13 +116,24 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
         {/* Left: Content & Tags */}
         <div>
           <h3
+            onClick={() => {
+              if (onInspectPost) {
+                sound.playDialTick();
+                onInspectPost(post);
+              }
+            }}
+            title="Click to inspect chronological boost timeline & decay curve"
             style={{
               fontFamily: 'var(--font-ui)',
               fontSize: '1.20rem',
               fontWeight: 700,
               color: '#ffffff',
               lineHeight: 1.3,
-              marginBottom: '10px'
+              marginBottom: '10px',
+              cursor: onInspectPost ? 'pointer' : 'default',
+              textDecoration: onInspectPost ? 'underline' : 'none',
+              textUnderlineOffset: '4px',
+              textDecorationColor: 'rgba(255,255,255,0.4)'
             }}
           >
             {post.title}
@@ -270,8 +306,28 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost }) => {
           </div>
         </div>
 
-        {/* Action Button */}
-        <div>
+        {/* Action Button & Bookmark */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            type="button"
+            onClick={handleToggleBookmark}
+            title={isBookmarked ? 'Remove bookmark' : 'Bookmark this ember'}
+            className="sk-button"
+            style={{
+              padding: '8px 10px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: isBookmarked ? '#ffffff' : '#000000',
+              color: isBookmarked ? '#000000' : '#ffffff',
+              border: '1.5px solid #ffffff',
+              boxShadow: isBookmarked ? '2px 2px 0px #ffffff' : '1px 1px 0px rgba(255, 255, 255, 0.3)',
+              cursor: 'pointer'
+            }}
+          >
+            <Bookmark size={15} fill={isBookmarked ? '#000000' : 'none'} color={isBookmarked ? '#000000' : '#ffffff'} />
+          </button>
+
           {isAuthor ? (
             <button
               disabled

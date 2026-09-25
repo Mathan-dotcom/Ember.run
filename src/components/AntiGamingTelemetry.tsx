@@ -9,7 +9,7 @@ export const AntiGamingTelemetry: React.FC = () => {
   const boostSteps = [1, 2, 3, 4, 5];
 
   return (
-    <section className="sk-panel" style={{ padding: '24px', marginBottom: '32px' }}>
+    <section className="sk-panel scroll-fade-card" style={{ padding: '24px', marginBottom: '32px' }}>
       {/* Header */}
       <div
         style={{

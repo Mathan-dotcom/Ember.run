@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Post } from '../types/signal';
 import { useWallet } from '../context/WalletContext';
 import { PostCard } from './PostCard';
 import { sound } from '../utils/sound';
-import { SlidersHorizontal, Flame, Clock, Coins, RefreshCw } from 'lucide-react';
+import { SlidersHorizontal, Flame, Clock, Coins, RefreshCw, Bookmark } from 'lucide-react';
+import { backendApi } from '../services/api';
 
 interface FeedRadarProps {
   onOpenBoost: (post: Post) => void;
+  onInspectPost?: (post: Post) => void;
 }
 
-export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost }) => {
-  const { posts, refreshDecayedWeights } = useWallet();
+export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost }) => {
+  const { posts, refreshDecayedWeights, currentAccount } = useWallet();
   const [sortMode, setSortMode] = useState<'decay' | 'velocity' | 'capital'>('decay');
+  const [onlyBookmarked, setOnlyBookmarked] = useState<boolean>(false);
+  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>([]);
 
-  const sortedPosts = [...posts].sort((a, b) => {
+  useEffect(() => {
+    backendApi.getProfile(currentAccount.address).then((profile) => {
+      if (profile && profile.bookmarks) {
+        setBookmarkedIds(profile.bookmarks);
+      }
+    });
+  }, [currentAccount.address, onlyBookmarked]);
+
+  const filteredPosts = onlyBookmarked
+    ? posts.filter((p) => bookmarkedIds.includes(p.id))
+    : posts;
+
+  const sortedPosts = [...filteredPosts].sort((a, b) => {
     if (sortMode === 'decay') {
       return b.decayedWeight - a.decayedWeight;
     } else if (sortMode === 'velocity') {
@@ -88,6 +104,19 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost }) => {
           <button
             onClick={() => {
               sound.playDialTick();
+              setOnlyBookmarked(!onlyBookmarked);
+            }}
+            className={`sk-button ${onlyBookmarked ? 'sk-button-primary' : ''}`}
+            style={{ padding: '5px 10px', fontSize: '0.75rem' }}
+            title="Show only bookmarked embers"
+          >
+            <Bookmark size={13} fill={onlyBookmarked ? '#000000' : 'none'} color={onlyBookmarked ? '#000000' : '#ffffff'} />
+            <span>SAVED ({bookmarkedIds.length})</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playDialTick();
               refreshDecayedWeights();
             }}
             className="sk-button"
@@ -128,7 +157,12 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost }) => {
       {/* Posts Stream */}
       <div>
         {sortedPosts.map((post) => (
-          <PostCard key={post.id} post={post} onOpenBoost={onOpenBoost} />
+          <PostCard
+            key={post.id}
+            post={post}
+            onOpenBoost={onOpenBoost}
+            onInspectPost={onInspectPost}
+          />
         ))}
       </div>
     </section>

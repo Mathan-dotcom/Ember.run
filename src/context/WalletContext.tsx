@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { WalletAccount, Post, BoosterRecord, AuditEntry, CuratorLeader } from '../types/signal';
-import { calculateDecayedWeight, calculateDiminishingMultiplier } from '../utils/decay';
+import { calculateDecayedWeight, calculateDiminishingMultiplier, formatAddress } from '../utils/decay';
 import { sound } from '../utils/sound';
+import { BrowserProvider, Contract, parseEther, formatEther } from 'ethers';
+import { MONAD_TESTNET_CONFIG, SIGNAL_MARKET_ABI } from '../contracts/config';
 
 interface WalletContextType {
   currentAccount: WalletAccount;
@@ -19,6 +21,16 @@ interface WalletContextType {
   isPasskeyModalOpen: boolean;
   setIsPasskeyModalOpen: (open: boolean) => void;
   refreshDecayedWeights: () => void;
+  // Web3 Live Monad Integration
+  isWeb3Connected: boolean;
+  web3Address: string | null;
+  web3ChainId: number | null;
+  isCorrectNetwork: boolean;
+  isConnectingWeb3: boolean;
+  onchainTxPending: boolean;
+  connectWeb3Wallet: () => Promise<boolean>;
+  disconnectWeb3Wallet: () => void;
+  switchToMonadTestnet: () => Promise<boolean>;
 }
 
 // Initial Seed Accounts (Real Monad Testnet addresses)
@@ -245,6 +257,192 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [auditLogs, setAuditLogs] = useState<AuditEntry[]>(INITIAL_LOGS);
   const [isPasskeyModalOpen, setIsPasskeyModalOpen] = useState<boolean>(false);
 
+  // Web3 Live State
+  const [isWeb3Connected, setIsWeb3Connected] = useState<boolean>(false);
+  const [web3Address, setWeb3Address] = useState<string | null>(null);
+  const [web3ChainId, setWeb3ChainId] = useState<number | null>(null);
+  const [isCorrectNetwork, setIsCorrectNetwork] = useState<boolean>(false);
+  const [isConnectingWeb3, setIsConnectingWeb3] = useState<boolean>(false);
+  const [onchainTxPending, setOnchainTxPending] = useState<boolean>(false);
+
+  // Check if wallet is already connected
+  const checkInitialWeb3 = useCallback(async () => {
+    if (typeof window === 'undefined' || !(window as any).ethereum) return;
+    try {
+      const provider = new BrowserProvider((window as any).ethereum);
+      const accountsList = await (window as any).ethereum.request({ method: 'eth_accounts' });
+      const network = await provider.getNetwork();
+      const chainId = Number(network.chainId);
+      setWeb3ChainId(chainId);
+      setIsCorrectNetwork(chainId === MONAD_TESTNET_CONFIG.chainId);
+
+      if (accountsList && accountsList.length > 0) {
+        const addr = accountsList[0];
+        setWeb3Address(addr);
+        setIsWeb3Connected(true);
+
+        const bal = await provider.getBalance(addr);
+        const monBal = parseFloat(formatEther(bal));
+
+        const web3Acc: WalletAccount = {
+          id: 'web3-wallet',
+          name: `MetaMask (${formatAddress(addr)})`,
+          handle: `@${addr.slice(2, 8).toLowerCase()}`,
+          address: addr,
+          balanceMon: Math.round(monBal * 1000) / 1000,
+          isPasskey: false,
+          passkeyLabel: 'Browser EVM Wallet'
+        };
+
+        setAccounts((prev) => {
+          const filtered = prev.filter((a) => a.id !== 'web3-wallet');
+          return [web3Acc, ...filtered];
+        });
+        setCurrentAccount(web3Acc);
+      }
+    } catch (err) {
+      console.warn('[Web3 check initial failed]:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkInitialWeb3();
+
+    if (typeof window !== 'undefined' && (window as any).ethereum) {
+      const handleAccountsChanged = (accs: string[]) => {
+        if (!accs || accs.length === 0) {
+          setIsWeb3Connected(false);
+          setWeb3Address(null);
+          setCurrentAccount(INITIAL_ACCOUNTS[0]);
+        } else {
+          checkInitialWeb3();
+        }
+      };
+
+      const handleChainChanged = (chainIdHex: string) => {
+        const parsed = parseInt(chainIdHex, 16);
+        setWeb3ChainId(parsed);
+        setIsCorrectNetwork(parsed === MONAD_TESTNET_CONFIG.chainId);
+        checkInitialWeb3();
+      };
+
+      (window as any).ethereum.on('accountsChanged', handleAccountsChanged);
+      (window as any).ethereum.on('chainChanged', handleChainChanged);
+
+      return () => {
+        (window as any).ethereum.removeListener('accountsChanged', handleAccountsChanged);
+        (window as any).ethereum.removeListener('chainChanged', handleChainChanged);
+      };
+    }
+  }, [checkInitialWeb3]);
+
+  // Connect Web3 Wallet
+  const connectWeb3Wallet = async (): Promise<boolean> => {
+    if (typeof window === 'undefined' || !(window as any).ethereum) {
+      sound.playWarningBuzz();
+      alert('No EVM wallet detected. Please install MetaMask, Rabby, or OKX wallet extension.');
+      return false;
+    }
+
+    try {
+      setIsConnectingWeb3(true);
+      sound.playSwitchClick();
+      const accountsList = await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
+      if (!accountsList || accountsList.length === 0) return false;
+
+      const provider = new BrowserProvider((window as any).ethereum);
+      const network = await provider.getNetwork();
+      const chainId = Number(network.chainId);
+      const addr = accountsList[0];
+
+      setWeb3Address(addr);
+      setWeb3ChainId(chainId);
+      setIsCorrectNetwork(chainId === MONAD_TESTNET_CONFIG.chainId);
+      setIsWeb3Connected(true);
+
+      const bal = await provider.getBalance(addr);
+      const monBal = parseFloat(formatEther(bal));
+
+      const web3Acc: WalletAccount = {
+        id: 'web3-wallet',
+        name: `MetaMask (${formatAddress(addr)})`,
+        handle: `@${addr.slice(2, 8).toLowerCase()}`,
+        address: addr,
+        balanceMon: Math.round(monBal * 1000) / 1000,
+        isPasskey: false,
+        passkeyLabel: 'Browser EVM Wallet'
+      };
+
+      setAccounts((prev) => {
+        const filtered = prev.filter((a) => a.id !== 'web3-wallet');
+        return [web3Acc, ...filtered];
+      });
+      setCurrentAccount(web3Acc);
+      sound.playDisbursementChime();
+
+      // If wrong network, suggest switching
+      if (chainId !== MONAD_TESTNET_CONFIG.chainId) {
+        await switchToMonadTestnet();
+      }
+
+      return true;
+    } catch (err: any) {
+      console.warn('[Web3 connection failed]:', err);
+      sound.playWarningBuzz();
+      return false;
+    } finally {
+      setIsConnectingWeb3(false);
+    }
+  };
+
+  // Switch to Monad Testnet
+  const switchToMonadTestnet = async (): Promise<boolean> => {
+    if (typeof window === 'undefined' || !(window as any).ethereum) return false;
+    try {
+      await (window as any).ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: MONAD_TESTNET_CONFIG.chainIdHex }]
+      });
+      setIsCorrectNetwork(true);
+      setWeb3ChainId(MONAD_TESTNET_CONFIG.chainId);
+      sound.playDisbursementChime();
+      return true;
+    } catch (switchError: any) {
+      if (switchError.code === 4902 || switchError?.data?.originalError?.code === 4902) {
+        try {
+          await (window as any).ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: MONAD_TESTNET_CONFIG.chainIdHex,
+                chainName: MONAD_TESTNET_CONFIG.chainName,
+                nativeCurrency: MONAD_TESTNET_CONFIG.currency,
+                rpcUrls: [MONAD_TESTNET_CONFIG.rpcUrl],
+                blockExplorerUrls: [MONAD_TESTNET_CONFIG.blockExplorerUrl]
+              }
+            ]
+          });
+          setIsCorrectNetwork(true);
+          setWeb3ChainId(MONAD_TESTNET_CONFIG.chainId);
+          sound.playDisbursementChime();
+          return true;
+        } catch {
+          return false;
+        }
+      }
+      return false;
+    }
+  };
+
+  // Disconnect Web3 Wallet
+  const disconnectWeb3Wallet = () => {
+    setIsWeb3Connected(false);
+    setWeb3Address(null);
+    setAccounts((prev) => prev.filter((a) => a.id !== 'web3-wallet'));
+    setCurrentAccount(INITIAL_ACCOUNTS[0]);
+    sound.playSwitchClick();
+  };
+
   // Re-calculate decayed weights every 3 seconds for live radar updates
   const refreshDecayedWeights = () => {
     setPosts((prevPosts) =>
@@ -350,10 +548,38 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setPosts((prev) => [newPost, ...prev]);
     setCuratorsByPost((prev) => ({ ...prev, [newId]: [] }));
 
+    let txHashToRecord = `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`;
+
+    if (isWeb3Connected && typeof window !== 'undefined' && (window as any).ethereum) {
+      try {
+        setOnchainTxPending(true);
+        const provider = new BrowserProvider((window as any).ethereum);
+        const signer = await provider.getSigner();
+        const contract = new Contract(MONAD_TESTNET_CONFIG.contractAddress, SIGNAL_MARKET_ABI, signer);
+        const postPayload = JSON.stringify({ title, body, tags, linkUrl });
+        const tx = await contract.createPost(postPayload);
+        const receipt = await tx.wait();
+        if (receipt && receipt.hash) {
+          txHashToRecord = receipt.hash;
+        }
+        const updatedBal = await provider.getBalance(activeAccount.address);
+        const monBal = parseFloat(formatEther(updatedBal));
+        setCurrentAccount((prev) => ({ ...prev, balanceMon: Math.round(monBal * 1000) / 1000 }));
+      } catch (err: any) {
+        console.warn('[Web3 onchain createPost]:', err);
+        if (err?.code === 4001 || err?.code === 'ACTION_REJECTED') {
+          sound.playWarningBuzz();
+          throw new Error('Transaction was rejected in your wallet.');
+        }
+      } finally {
+        setOnchainTxPending(false);
+      }
+    }
+
     // Emit Audit entry
     const newLog: AuditEntry = {
       id: `tx-create-${Date.now()}`,
-      txHash: `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`,
+      txHash: txHashToRecord,
       timestamp: now,
       postId: newId,
       postTitle: title,
@@ -366,7 +592,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       status: 'OK',
       boostNumber: 0,
       multiplierPercent: 100,
-      note: 'Post registered on Monad testnet'
+      note: isWeb3Connected ? 'Post confirmed onchain via Monad Testnet' : 'Post registered on Monad testnet'
     };
 
     setAuditLogs((prev) => [newLog, ...prev]);
@@ -519,7 +745,36 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setPosts((prev) => prev.map((p) => (p.id === postId ? updatedPost : p)));
 
     // Emit Audit entries
-    const txHashBase = `0x${Math.random().toString(16).slice(2, 8)}...${Math.random().toString(16).slice(2, 6)}`;
+    let txHashBase = `0x${Math.random().toString(16).slice(2, 8)}...${Math.random().toString(16).slice(2, 6)}`;
+
+    if (isWeb3Connected && typeof window !== 'undefined' && (window as any).ethereum) {
+      try {
+        setOnchainTxPending(true);
+        const provider = new BrowserProvider((window as any).ethereum);
+        const signer = await provider.getSigner();
+        const contract = new Contract(MONAD_TESTNET_CONFIG.contractAddress, SIGNAL_MARKET_ABI, signer);
+        const tx = await contract.boost(postId, { value: parseEther(amountMon.toString()) });
+        const receipt = await tx.wait();
+        if (receipt && receipt.hash) {
+          txHashBase = receipt.hash;
+        }
+        const updatedBal = await provider.getBalance(activeAccount.address);
+        const monBal = parseFloat(formatEther(updatedBal));
+        setCurrentAccount((prev) => ({ ...prev, balanceMon: Math.round(monBal * 1000) / 1000 }));
+      } catch (err: any) {
+        console.warn('[Web3 onchain boost]:', err);
+        if (err?.code === 4001 || err?.code === 'ACTION_REJECTED') {
+          sound.playWarningBuzz();
+          throw new Error('Transaction was rejected in your wallet.');
+        }
+        if (err?.message?.includes('Self-boosting prohibited')) {
+          sound.playWarningBuzz();
+          throw new Error('Signal: Self-boosting is strictly prohibited by onchain contract logic');
+        }
+      } finally {
+        setOnchainTxPending(false);
+      }
+    }
 
     const newLogs: AuditEntry[] = [
       {
@@ -631,7 +886,16 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         getCuratorsForPost,
         isPasskeyModalOpen,
         setIsPasskeyModalOpen,
-        refreshDecayedWeights
+        refreshDecayedWeights,
+        isWeb3Connected,
+        web3Address,
+        web3ChainId,
+        isCorrectNetwork,
+        isConnectingWeb3,
+        onchainTxPending,
+        connectWeb3Wallet,
+        disconnectWeb3Wallet,
+        switchToMonadTestnet
       }}
     >
       {children}

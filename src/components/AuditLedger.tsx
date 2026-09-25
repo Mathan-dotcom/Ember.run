@@ -7,7 +7,7 @@ export const AuditLedger: React.FC = () => {
   const { auditLogs } = useWallet();
 
   return (
-    <section className="sk-panel" style={{ padding: '0', overflow: 'hidden', marginBottom: '32px' }}>
+    <section className="sk-panel scroll-fade-card" style={{ padding: '0', overflow: 'hidden', marginBottom: '32px' }}>
       {/* Dark Bar Header */}
       <div
         style={{
@@ -51,7 +51,7 @@ export const AuditLedger: React.FC = () => {
 
       {/* Recessed Well Ticker-Tape Content */}
       <div
-        className="sk-well"
+        className="sk-well scroll-fade-content"
         style={{
           margin: '16px',
           padding: '12px 0',
@@ -59,7 +59,9 @@ export const AuditLedger: React.FC = () => {
           overflowY: 'auto',
           borderRadius: '0px',
           border: '1.5px solid #ffffff',
-          boxShadow: '3px 3px 0px #ffffff'
+          boxShadow: '3px 3px 0px #ffffff',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%)'
         }}
       >
         {auditLogs.length === 0 ? (

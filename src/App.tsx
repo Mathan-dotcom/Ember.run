@@ -10,16 +10,25 @@ import { CuratorLeaderboard } from './components/CuratorLeaderboard';
 import { AntiGamingTelemetry } from './components/AntiGamingTelemetry';
 import { PasskeyAuthModal } from './components/PasskeyAuthModal';
 import { DemoSequenceModal } from './components/DemoSequenceModal';
+import { CuratorProfileModal } from './components/CuratorProfileModal';
+import { PostDetailModal } from './components/PostDetailModal';
 import { DynamicLiveWallpaper } from './components/DynamicLiveWallpaper';
 import { Post } from './types/signal';
 import { formatMon } from './utils/decay';
 import { Radio, Activity, Cpu, Layers, Award } from 'lucide-react';
+import { useScrollFade } from './hooks/useScrollFade';
 
 const MissionControlContent: React.FC = () => {
   const { posts, auditLogs, isPasskeyModalOpen, setIsPasskeyModalOpen } = useWallet();
   const [activeView, setActiveView] = useState<'landing' | 'console'>('landing');
   const [activeBoostPost, setActiveBoostPost] = useState<Post | null>(null);
+  const [activeDetailPost, setActiveDetailPost] = useState<Post | null>(null);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState<boolean>(false);
+  const [activeProfileAddress, setActiveProfileAddress] = useState<string | null>(null);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
+
+  // Activate dynamic scroll fade in and fade out engine for all cards
+  useScrollFade(activeView);
 
   // Compute aggregate metrics
   const totalVolume = posts.reduce((sum, p) => sum + p.totalBoosted, 0);
@@ -43,6 +52,23 @@ const MissionControlContent: React.FC = () => {
         />
       </div>
 
+      {/* Mission Control Top Frosted Edge Fade Overlay */}
+      {activeView === 'console' && (
+        <div
+          style={{
+            position: 'sticky',
+            top: '64px',
+            left: 0,
+            right: 0,
+            height: '24px',
+            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0) 100%)',
+            pointerEvents: 'none',
+            zIndex: 45,
+            marginBottom: '-24px'
+          }}
+        />
+      )}
+
       {/* Main Container */}
       <main style={{ maxWidth: '1360px', width: '100%', margin: '0 auto', padding: '24px 20px', flex: 1, position: 'relative', zIndex: 1 }}>
         {activeView === 'landing' ? (
@@ -54,7 +80,7 @@ const MissionControlContent: React.FC = () => {
         ) : (
           <>
             {/* Physical Instrument Telemetry Ribbon */}
-            <section className="sk-panel telemetry-ribbon" style={{ border: '1.5px solid #ffffff', borderRadius: '0px', boxShadow: '4px 4px 0px #ffffff', marginBottom: '24px' }}>
+            <section className="sk-panel telemetry-ribbon scroll-fade-card" style={{ border: '1.5px solid #ffffff', borderRadius: '0px', boxShadow: '4px 4px 0px #ffffff', marginBottom: '24px' }}>
           {/* Rivets in corners */}
           <div style={{ position: 'absolute', top: '8px', left: '8px' }} className="sk-rivet" />
           <div style={{ position: 'absolute', top: '8px', right: '8px' }} className="sk-rivet" />
@@ -154,13 +180,21 @@ const MissionControlContent: React.FC = () => {
           {/* Left Column: Post Composer & Live Decay Feed */}
           <div style={{ minWidth: 0 }}>
             <PostComposer />
-            <FeedRadar onOpenBoost={(post) => setActiveBoostPost(post)} />
+            <FeedRadar
+              onOpenBoost={(post) => setActiveBoostPost(post)}
+              onInspectPost={(post) => setActiveDetailPost(post)}
+            />
           </div>
 
           {/* Right Column: Audit Ledger, Leaderboard, & Telemetry */}
           <div style={{ minWidth: 0 }}>
             <AuditLedger />
-            <CuratorLeaderboard />
+            <CuratorLeaderboard
+              onOpenProfile={(address) => {
+                setActiveProfileAddress(address);
+                setIsProfileModalOpen(true);
+              }}
+            />
             <AntiGamingTelemetry />
           </div>
         </div>
@@ -213,6 +247,19 @@ const MissionControlContent: React.FC = () => {
       <DemoSequenceModal
         isOpen={isDemoModalOpen}
         onClose={() => setIsDemoModalOpen(false)}
+      />
+
+      <CuratorProfileModal
+        address={activeProfileAddress}
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+      />
+
+      <PostDetailModal
+        post={activeDetailPost}
+        isOpen={!!activeDetailPost}
+        onClose={() => setActiveDetailPost(null)}
+        onOpenBoost={(post) => setActiveBoostPost(post)}
       />
     </div>
   );

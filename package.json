@@ -12,7 +12,9 @@
     "indexer:codegen": "cd indexer && envio codegen",
     "indexer:dev": "cd indexer && envio dev",
     "test": "hardhat test",
-    "test:contracts": "hardhat test"
+    "test:contracts": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js",
+    "deploy:monad": "hardhat run scripts/deploy.js --network monadTestnet"
   },
   "repository": {
     "type": "git",

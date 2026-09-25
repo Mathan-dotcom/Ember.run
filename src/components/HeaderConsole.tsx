@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { formatAddress, formatMon } from '../utils/decay';
 import { sound } from '../utils/sound';
-import { Fingerprint, Coins, Play, ChevronDown, Flame, Zap, Server } from 'lucide-react';
+import { Fingerprint, Coins, Play, ChevronDown, Flame, Zap, Server, Wallet, AlertTriangle, LogOut, Database } from 'lucide-react';
 import { backendApi, BackendHealth } from '../services/api';
+import { indexerService } from '../services/indexer';
 
 interface HeaderConsoleProps {
   activeView: 'landing' | 'console';
@@ -18,17 +19,35 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
   onOpenDemo,
   onOpenPasskeyModal
 }) => {
-  const { currentAccount, accounts, switchAccount, requestFaucet } = useWallet();
+  const {
+    currentAccount,
+    accounts,
+    switchAccount,
+    requestFaucet,
+    isWeb3Connected,
+    isCorrectNetwork,
+    isConnectingWeb3,
+    connectWeb3Wallet,
+    disconnectWeb3Wallet,
+    switchToMonadTestnet
+  } = useWallet();
   const [backendHealth, setBackendHealth] = useState<BackendHealth | null>(null);
+  const [indexerOnline, setIndexerOnline] = useState<boolean>(false);
 
   useEffect(() => {
     let mounted = true;
     backendApi.checkHealth().then((health) => {
       if (mounted) setBackendHealth(health);
     });
+    indexerService.checkStatus().then((online) => {
+      if (mounted) setIndexerOnline(online);
+    });
     const interval = setInterval(() => {
       backendApi.checkHealth().then((health) => {
         if (mounted) setBackendHealth(health);
+      });
+      indexerService.checkStatus().then((online) => {
+        if (mounted) setIndexerOnline(online);
       });
     }, 15000);
     return () => {
@@ -165,6 +184,36 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               {backendHealth ? 'API : ACTIVE' : 'API : STANDBY'}
             </span>
           </div>
+
+          {/* Envio HyperIndex Status Badge */}
+          <div
+            className="sk-badge sk-badge--inverted"
+            title={indexerOnline ? 'Envio HyperIndex Online (GraphQL Sub-second stream)' : 'Envio HyperIndex Standby (RPC Fallback Active)'}
+            style={{
+              fontSize: '0.70rem',
+              padding: '5px 10px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              borderRadius: '0px',
+              border: '1.5px solid #ffffff',
+              boxShadow: '2px 2px 0px #ffffff'
+            }}
+          >
+            <Database size={11} color="#000000" />
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '0px',
+                background: indexerOnline ? '#000000' : '#666',
+                boxShadow: indexerOnline ? '0 0 4px #000000' : 'none'
+              }}
+            />
+            <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', color: '#000000', fontWeight: 700 }}>
+              {indexerOnline ? 'ENVIO : LIVE' : 'ENVIO : RPC'}
+            </span>
+          </div>
         </div>
 
         {/* Navigation Tabs: Overview vs Mission Control */}
@@ -251,6 +300,86 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             <Coins size={13} color="#ffffff" />
             <span>+5.0 MON FAUCET</span>
           </button>
+
+          {/* Web3 Live Monad Wallet Button */}
+          {!isWeb3Connected ? (
+            <button
+              onClick={() => connectWeb3Wallet()}
+              disabled={isConnectingWeb3}
+              className="sk-button"
+              title="Connect MetaMask, Rabby, or EVM Browser Wallet"
+              style={{
+                padding: '6px 12px',
+                fontSize: '0.76rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: '#ffffff',
+                color: '#000000',
+                border: '1.5px solid #ffffff',
+                boxShadow: '2px 2px 0px #ffffff',
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+            >
+              <Wallet size={13} color="#000000" />
+              <span>{isConnectingWeb3 ? 'CONNECTING...' : 'CONNECT WEB3'}</span>
+            </button>
+          ) : !isCorrectNetwork ? (
+            <button
+              onClick={() => switchToMonadTestnet()}
+              className="sk-button"
+              title="Switch chain to Monad Testnet (10143)"
+              style={{
+                padding: '6px 12px',
+                fontSize: '0.74rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: '#000000',
+                color: '#ff5555',
+                border: '1.5px solid #ff5555',
+                boxShadow: '2px 2px 0px #ff5555',
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+            >
+              <AlertTriangle size={13} color="#ff5555" />
+              <span>SWITCH TO MONAD (10143)</span>
+            </button>
+          ) : (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: '#000000',
+                border: '1.5px solid #ffffff',
+                boxShadow: '2px 2px 0px #ffffff',
+                padding: '4px 8px'
+              }}
+            >
+              <span className="sk-lamp sk-lamp-green" />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#ffffff', fontWeight: 700 }}>
+                WEB3 LIVE
+              </span>
+              <button
+                onClick={() => disconnectWeb3Wallet()}
+                title="Disconnect Web3 wallet"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--ink-soft)',
+                  cursor: 'pointer',
+                  padding: '2px 4px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <LogOut size={12} color="#ffffff" />
+              </button>
+            </div>
+          )}
 
           {/* Passkey Identity Capsule */}
           <div

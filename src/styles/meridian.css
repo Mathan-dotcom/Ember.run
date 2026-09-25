@@ -510,7 +510,7 @@ p, .text-body, .card-description, article p {
 }
 
 .fade-in-card {
-  animation: cardFadeInUp 0.28s ease-out both;
+  animation: cardFadeInUp 0.28s ease-out;
 }
 
 .fade-in-text {
@@ -527,6 +527,77 @@ p, .text-body, .card-description, article p {
 
 .modal-box-fade {
   animation: modalContentPopIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* -------------------------------------------------------------------------
+   Scroll Fade In & Fade Out Engine (Top & Bottom Edge Feathering)
+   ------------------------------------------------------------------------- */
+.scroll-fade-container {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-fade-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  transition: mask-image 0.2s ease, -webkit-mask-image 0.2s ease;
+}
+
+/* Top & Bottom Ambient Edge Glow Overlays */
+.scroll-fade-edge-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: linear-gradient(to bottom, rgba(13, 13, 13, 0.96) 0%, rgba(13, 13, 13, 0) 100%);
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.22s ease-out;
+}
+
+.scroll-fade-edge-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: linear-gradient(to top, rgba(13, 13, 13, 0.98) 0%, rgba(13, 13, 13, 0) 100%);
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.22s ease-out;
+}
+
+/* Scroll Direction Indicator & Micro Scroll Pill */
+.scroll-direction-indicator {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  padding: 2px 6px;
+  font-family: var(--font-mono);
+  font-size: 0.60rem;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  box-shadow: 1px 1px 0px #ffffff;
+  pointer-events: none;
+  z-index: 12;
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+}
+
+.scroll-item-fade {
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Global Card Scroll Fade In & Fade Out Engine */
+.scroll-fade-card {
+  transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1), transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 /* -------------------------------------------------------------------------

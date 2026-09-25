@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { sound } from '../utils/sound';
 import { formatAddress } from '../utils/decay';
-import { Send, Tag, Link2, ShieldAlert } from 'lucide-react';
+import { Send, Tag, Link2, ShieldAlert, FileText, Save, Trash2, Check } from 'lucide-react';
+import { backendApi, PostDraftData } from '../services/api';
 
 export const PostComposer: React.FC = () => {
   const { currentAccount, createPost } = useWallet();
@@ -12,8 +13,20 @@ export const PostComposer: React.FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>(['monad', 'curation']);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [drafts, setDrafts] = useState<PostDraftData[]>([]);
+  const [showDrafts, setShowDrafts] = useState(false);
+  const [currentDraftId, setCurrentDraftId] = useState<string | null>(null);
+  const [isSavingDraft, setIsSavingDraft] = useState(false);
+  const [draftSavedNotice, setDraftSavedNotice] = useState(false);
 
   const AVAILABLE_TAGS = ['monad', 'curation', 'parallel-evm', 'alpha', 'defi', 'infra', 'passkey'];
+
+  // Load drafts for active account
+  useEffect(() => {
+    backendApi.getDrafts(currentAccount.address).then((loaded) => {
+      setDrafts(loaded || []);
+    });
+  }, [currentAccount.address]);
 
   const toggleTag = (tag: string) => {
     sound.playDialTick();
@@ -22,6 +35,51 @@ export const PostComposer: React.FC = () => {
     } else {
       setSelectedTags([...selectedTags, tag]);
     }
+  };
+
+  const handleSaveDraft = async () => {
+    if (!title.trim() && !body.trim()) return;
+    setIsSavingDraft(true);
+    sound.playSwitchClick();
+    try {
+      const saved = await backendApi.saveDraft({
+        authorAddress: currentAccount.address,
+        title: title.trim() || 'Untitled Draft',
+        body: body.trim() || '',
+        tags: selectedTags,
+        linkUrl: linkUrl.trim() || undefined
+      });
+      if (saved) {
+        setCurrentDraftId(saved.id);
+        const updated = await backendApi.getDrafts(currentAccount.address);
+        setDrafts(updated || []);
+        setDraftSavedNotice(true);
+        setTimeout(() => setDraftSavedNotice(false), 2500);
+      }
+    } finally {
+      setIsSavingDraft(false);
+    }
+  };
+
+  const handleRestoreDraft = (draft: PostDraftData) => {
+    sound.playSwitchClick();
+    setTitle(draft.title);
+    setBody(draft.body);
+    setLinkUrl(draft.linkUrl || '');
+    if (draft.tags && draft.tags.length > 0) {
+      setSelectedTags(draft.tags);
+    }
+    setCurrentDraftId(draft.id);
+    setIsExpanded(true);
+    setShowDrafts(false);
+  };
+
+  const handleDeleteDraft = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    sound.playDialTick();
+    await backendApi.deleteDraft(id);
+    setDrafts((prev) => prev.filter((d) => d.id !== id));
+    if (currentDraftId === id) setCurrentDraftId(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,6 +91,11 @@ export const PostComposer: React.FC = () => {
 
     try {
       await createPost(title.trim(), body.trim(), selectedTags, linkUrl.trim() || undefined);
+      if (currentDraftId) {
+        await backendApi.deleteDraft(currentDraftId);
+        setDrafts((prev) => prev.filter((d) => d.id !== currentDraftId));
+        setCurrentDraftId(null);
+      }
       setTitle('');
       setBody('');
       setLinkUrl('');
@@ -43,7 +106,7 @@ export const PostComposer: React.FC = () => {
   };
 
   return (
-    <section className="sk-panel" style={{ padding: '24px', marginBottom: '28px' }}>
+    <section className="sk-panel scroll-fade-card" style={{ padding: '24px', marginBottom: '28px' }}>
       {/* Console Header */}
       <div
         style={{
@@ -61,6 +124,27 @@ export const PostComposer: React.FC = () => {
           <span className="sk-badge" style={{ fontSize: '0.68rem' }}>
             ONCHAIN REGISTRY
           </span>
+          {drafts.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setShowDrafts(!showDrafts)}
+              className="sk-badge"
+              style={{
+                cursor: 'pointer',
+                background: showDrafts ? '#ffffff' : '#000000',
+                color: showDrafts ? '#000000' : '#ffffff',
+                border: '1.5px solid #ffffff',
+                boxShadow: '1px 1px 0px #ffffff',
+                fontSize: '0.68rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}
+            >
+              <FileText size={11} />
+              <span>DRAFTS ({drafts.length})</span>
+            </button>
+          )}
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -72,6 +156,74 @@ export const PostComposer: React.FC = () => {
           </span>
         </div>
       </div>
+
+      {/* Offchain Drafts Drawer */}
+      {showDrafts && drafts.length > 0 && (
+        <div
+          style={{
+            background: '#0d0d0d',
+            border: '1.5px solid #ffffff',
+            boxShadow: '3px 3px 0px #ffffff',
+            padding: '12px',
+            marginBottom: '16px'
+          }}
+        >
+          <div
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.70rem',
+              color: 'var(--ink-soft)',
+              marginBottom: '8px',
+              textTransform: 'uppercase'
+            }}
+          >
+            Saved Offchain Drafts ({drafts.length}):
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            {drafts.map((d) => (
+              <div
+                key={d.id}
+                onClick={() => handleRestoreDraft(d)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  background: '#161616',
+                  padding: '8px 12px',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  cursor: 'pointer',
+                  transition: 'background 0.15s ease'
+                }}
+              >
+                <div>
+                  <div style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 600, color: '#ffffff' }}>
+                    {d.title}
+                  </div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--ink-soft)' }}>
+                    {d.tags?.map((t) => `#${t}`).join(' ')} // {new Date(d.createdAt).toLocaleDateString()}
+                  </div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={(e) => handleDeleteDraft(d.id, e)}
+                    title="Delete Draft"
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--ink-soft)',
+                      cursor: 'pointer',
+                      padding: '4px'
+                    }}
+                  >
+                    <Trash2 size={13} color="#ff5555" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit}>
         {/* Title Recessed Input */}
@@ -195,15 +347,36 @@ export const PostComposer: React.FC = () => {
             <span>Anti-Gaming: Posters cannot boost their own content. 40% of future boosts go to you.</span>
           </div>
 
-          <button
-            type="submit"
-            className="sk-button-primary"
-            disabled={!title.trim() || !body.trim() || isSubmitting}
-            style={{ padding: '8px 20px', fontSize: '0.85rem' }}
-          >
-            <Send size={14} />
-            <span>{isSubmitting ? 'DISPATCHING...' : 'DISPATCH EMBER'}</span>
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <button
+              type="button"
+              onClick={handleSaveDraft}
+              disabled={(!title.trim() && !body.trim()) || isSavingDraft}
+              className="sk-button"
+              title="Save draft to offchain cache"
+              style={{
+                padding: '8px 14px',
+                fontSize: '0.80rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                cursor: 'pointer'
+              }}
+            >
+              {draftSavedNotice ? <Check size={13} color="#34c76f" /> : <Save size={13} color="#ffffff" />}
+              <span>{isSavingDraft ? 'SAVING...' : draftSavedNotice ? 'SAVED' : 'SAVE DRAFT'}</span>
+            </button>
+
+            <button
+              type="submit"
+              className="sk-button-primary"
+              disabled={!title.trim() || !body.trim() || isSubmitting}
+              style={{ padding: '8px 20px', fontSize: '0.85rem' }}
+            >
+              <Send size={14} />
+              <span>{isSubmitting ? 'DISPATCHING...' : 'DISPATCH EMBER'}</span>
+            </button>
+          </div>
         </div>
       </form>
     </section>

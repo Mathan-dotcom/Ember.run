@@ -1,13 +1,18 @@
 import React from 'react';
 import { useWallet } from '../context/WalletContext';
 import { formatAddress, formatMon } from '../utils/decay';
-import { Sparkles, CheckCircle2 } from 'lucide-react';
+import { Sparkles, CheckCircle2, User } from 'lucide-react';
+import { sound } from '../utils/sound';
 
-export const CuratorLeaderboard: React.FC = () => {
+interface CuratorLeaderboardProps {
+  onOpenProfile?: (address: string) => void;
+}
+
+export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenProfile }) => {
   const { curatorLeaderboard, currentAccount } = useWallet();
 
   return (
-    <section className="sk-panel" style={{ padding: '24px', marginBottom: '32px' }}>
+    <section className="sk-panel scroll-fade-card" style={{ padding: '24px', marginBottom: '32px' }}>
       {/* Header */}
       <div
         style={{
@@ -63,11 +68,17 @@ export const CuratorLeaderboard: React.FC = () => {
               return (
                 <tr
                   key={leader.wallet}
+                  onClick={() => {
+                    sound.playDialTick();
+                    onOpenProfile?.(leader.wallet);
+                  }}
                   className="card-hover"
                   style={{
                     borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                    background: isCurrent ? 'rgba(255, 255, 255, 0.06)' : 'transparent'
+                    background: isCurrent ? 'rgba(255, 255, 255, 0.06)' : 'transparent',
+                    cursor: 'pointer'
                   }}
+                  title="Click to inspect curator dossier"
                 >
                   {/* Rank */}
                   <td style={{ padding: '14px 12px' }}>

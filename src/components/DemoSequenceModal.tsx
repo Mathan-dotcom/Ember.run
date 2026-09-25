@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { sound } from '../utils/sound';
-import { Play, RotateCcw, X, CheckCircle2 } from 'lucide-react';
+import { Play, RotateCcw, X, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface DemoSequenceModalProps {
@@ -15,7 +15,53 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [stepStatus, setStepStatus] = useState<string>('Ready to begin sequence');
 
+  // Scroll state for dynamic fade in & fade out effect
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollUp, setCanScrollUp] = useState<boolean>(false);
+  const [canScrollDown, setCanScrollDown] = useState<boolean>(false);
+  const [scrollDirection, setScrollDirection] = useState<'down' | 'up' | null>(null);
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const lastScrollTopRef = useRef<number>(0);
+  const scrollTimeoutRef = useRef<number | null>(null);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const maxScroll = Math.max(1, scrollHeight - clientHeight);
+    const progress = Math.min(100, Math.max(0, Math.round((scrollTop / maxScroll) * 100)));
+
+    setScrollProgress(progress);
+    setCanScrollUp(scrollTop > 8);
+    setCanScrollDown(scrollTop + clientHeight < scrollHeight - 8);
+
+    const delta = scrollTop - lastScrollTopRef.current;
+    if (Math.abs(delta) > 3) {
+      const dir = delta > 0 ? 'down' : 'up';
+      setScrollDirection(dir);
+
+      if (scrollTimeoutRef.current) {
+        window.clearTimeout(scrollTimeoutRef.current);
+      }
+      scrollTimeoutRef.current = window.setTimeout(() => {
+        setScrollDirection(null);
+      }, 700);
+    }
+    lastScrollTopRef.current = scrollTop;
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const timer = setTimeout(updateScrollState, 80);
+    return () => clearTimeout(timer);
+  }, [isOpen, currentStep, updateScrollState]);
+
   if (!isOpen) return null;
+
+  const maskTopSize = canScrollUp ? '36px' : '0px';
+  const maskBottomSize = canScrollDown ? '40px' : '0px';
+  const scrollFadeMask = `linear-gradient(to bottom, transparent 0%, black ${maskTopSize}, black calc(100% - ${maskBottomSize}), transparent 100%)`;
 
   const STEPS = [
     {
@@ -150,9 +196,11 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
         style={{
           width: '100%',
           maxWidth: '680px',
-          padding: '28px',
+          padding: '24px 28px',
           maxHeight: '92vh',
-          overflowY: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
           background: '#0d0d0d',
           border: '2px solid #ffffff',
           borderRadius: '0px',
@@ -255,89 +303,163 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
           </div>
         </div>
 
-        {/* Steps List */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
-          {STEPS.map((step, idx) => {
-            const isActive = currentStep === idx;
-            const isDone = currentStep > idx;
+        {/* Scrollable Container with Dynamic Edge Fade Masks */}
+        <div className="scroll-fade-container" style={{ position: 'relative', flex: 1, minHeight: 0, marginBottom: '14px' }}>
+          {/* Top Edge Feathering Overlay */}
+          <div
+            className="scroll-fade-edge-top"
+            style={{
+              opacity: canScrollUp ? 1 : 0,
+              pointerEvents: 'none'
+            }}
+          />
 
-            return (
-              <div
-                key={step.num}
-                className="sk-panel card-hover"
-                style={{
-                  padding: '16px',
-                  borderRadius: '0px',
-                  background: isActive ? '#141414' : '#0a0a0a',
-                  border: '1.5px solid #ffffff',
-                  boxShadow: isActive ? '5px 5px 0px #ffffff' : '3px 3px 0px rgba(255,255,255,0.4)'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px' }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                    <div
-                      style={{
-                        width: '24px',
-                        height: '24px',
-                        borderRadius: '0px',
-                        background: isDone || isActive ? '#ffffff' : '#141414',
-                        color: isDone || isActive ? '#000000' : 'var(--ink-soft)',
-                        border: '1.5px solid #ffffff',
-                        boxShadow: '1px 1px 0px #ffffff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '0.72rem',
-                        fontWeight: 700,
-                        flexShrink: 0
-                      }}
-                    >
-                      {isDone ? <CheckCircle2 size={14} /> : step.num}
-                    </div>
+          {/* Bottom Edge Feathering Overlay */}
+          <div
+            className="scroll-fade-edge-bottom"
+            style={{
+              opacity: canScrollDown ? 1 : 0,
+              pointerEvents: 'none'
+            }}
+          />
 
-                    <div>
+          {/* Micro Scroll Direction HUD */}
+          {scrollDirection && (
+            <div className="scroll-direction-indicator">
+              {scrollDirection === 'down' ? 'SCROLLING DOWN ↓' : 'SCROLLING UP ↑'}
+            </div>
+          )}
+
+          {/* Scrollable Content Body */}
+          <div
+            ref={scrollContainerRef}
+            onScroll={updateScrollState}
+            className="scroll-fade-content"
+            style={{
+              maxHeight: '52vh',
+              overflowY: 'auto',
+              paddingRight: '6px',
+              paddingTop: '6px',
+              paddingBottom: '20px',
+              maskImage: scrollFadeMask,
+              WebkitMaskImage: scrollFadeMask,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px'
+            }}
+          >
+            {STEPS.map((step, idx) => {
+              const isActive = currentStep === idx;
+              const isDone = currentStep > idx;
+
+              return (
+                <div
+                  key={step.num}
+                  id={`demo-step-${idx}`}
+                  className="sk-panel card-hover"
+                  style={{
+                    padding: '16px',
+                    borderRadius: '0px',
+                    background: isActive ? '#141414' : '#0a0a0a',
+                    border: '1.5px solid #ffffff',
+                    boxShadow: isActive ? '5px 5px 0px #ffffff' : '3px 3px 0px rgba(255,255,255,0.4)'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                       <div
                         style={{
-                          fontFamily: 'var(--font-ui)',
+                          width: '24px',
+                          height: '24px',
+                          borderRadius: '0px',
+                          background: isDone || isActive ? '#ffffff' : '#141414',
+                          color: isDone || isActive ? '#000000' : 'var(--ink-soft)',
+                          border: '1.5px solid #ffffff',
+                          boxShadow: '1px 1px 0px #ffffff',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.72rem',
                           fontWeight: 700,
-                          fontSize: '0.88rem',
-                          color: '#ffffff',
-                          marginBottom: '2px'
+                          flexShrink: 0
                         }}
                       >
-                        {step.title}
+                        {isDone ? <CheckCircle2 size={14} /> : step.num}
                       </div>
-                      <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.80rem', color: '#d4d4d8', lineHeight: 1.4 }}>
-                        {step.desc}
-                      </p>
-                    </div>
-                  </div>
 
-                  <button
-                    onClick={() => handleStepAction(idx)}
-                    disabled={isPlaying}
-                    className={isActive ? 'sk-button-primary' : 'sk-button'}
-                    style={{ padding: '6px 12px', fontSize: '0.75rem', whiteSpace: 'nowrap' }}
-                  >
-                    <span>{step.actionLabel}</span>
-                  </button>
+                      <div>
+                        <div
+                          style={{
+                            fontFamily: 'var(--font-ui)',
+                            fontWeight: 700,
+                            fontSize: '0.88rem',
+                            color: '#ffffff',
+                            marginBottom: '2px'
+                          }}
+                        >
+                          {step.title}
+                        </div>
+                        <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.80rem', color: '#d4d4d8', lineHeight: 1.4 }}>
+                          {step.desc}
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => handleStepAction(idx)}
+                      disabled={isPlaying}
+                      className={isActive ? 'sk-button-primary' : 'sk-button'}
+                      style={{ padding: '6px 12px', fontSize: '0.75rem', whiteSpace: 'nowrap' }}
+                    >
+                      <span>{step.actionLabel}</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
-        {/* Footer Note */}
+        {/* Footer Note & Scroll Telemetry */}
         <div
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.70rem',
-            color: 'var(--ink-soft)',
-            textAlign: 'center'
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '12px',
+            borderTop: '1px solid rgba(255, 255, 255, 0.15)',
+            paddingTop: '12px'
           }}
         >
-          Every action executed during this demo updates the onchain balances, audit ledger, and decay ranking live.
+          <div
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.70rem',
+              color: 'var(--ink-soft)'
+            }}
+          >
+            Every action updates onchain balances, audit ledger, and decay ranking live.
+          </div>
+          {(canScrollUp || canScrollDown) && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.66rem',
+                color: '#ffffff',
+                flexShrink: 0,
+                background: '#141414',
+                padding: '2px 8px',
+                border: '1px solid rgba(255, 255, 255, 0.3)'
+              }}
+            >
+              <span>SCROLL {scrollProgress}%</span>
+              {canScrollDown ? <ChevronDown size={11} /> : <ChevronUp size={11} />}
+            </div>
+          )}
         </div>
       </div>
     </div>
