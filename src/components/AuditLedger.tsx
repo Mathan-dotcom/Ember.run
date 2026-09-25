@@ -11,26 +11,26 @@ export const AuditLedger: React.FC = () => {
       {/* Dark Bar Header */}
       <div
         style={{
-          background: '#0a0a0a',
-          color: '#ffffff',
+          background: 'rgba(5, 9, 16, 0.95)',
+          color: 'var(--ink-hard)',
           padding: '14px 20px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.12)'
+          borderBottom: '1px solid rgba(223, 156, 50, 0.25)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span className="sk-index" data-index="03" style={{ color: '#ffffff' }} />
+          <span className="sk-index" data-index="03" style={{ color: '#df9c32' }} />
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Terminal size={16} color="#ffffff" />
+            <Terminal size={16} color="#df9c32" />
             <h2
               style={{
                 fontFamily: 'var(--font-ui)',
                 fontSize: '0.95rem',
                 fontWeight: 600,
                 letterSpacing: '0.02em',
-                color: '#ffffff'
+                color: '#fdfaf2'
               }}
             >
               IMMUTABLE TERMINAL AUDIT LEDGER
@@ -41,10 +41,10 @@ export const AuditLedger: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div
             className="sk-badge sk-badge--inverted"
-            style={{ fontSize: '0.68rem', padding: '3px 8px', borderRadius: '0px', border: '1.5px solid #ffffff', boxShadow: '2px 2px 0px #ffffff' }}
+            style={{ fontSize: '0.68rem', padding: '3px 8px', borderRadius: '0px', border: '1.5px solid #fdfaf2', boxShadow: '2px 2px 0px #df9c32' }}
           >
             <span className="sk-lamp sk-lamp-green" />
-            <span style={{ fontFamily: 'var(--font-mono)', color: '#000000', fontWeight: 700 }}>STREAM: MONAD TESTNET</span>
+            <span style={{ fontFamily: 'var(--font-mono)', color: '#050910', fontWeight: 700 }}>STREAM: MONAD TESTNET</span>
           </div>
         </div>
       </div>
@@ -58,8 +58,9 @@ export const AuditLedger: React.FC = () => {
           maxHeight: '340px',
           overflowY: 'auto',
           borderRadius: '0px',
-          border: '1.5px solid #ffffff',
-          boxShadow: '3px 3px 0px #ffffff',
+          border: '1.5px solid #df9c32',
+          boxShadow: '3px 3px 0px #df9c32',
+          background: 'rgba(5, 9, 16, 0.92)',
           maskImage: 'linear-gradient(to bottom, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%)'
         }}

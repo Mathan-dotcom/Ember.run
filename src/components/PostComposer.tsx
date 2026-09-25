@@ -131,10 +131,10 @@ export const PostComposer: React.FC = () => {
               className="sk-badge"
               style={{
                 cursor: 'pointer',
-                background: showDrafts ? '#ffffff' : '#000000',
-                color: showDrafts ? '#000000' : '#ffffff',
-                border: '1.5px solid #ffffff',
-                boxShadow: '1px 1px 0px #ffffff',
+                background: showDrafts ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : '#070e1b',
+                color: showDrafts ? '#030712' : '#f8fafc',
+                border: '1.5px solid #38bdf8',
+                boxShadow: '1px 1px 0px #38bdf8',
                 fontSize: '0.68rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -161,9 +161,9 @@ export const PostComposer: React.FC = () => {
       {showDrafts && drafts.length > 0 && (
         <div
           style={{
-            background: '#0d0d0d',
-            border: '1.5px solid #ffffff',
-            boxShadow: '3px 3px 0px #ffffff',
+            background: 'rgba(7, 14, 28, 0.95)',
+            border: '1.5px solid #38bdf8',
+            boxShadow: '3px 3px 0px #38bdf8',
             padding: '12px',
             marginBottom: '16px'
           }}
@@ -188,15 +188,15 @@ export const PostComposer: React.FC = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  background: '#161616',
+                  background: '#050910',
                   padding: '8px 12px',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  border: '1px solid rgba(223, 156, 50, 0.25)',
                   cursor: 'pointer',
                   transition: 'background 0.15s ease'
                 }}
               >
                 <div>
-                  <div style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 600, color: '#ffffff' }}>
+                  <div style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 600, color: '#fdfaf2' }}>
                     {d.title}
                   </div>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--ink-soft)' }}>
@@ -305,10 +305,10 @@ export const PostComposer: React.FC = () => {
                         fontSize: '0.70rem',
                         transition: 'all 0.15s ease',
                         borderRadius: '0px',
-                        border: '1.5px solid #ffffff',
-                        boxShadow: isSelected ? '2px 2px 0px #ffffff' : '1px 1px 0px rgba(255,255,255,0.3)',
-                        background: isSelected ? '#ffffff' : '#000000',
-                        color: isSelected ? '#000000' : '#ffffff'
+                        border: '1.5px solid #38bdf8',
+                        boxShadow: isSelected ? '2px 2px 0px #f8fafc' : '1px 1px 0px rgba(56, 189, 248, 0.3)',
+                        background: isSelected ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : '#070e1b',
+                        color: isSelected ? '#030712' : '#f8fafc'
                       }}
                     >
                       <span>#{tag}</span>
@@ -328,7 +328,7 @@ export const PostComposer: React.FC = () => {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '12px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+            borderTop: '1px solid rgba(223, 156, 50, 0.25)',
             paddingTop: '12px'
           }}
         >
@@ -343,7 +343,7 @@ export const PostComposer: React.FC = () => {
               color: 'var(--ink-soft)'
             }}
           >
-            <ShieldAlert size={14} color="#ffffff" />
+            <ShieldAlert size={14} color="#f59e0b" />
             <span>Anti-Gaming: Posters cannot boost their own content. 40% of future boosts go to you.</span>
           </div>
 

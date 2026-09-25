@@ -1,57 +1,66 @@
 /* =========================================================================
-   Partial Neo-Brutalism Design System (Monochrome White & Black)
+   Neo-Brutalism Ember Design System (Cosmic Starlight & Deep Space Obsidian)
    Brand: Ember.run — Time-Decaying Curation Market on Monad Metropolis
+   Palette Aligned Directly with mixkit-stars-in-space-background-1610-4k.mp4
    Theme: [data-theme="brutalist"] / [data-theme="minimalist"] / [data-theme="meridian"]
    ========================================================================= */
 
 :root, [data-theme="meridian"], [data-theme="cyberglass"], [data-theme="minimalist"], [data-theme="brutalist"] {
-  /* Substrates — Stark Black Surfaces */
-  --panel-alu: #000000;
-  --panel-alu-shadow: #0a0a0a;
-  --panel-walnut: #000000;
-  --panel-walnut-surface: #0c0c0c;
+  /* Substrates — Deep Cosmic Space Obsidian Surfaces from stars-bg video */
+  --panel-alu: #030712;
+  --panel-alu-shadow: #020408;
+  --panel-walnut: #070e1c;
+  --panel-walnut-surface: #0a1324;
 
-  /* Brutalist Card Surfaces */
-  --glass-surface: #0a0a0a;
-  --glass-surface-elevated: #111111;
-  --glass-surface-subtle: #161616;
-  --glass-border: #ffffff;
-  --glass-border-hover: #ffffff;
-  --glass-border-cyan: #ffffff;
+  /* Cosmic Space Video Color Palette Surfaces */
+  --glass-surface: rgba(7, 14, 28, 0.88);
+  --glass-surface-elevated: rgba(11, 21, 40, 0.92);
+  --glass-surface-subtle: rgba(15, 27, 50, 0.85);
+
+  /* Celestial Starlight Accents & Borders */
+  --ember-gold: #7dd3fc;                      /* Brilliant starlight sky blue */
+  --ember-accent: #38bdf8;                    /* Electric celestial starlight cyan */
+  --ember-bronze: #2563eb;                    /* Deep space cosmic sapphire */
+  --ember-dark: #0f172a;                      /* Space midnight slate */
+
+  --glass-border: #38bdf8;
+  --glass-border-hover: #7dd3fc;
+  --glass-border-subtle: rgba(56, 189, 248, 0.35);
+  --glass-border-cyan: #38bdf8;
 
   /* Typography & Ink Contrast */
-  --ink-hard: #ffffff;                      /* Crisp pure white */
-  --ink-soft: #a1a1aa;                      /* Silver secondary */
-  --ink-muted: #71717a;                     /* Charcoal */
-  --bevel-light: #ffffff;
-  --bevel-dark: #000000;
+  --ink-hard: #f8fafc;                        /* Radiant diamond starlight white */
+  --ink-soft: #cbd5e1;                        /* Silvery stardust slate */
+  --ink-muted: #64748b;                       /* Deep interstellar dust */
+  --bevel-light: #38bdf8;
+  --bevel-dark: #030712;
 
-  /* Hard Brutalist Geometric Shadows */
-  --brutal-shadow: 4px 4px 0px #ffffff;
-  --brutal-shadow-hover: 7px 7px 0px #ffffff;
-  --brutal-shadow-active: 1px 1px 0px #ffffff;
-  --brutal-shadow-subtle: 3px 3px 0px rgba(255, 255, 255, 0.45);
+  /* Hard Neo-Brutalist Geometric Shadows Aligned with Starlight Cyan */
+  --brutal-shadow: 4px 4px 0px #38bdf8;
+  --brutal-shadow-hover: 7px 7px 0px #7dd3fc;
+  --brutal-shadow-active: 1px 1px 0px #38bdf8;
+  --brutal-shadow-subtle: 3px 3px 0px rgba(56, 189, 248, 0.45);
   --sk-shadow: rgba(0, 0, 0, 0.95);
   --sk-shadow-tight: rgba(0, 0, 0, 0.85);
 
   /* Semantic State Colors */
-  --recovered: #000000;
-  --recovered-accent: #ffffff;
-  --recovered-mark: #ffffff;
+  --recovered: #030712;
+  --recovered-accent: #34d399;
+  --recovered-mark: #34d399;
 
-  --at-risk: #000000;
-  --at-risk-accent: #ffffff;
+  --at-risk: #030712;
+  --at-risk-accent: #f59e0b;
 
-  --critical: #000000;
-  --critical-accent: #ffffff;
+  --critical: #030712;
+  --critical-accent: #ef4444;
 
-  --signal: #000000;
-  --signal-accent: #ffffff;
-  --cyan-accent: #ffffff;
+  --signal: #030712;
+  --signal-accent: #38bdf8;
+  --cyan-accent: #38bdf8;
 
   /* Financial Ledgers */
-  --ledger: #ffffff;
-  --ledger-muted: #71717a;
+  --ledger: #f8fafc;
+  --ledger-muted: #64748b;
 
   /* Typography */
   --font-display: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -74,7 +83,7 @@
 }
 
 body {
-  background-color: #000000;
+  background-color: #030712;
   color: var(--ink-hard);
   font-family: var(--font-ui);
   font-size: 0.9375rem;
@@ -87,15 +96,15 @@ body {
 
 /* Brutalist Architectural Grid Texture */
 .sk-brushed-texture {
-  background-color: #000000;
+  background-color: #030712;
   background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 /* -------------------------------------------------------------------------
-   Typography Scale with High-Contrast Brutalist Boldness
+   Typography Scale with High-Contrast Brutalist Boldness & Starlight Tint
    ------------------------------------------------------------------------- */
 .text-display-xl {
   font-family: var(--font-display);
@@ -103,7 +112,7 @@ body {
   line-height: 0.98;
   font-weight: 900;
   letter-spacing: -0.04em;
-  color: #ffffff;
+  color: var(--ink-hard);
   text-transform: uppercase;
 }
 
@@ -113,7 +122,7 @@ body {
   line-height: 1.05;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: #ffffff;
+  color: var(--ink-hard);
 }
 
 .text-display-sm {
@@ -121,7 +130,7 @@ body {
   font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--ink-hard);
 }
 
 .text-heading {
@@ -130,7 +139,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--ember-gold);
 }
 
 .text-subheading {
@@ -145,7 +154,7 @@ body {
 .text-body {
   font-family: var(--font-ui);
   font-size: 0.9375rem;
-  color: #d4d4d8;
+  color: var(--ink-soft);
   line-height: 1.65;
   text-align: justify;
   text-justify: inter-word;
@@ -170,6 +179,7 @@ p, .text-body, .card-description, article p {
   font-size: 0.875rem;
   font-weight: 800;
   letter-spacing: 0.03em;
+  color: var(--ember-gold);
 }
 
 .text-micro {
@@ -183,15 +193,17 @@ p, .text-body, .card-description, article p {
 }
 
 /* -------------------------------------------------------------------------
-   Brutalist Solid Surfaces & Hard Drop Shadows
+   Brutalist Solid Surfaces & Hard Drop Shadows Aligned with Video Palette
    ------------------------------------------------------------------------- */
 
 /* Primary Brutalist Card */
 .sk-panel {
-  background: #0a0a0a;
-  border: 1.5px solid #ffffff;
+  background: rgba(7, 14, 28, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid var(--glass-border);
   border-radius: var(--radius-pulse);
-  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.45);
+  box-shadow: 4px 4px 0px rgba(56, 189, 248, 0.45);
   position: relative;
   transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s ease;
 }
@@ -204,7 +216,7 @@ p, .text-body, .card-description, article p {
   left: -3px;
   width: 6px;
   height: 6px;
-  background: #ffffff;
+  background: var(--ember-gold);
   pointer-events: none;
 }
 
@@ -215,71 +227,75 @@ p, .text-body, .card-description, article p {
   right: -3px;
   width: 6px;
   height: 6px;
-  background: #ffffff;
+  background: var(--ember-gold);
   pointer-events: none;
 }
 
-/* Elevated Brutalist Glass Panel */
+/* Elevated Brutalist Panel */
 .sk-panel-walnut {
-  background: #0d0d0d;
-  border: 1.5px solid #ffffff;
+  background: rgba(11, 21, 40, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid var(--glass-border);
   border-radius: var(--radius-pulse);
-  color: #ffffff;
-  box-shadow: 5px 5px 0px #ffffff;
+  color: var(--ink-hard);
+  box-shadow: 5px 5px 0px #38bdf8;
 }
 
 /* Raised Floating Modal Cockpit */
 .sk-panel-raised {
-  background: #050505;
-  border: 2px solid #ffffff;
+  background: rgba(5, 10, 20, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid var(--glass-border);
   border-radius: 0px;
-  box-shadow: 8px 8px 0px #ffffff;
+  box-shadow: 8px 8px 0px #38bdf8;
   position: relative;
 }
 
 /* Recessed Well Terminal */
 .sk-well {
-  background: #000000;
-  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: rgba(4, 8, 16, 0.85);
+  border: 1.5px solid rgba(56, 189, 248, 0.3);
   border-radius: 0px;
-  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  box-shadow: 2px 2px 0px rgba(56, 189, 248, 0.25);
+  color: var(--ink-hard);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .sk-well:focus-within {
-  border-color: #ffffff;
-  box-shadow: 4px 4px 0px #ffffff;
+  border-color: var(--ember-gold);
+  box-shadow: 4px 4px 0px #38bdf8;
 }
 
 .sk-well-dark {
-  background: #080808;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(3, 6, 12, 0.92);
+  border: 1.5px solid rgba(56, 189, 248, 0.25);
   border-radius: 0px;
-  color: #ffffff;
+  color: var(--ink-hard);
 }
 
 /* Brutalist Accent Rivet */
 .sk-rivet {
   width: 6px;
   height: 6px;
-  background: #ffffff;
+  background: var(--ember-gold);
   display: inline-block;
 }
 
 .sk-seam-top {
-  border-top: 1.5px solid #ffffff;
+  border-top: 1.5px solid var(--glass-border);
 }
 
 .sk-seam-bottom {
-  border-bottom: 1.5px solid #ffffff;
+  border-bottom: 1.5px solid var(--glass-border);
 }
 
 .sk-index::before {
   content: "[" attr(data-index) "]";
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: #ffffff;
+  color: var(--ember-gold);
   margin-right: 0.65rem;
   font-weight: 800;
 }
@@ -295,35 +311,35 @@ p, .text-body, .card-description, article p {
   justify-content: center;
   gap: 8px;
   padding: 8px 16px;
-  background: #000000;
-  border: 1.5px solid #ffffff;
+  background: #070e1b;
+  border: 1.5px solid var(--glass-border);
   border-radius: 0px;
-  box-shadow: 3px 3px 0px #ffffff;
-  color: #ffffff;
+  box-shadow: 3px 3px 0px #38bdf8;
+  color: var(--ink-hard);
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
   user-select: none;
   text-decoration: none;
 }
 
 .sk-button:hover:not(:disabled) {
-  background: #141414;
-  border-color: #ffffff;
+  background: #0f1d36;
+  border-color: var(--ember-gold);
   color: #ffffff;
-  box-shadow: 5px 5px 0px #ffffff;
+  box-shadow: 5px 5px 0px var(--ember-gold);
   transform: translate(-1px, -1px);
 }
 
 .sk-button:active:not(:disabled) {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #ffffff;
-  background: #ffffff;
-  color: #000000;
+  box-shadow: 1px 1px 0px var(--ember-gold);
+  background: var(--ember-gold);
+  color: #030712;
 }
 
 .sk-button:disabled {
@@ -340,11 +356,11 @@ p, .text-body, .card-description, article p {
   justify-content: center;
   gap: 8px;
   padding: 9px 18px;
-  background: #ffffff;
-  color: #000000;
-  border: 1.5px solid #ffffff;
+  background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+  color: #030712;
+  border: 1.5px solid #f8fafc;
   border-radius: 0px;
-  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.45);
+  box-shadow: 4px 4px 0px #f8fafc;
   font-family: var(--font-mono);
   font-size: 0.82rem;
   font-weight: 800;
@@ -356,16 +372,16 @@ p, .text-body, .card-description, article p {
 }
 
 .sk-button-primary:hover:not(:disabled) {
-  background: #ffffff;
-  color: #000000;
-  box-shadow: 6px 6px 0px #ffffff;
+  background: #bae6fd;
+  color: #030712;
+  box-shadow: 6px 6px 0px #f8fafc;
   transform: translate(-2px, -2px);
 }
 
 .sk-button-primary:active:not(:disabled) {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #ffffff;
-  background: #e4e4e7;
+  box-shadow: 1px 1px 0px #f8fafc;
+  background: #38bdf8;
 }
 
 .sk-button-primary:disabled {
@@ -378,7 +394,7 @@ p, .text-body, .card-description, article p {
 .sk-button:focus-visible,
 .sk-button-primary:focus-visible,
 .card-hover:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--ember-gold);
   outline-offset: 2px;
 }
 
@@ -395,14 +411,14 @@ p, .text-body, .card-description, article p {
 
 .card-hover:hover {
   transform: translate(-2px, -2px);
-  border-color: #ffffff;
-  box-shadow: 7px 7px 0px #ffffff;
+  border-color: var(--ember-gold);
+  box-shadow: 7px 7px 0px var(--ember-gold);
   z-index: 10;
 }
 
 .card-hover:active {
   transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0px #ffffff;
+  box-shadow: 2px 2px 0px var(--ember-gold);
 }
 
 /* -------------------------------------------------------------------------
@@ -413,57 +429,61 @@ p, .text-body, .card-description, article p {
   align-items: center;
   gap: 7px;
   padding: 4px 10px;
-  background: #000000;
-  border: 1px solid #ffffff;
+  background: #070e1b;
+  border: 1px solid rgba(56, 189, 248, 0.45);
   border-radius: 0px;
-  box-shadow: 2px 2px 0px #ffffff;
+  box-shadow: 2px 2px 0px rgba(56, 189, 248, 0.35);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--ink-hard);
 }
 
 .sk-badge--inverted {
-  background: #ffffff;
-  color: #000000;
-  border: 1px solid #ffffff;
-  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+  color: #030712;
+  border: 1px solid #f8fafc;
+  box-shadow: 2px 2px 0px rgba(56, 189, 248, 0.4);
 }
 
 .sk-badge--inverted .sk-lamp {
-  background: #000000;
+  background: #030712;
   box-shadow: none;
 }
 
-/* Monochrome Status Lamps */
+/* Status Lamps Aligned with Cosmic Theme */
 .sk-lamp {
   width: 6px;
   height: 6px;
   border-radius: 0px;
   display: inline-block;
-  background: #ffffff;
+  background: var(--ember-gold);
 }
 
 .sk-lamp-green {
-  background: #ffffff;
+  background: #34d399;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.6);
 }
 
 .sk-lamp-amber {
-  background: #a1a1aa;
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
 }
 
 .sk-lamp-red {
-  background: #ffffff;
+  background: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
 }
 
 .sk-lamp-blue {
-  background: #ffffff;
+  background: #60a5fa;
+  box-shadow: 0 0 6px rgba(96, 165, 250, 0.6);
 }
 
 .sk-lamp-dim {
-  background: #444444;
+  background: #475569;
 }
 
 /* -------------------------------------------------------------------------
@@ -554,7 +574,7 @@ p, .text-body, .card-description, article p {
   left: 0;
   right: 0;
   height: 28px;
-  background: linear-gradient(to bottom, rgba(13, 13, 13, 0.96) 0%, rgba(13, 13, 13, 0) 100%);
+  background: linear-gradient(to bottom, rgba(7, 14, 28, 0.98) 0%, rgba(7, 14, 28, 0) 100%);
   pointer-events: none;
   z-index: 10;
   transition: opacity 0.22s ease-out;
@@ -566,7 +586,7 @@ p, .text-body, .card-description, article p {
   left: 0;
   right: 0;
   height: 36px;
-  background: linear-gradient(to top, rgba(13, 13, 13, 0.98) 0%, rgba(13, 13, 13, 0) 100%);
+  background: linear-gradient(to top, rgba(7, 14, 28, 0.98) 0%, rgba(7, 14, 28, 0) 100%);
   pointer-events: none;
   z-index: 10;
   transition: opacity 0.22s ease-out;
@@ -580,10 +600,10 @@ p, .text-body, .card-description, article p {
   padding: 2px 6px;
   font-family: var(--font-mono);
   font-size: 0.60rem;
-  background: #ffffff;
-  color: #000000;
-  border: 1px solid #ffffff;
-  box-shadow: 1px 1px 0px #ffffff;
+  background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+  color: #030712;
+  border: 1px solid #f8fafc;
+  box-shadow: 1px 1px 0px #38bdf8;
   pointer-events: none;
   z-index: 12;
   transition: opacity 0.25s ease-out, transform 0.25s ease-out;
@@ -620,13 +640,13 @@ input.sk-input::placeholder, textarea.sk-input::placeholder {
 
 /* Brutalist Ticker-Tape Data Banding */
 .ledger-row:nth-child(even) {
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(56, 189, 248, 0.04);
 }
 .ledger-row:nth-child(odd) {
   background: transparent;
 }
 .ledger-row:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(56, 189, 248, 0.10);
 }
 
 /* -------------------------------------------------------------------------

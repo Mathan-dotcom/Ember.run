@@ -27,14 +27,15 @@ interface AmbientOrb {
 export const DynamicLiveWallpaper: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  // Minimalist Monochrome Ambience Settings
   const [mode, setMode] = useState<AmbienceMode>('network');
   const [intensity, setIntensity] = useState<'subtle' | 'balanced' | 'elevated'>('balanced');
   const [showCursorGlow, setShowCursorGlow] = useState<boolean>(true);
   const [showNetworkMesh, setShowNetworkMesh] = useState<boolean>(true);
+  const [showVideoBackdrop, setShowVideoBackdrop] = useState<boolean>(true);
   const [isEnabled, setIsEnabled] = useState<boolean>(true);
   const [isTunerOpen, setIsTunerOpen] = useState<boolean>(false);
 
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const nodesRef = useRef<NetworkNode[]>([]);
   const orbsRef = useRef<AmbientOrb[]>([]);
   const mouseRef = useRef<{ x: number; y: number; targetX: number; targetY: number; active: boolean }>({
@@ -45,6 +46,15 @@ export const DynamicLiveWallpaper: React.FC = () => {
     active: false
   });
   const animFrameRef = useRef<number>(0);
+
+  // Auto-play video on mount and resume if paused
+  useEffect(() => {
+    if (showVideoBackdrop && isEnabled && videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay policy handled silently
+      });
+    }
+  }, [showVideoBackdrop, isEnabled]);
 
   // Initialize nodes and ambient orbs
   useEffect(() => {
@@ -74,7 +84,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
       return base;
     };
 
-    // Initialize minimalist monochrome ambient light orbs (diffuse white / silver)
+    // Initialize ambient light orbs aligned with the stars space video palette
     orbsRef.current = [
       {
         x: width * 0.25,
@@ -82,7 +92,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
         vx: 0.1,
         vy: 0.07,
         radius: Math.min(width, height) * 0.45,
-        color: 'rgba(255, 255, 255, 0.035)' // Pure white diffuse
+        color: 'rgba(56, 189, 248, 0.045)' // Celestial starlight cyan glow
       },
       {
         x: width * 0.75,
@@ -90,7 +100,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
         vx: -0.09,
         vy: -0.06,
         radius: Math.min(width, height) * 0.4,
-        color: 'rgba(215, 215, 215, 0.025)' // Silver diffuse
+        color: 'rgba(129, 140, 248, 0.038)' // Cosmic stardust violet glow
       },
       {
         x: width * 0.5,
@@ -98,11 +108,11 @@ export const DynamicLiveWallpaper: React.FC = () => {
         vx: 0.07,
         vy: -0.1,
         radius: Math.min(width, height) * 0.35,
-        color: 'rgba(180, 180, 180, 0.02)' // Soft gray diffuse
+        color: 'rgba(240, 246, 255, 0.035)' // Brilliant starlight silver glow
       }
     ];
 
-    // Initialize clean minimalist network nodes
+    // Initialize cosmic starlight network nodes
     const count = getNodeCount();
     nodesRef.current = Array.from({ length: count }, () => {
       const speed = 0.2;
@@ -160,13 +170,13 @@ export const DynamicLiveWallpaper: React.FC = () => {
       }
 
       // -----------------------------------------------------------------
-      // Layer 2: Subtle White Cursor Spotlight
+      // Layer 2: Subtle Starlight Cyan Cursor Spotlight
       // -----------------------------------------------------------------
       if (showCursorGlow && mouse.active && mouse.x > 0) {
         const spotRadius = width < 768 ? 200 : 340;
         const spotGrad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, spotRadius);
-        spotGrad.addColorStop(0, 'rgba(255, 255, 255, 0.038)');
-        spotGrad.addColorStop(0.5, 'rgba(200, 200, 200, 0.012)');
+        spotGrad.addColorStop(0, 'rgba(56, 189, 248, 0.06)');
+        spotGrad.addColorStop(0.5, 'rgba(96, 165, 250, 0.02)');
         spotGrad.addColorStop(1, 'transparent');
 
         ctx.fillStyle = spotGrad;
@@ -176,14 +186,14 @@ export const DynamicLiveWallpaper: React.FC = () => {
       }
 
       // -----------------------------------------------------------------
-      // Layer 3: Minimalist Technical Monochrome Mesh
+      // Layer 3: Celestial Starlight Technical Network Mesh
       // -----------------------------------------------------------------
       if (mode === 'network' || mode === 'grid') {
         const nodes = nodesRef.current;
         const maxDist = width < 768 ? 85 : 125;
         const alphaScale = intensity === 'subtle' ? 0.6 : intensity === 'elevated' ? 1.25 : 0.85;
 
-        // Draw clean hairline filaments in monochrome white
+        // Draw clean hairline filaments in celestial starlight cyan
         if (showNetworkMesh && mode === 'network') {
           for (let i = 0; i < nodes.length; i++) {
             for (let j = i + 1; j < nodes.length; j++) {
@@ -192,11 +202,11 @@ export const DynamicLiveWallpaper: React.FC = () => {
               const dist = Math.hypot(dx, dy);
 
               if (dist < maxDist) {
-                const lineAlpha = (1 - dist / maxDist) * 0.14 * alphaScale;
+                const lineAlpha = (1 - dist / maxDist) * 0.18 * alphaScale;
                 ctx.beginPath();
                 ctx.moveTo(nodes[i].x, nodes[i].y);
                 ctx.lineTo(nodes[j].x, nodes[j].y);
-                ctx.strokeStyle = '#ffffff';
+                ctx.strokeStyle = '#38bdf8';
                 ctx.globalAlpha = lineAlpha;
                 ctx.lineWidth = 0.75;
                 ctx.stroke();
@@ -205,7 +215,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
           }
         }
 
-        // Draw and update each individual node point in white
+        // Draw and update each individual node point in starlight silver
         for (let i = 0; i < nodes.length; i++) {
           const n = nodes[i];
 
@@ -220,16 +230,17 @@ export const DynamicLiveWallpaper: React.FC = () => {
           n.pulsePhase += n.pulseSpeed;
           n.alpha = (n.baseAlpha + Math.sin(n.pulsePhase) * 0.12) * alphaScale;
 
-          // Render node point
+          // Render node point (starlight diamond core)
           ctx.save();
-          ctx.globalAlpha = Math.max(0.06, n.alpha);
-          ctx.fillStyle = '#ffffff';
+          ctx.globalAlpha = Math.max(0.1, n.alpha);
+          ctx.fillStyle = '#f8fafc';
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
           ctx.fill();
 
-          // Subtle pin-point aura
-          ctx.globalAlpha = n.alpha * 0.25;
+          // Radiant starlight cyan pin-point aura
+          ctx.globalAlpha = n.alpha * 0.4;
+          ctx.fillStyle = '#38bdf8';
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.size * 2, 0, Math.PI * 2);
           ctx.fill();
@@ -264,8 +275,68 @@ export const DynamicLiveWallpaper: React.FC = () => {
     };
   }, [isEnabled, mode, intensity, showCursorGlow, showNetworkMesh]);
 
+  const videoOpacityValue = !isEnabled || !showVideoBackdrop
+    ? 0
+    : intensity === 'subtle'
+    ? 0.45
+    : intensity === 'balanced'
+    ? 0.70
+    : 0.90;
+
   return (
     <>
+      {/* Looped Background Video Layer (True Ember Video Palette) */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: -2,
+          overflow: 'hidden',
+          pointerEvents: 'none',
+          backgroundColor: '#030712'
+        }}
+      >
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '100%',
+            height: '100%',
+            minWidth: '100%',
+            minHeight: '100%',
+            transform: 'translate(-50%, -50%)',
+            objectFit: 'cover',
+            opacity: videoOpacityValue,
+            filter: 'contrast(120%) brightness(0.95)',
+            transition: 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
+          }}
+        >
+          <source src="/videos/stars-bg.mp4" type="video/mp4" />
+          <source src="/videos/ember-bg.webm" type="video/webm" />
+        </video>
+
+        {/* Ambient Dark Scrim / Vignette to ensure maximum content readability */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'radial-gradient(ellipse at 50% 50%, rgba(3, 7, 18, 0.25) 0%, rgba(3, 7, 18, 0.65) 75%, #030712 100%)',
+            pointerEvents: 'none'
+          }}
+        />
+      </div>
+
       {/* Background HTML5 Canvas */}
       <canvas
         ref={canvasRef}
@@ -278,7 +349,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
           height: '100vh',
           zIndex: -1,
           pointerEvents: 'none',
-          backgroundColor: '#000000',
+          backgroundColor: 'transparent',
           opacity: isEnabled ? 1 : 0,
           transition: 'opacity 0.6s ease'
         }}
@@ -323,10 +394,11 @@ export const DynamicLiveWallpaper: React.FC = () => {
             style={{
               width: '280px',
               padding: '16px',
-              background: '#0a0a0a',
+              background: 'rgba(7, 14, 28, 0.96)',
+              backdropFilter: 'blur(16px)',
               borderRadius: '0px',
-              border: '2px solid #ffffff',
-              boxShadow: '6px 6px 0px #ffffff',
+              border: '2px solid #38bdf8',
+              boxShadow: '6px 6px 0px #38bdf8',
               position: 'relative'
             }}
           >
@@ -334,7 +406,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span className={`sk-lamp ${isEnabled ? 'sk-lamp-green' : 'sk-lamp-dim'}`} />
-                <span className="text-micro" style={{ letterSpacing: '0.08em', color: '#ffffff' }}>
+                <span className="text-micro" style={{ letterSpacing: '0.08em', color: '#7dd3fc' }}>
                   AMBIENT ENGINE
                 </span>
               </div>
@@ -345,10 +417,10 @@ export const DynamicLiveWallpaper: React.FC = () => {
                 style={{
                   fontSize: '0.65rem',
                   cursor: 'pointer',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  background: isEnabled ? '#ffffff' : 'transparent',
-                  color: isEnabled ? '#000000' : 'var(--ink-soft)',
-                  fontWeight: 600
+                  border: '1px solid rgba(56, 189, 248, 0.4)',
+                  background: isEnabled ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : 'transparent',
+                  color: isEnabled ? '#030712' : 'var(--ink-soft)',
+                  fontWeight: 700
                 }}
               >
                 {isEnabled ? 'ACTIVE' : 'MUTED'}
@@ -380,9 +452,9 @@ export const DynamicLiveWallpaper: React.FC = () => {
                         fontSize: '0.68rem',
                         fontWeight: isCurrent ? 700 : 500,
                         textAlign: 'center',
-                        color: isCurrent ? '#000000' : '#ffffff',
-                        background: isCurrent ? '#ffffff' : '#111111',
-                        border: isCurrent ? '1px solid #ffffff' : '1px solid rgba(255,255,255,0.15)'
+                        color: isCurrent ? '#030712' : 'var(--ink-hard)',
+                        background: isCurrent ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : '#070e1b',
+                        border: isCurrent ? '1px solid #f8fafc' : '1px solid rgba(56, 189, 248, 0.25)'
                       }}
                     >
                       {m.label}
@@ -463,26 +535,46 @@ export const DynamicLiveWallpaper: React.FC = () => {
                   {showNetworkMesh ? 'ON' : 'OFF'}
                 </span>
               </button>
+
+              <button
+                type="button"
+                onClick={() => setShowVideoBackdrop(!showVideoBackdrop)}
+                className="sk-badge"
+                style={{
+                  padding: '6px 8px',
+                  fontSize: '0.68rem',
+                  cursor: 'pointer',
+                  justifyContent: 'space-between',
+                  background: showVideoBackdrop ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+                  border: '1px solid rgba(255, 255, 255, 0.18)',
+                  color: showVideoBackdrop ? '#ffffff' : 'var(--ink-soft)'
+                }}
+              >
+                <span>VIDEO AMBIENCE LOOP</span>
+                <span style={{ color: showVideoBackdrop ? '#ffffff' : 'var(--ink-muted)', fontWeight: 700 }}>
+                  {showVideoBackdrop ? 'ON' : 'OFF'}
+                </span>
+              </button>
             </div>
           </div>
         )}
 
-        {/* Minimalist Monochrome Pill Trigger */}
+        {/* Minimalist Cosmic Starlight Pill Trigger */}
         <button
           type="button"
           onClick={() => setIsTunerOpen(!isTunerOpen)}
           className="sk-button card-hover"
-          title="Toggle Minimalist Ambience Settings"
+          title="Toggle Ambient Engine Settings"
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
             padding: '7px 14px',
             borderRadius: '0px',
-            background: '#000000',
-            color: '#ffffff',
-            border: '1.5px solid #ffffff',
-            boxShadow: '3px 3px 0px #ffffff',
+            background: '#070e1b',
+            color: '#f8fafc',
+            border: '1.5px solid #38bdf8',
+            boxShadow: '3px 3px 0px #38bdf8',
             cursor: 'pointer',
             fontSize: '0.72rem',
             fontFamily: 'var(--font-mono)',
@@ -490,9 +582,9 @@ export const DynamicLiveWallpaper: React.FC = () => {
           }}
         >
           <span className={`sk-lamp ${isEnabled ? 'sk-lamp-green' : 'sk-lamp-dim'}`} />
-          <Network size={13} color="#ffffff" />
+          <Network size={13} color="#38bdf8" />
           <span>AMBIENCE: {isEnabled ? mode.toUpperCase() : 'MUTED'}</span>
-          <Sliders size={12} color="rgba(255,255,255,0.7)" style={{ marginLeft: '2px' }} />
+          <Sliders size={12} color="#7dd3fc" style={{ marginLeft: '2px' }} />
         </button>
       </aside>
     </>

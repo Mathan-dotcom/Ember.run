@@ -60,7 +60,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '8px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+          borderBottom: '1px solid rgba(223, 156, 50, 0.25)',
           paddingBottom: '12px'
         }}
       >
@@ -71,7 +71,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
               fontSize: '0.80rem',
-              color: '#ffffff'
+              color: '#38bdf8'
             }}
           >
             #{String(post.id).padStart(4, '0')}
@@ -80,7 +80,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
           {/* Author Badge */}
           <div className="sk-badge" style={{ padding: '3px 10px' }}>
             <span className="sk-lamp sk-lamp-green" />
-            <span style={{ fontWeight: 600, color: '#ffffff' }}>{post.authorName}</span>
+            <span style={{ fontWeight: 600, color: '#f8fafc' }}>{post.authorName}</span>
             <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink-soft)', fontSize: '0.7rem' }}>
               ({formatAddress(post.poster)})
             </span>
@@ -91,7 +91,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
               className="sk-badge sk-badge--inverted"
               style={{ fontSize: '0.68rem', padding: '2px 8px' }}
             >
-              <UserCheck size={12} color="#ffffff" />
+              <UserCheck size={12} color="#030712" />
               <span>YOUR POST</span>
             </span>
           )}
@@ -127,13 +127,13 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
               fontFamily: 'var(--font-ui)',
               fontSize: '1.20rem',
               fontWeight: 700,
-              color: '#ffffff',
+              color: '#fdfaf2',
               lineHeight: 1.3,
               marginBottom: '10px',
               cursor: onInspectPost ? 'pointer' : 'default',
               textDecoration: onInspectPost ? 'underline' : 'none',
               textUnderlineOffset: '4px',
-              textDecorationColor: 'rgba(255,255,255,0.4)'
+              textDecorationColor: 'rgba(223, 156, 50, 0.5)'
             }}
           >
             {post.title}
@@ -142,7 +142,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
           <p
             className="text-body"
             style={{
-              color: '#d4d4d8',
+              color: 'var(--ink-soft)',
               marginBottom: '14px',
               whiteSpace: 'pre-line'
             }}
@@ -162,10 +162,10 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
                 gap: '5px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.75rem',
-                color: '#ffffff',
+                color: '#f3d38c',
                 textDecoration: 'none',
                 marginBottom: '12px',
-                opacity: 0.85
+                opacity: 0.95
               }}
             >
               <ExternalLink size={13} />
@@ -182,11 +182,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
                 style={{
                   fontSize: '0.7rem',
                   padding: '2px 8px',
-                  background: '#000000',
-                  border: '1.5px solid #ffffff',
-                  boxShadow: '2px 2px 0px #ffffff',
+                  background: '#070e1b',
+                  border: '1.5px solid #38bdf8',
+                  boxShadow: '2px 2px 0px #38bdf8',
                   borderRadius: '0px',
-                  color: '#ffffff'
+                  color: '#f8fafc'
                 }}
               >
                 #{tag}
@@ -216,23 +216,23 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            background: '#0a0a0a',
-            border: '1.5px solid #ffffff',
-            borderLeft: '4px solid #ffffff',
-            boxShadow: '2px 2px 0px #ffffff',
+            background: 'rgba(4, 8, 16, 0.85)',
+            border: '1.5px solid #38bdf8',
+            borderLeft: '4px solid #7dd3fc',
+            boxShadow: '2px 2px 0px #38bdf8',
             borderRadius: '0px'
           }}
         >
-          <Sparkles size={15} color="#ffffff" style={{ flexShrink: 0 }} />
+          <Sparkles size={15} color="#7dd3fc" style={{ flexShrink: 0 }} />
           <span
             style={{
               fontFamily: 'var(--font-ui)',
               fontSize: '0.8rem',
-              color: '#d4d4d8',
+              color: 'var(--ink-soft)',
               lineHeight: 1.4
             }}
           >
-            <strong style={{ color: '#ffffff' }}>[AI // INTEL]:</strong> {post.aiTrendBlurb}
+            <strong style={{ color: '#7dd3fc' }}>[AI // INTEL]:</strong> {post.aiTrendBlurb}
           </span>
         </div>
       )}
@@ -245,7 +245,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '16px',
-          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+          borderTop: '1px solid rgba(223, 156, 50, 0.25)',
           paddingTop: '14px'
         }}
       >
@@ -261,11 +261,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.35rem',
                 fontWeight: 700,
-                color: '#ffffff',
+                color: '#fdfaf2',
                 lineHeight: 1
               }}
             >
-              {formatMon(post.decayedWeight, 2)} <span style={{ fontSize: '0.72rem', color: 'var(--ink-soft)', fontFamily: 'var(--font-mono)' }}>SCORE</span>
+              {formatMon(post.decayedWeight, 2)} <span style={{ fontSize: '0.72rem', color: '#f3d38c', fontFamily: 'var(--font-mono)' }}>SCORE</span>
             </div>
           </div>
 
@@ -279,11 +279,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.35rem',
                 fontWeight: 700,
-                color: '#ffffff',
+                color: '#fdfaf2',
                 lineHeight: 1
               }}
             >
-              {formatMon(post.totalBoosted, 2)} <span style={{ fontSize: '0.72rem', color: 'var(--ink-soft)', fontFamily: 'var(--font-mono)' }}>MON</span>
+              {formatMon(post.totalBoosted, 2)} <span style={{ fontSize: '0.72rem', color: '#f3d38c', fontFamily: 'var(--font-mono)' }}>MON</span>
             </div>
           </div>
 
@@ -297,11 +297,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.35rem',
                 fontWeight: 700,
-                color: '#ffffff',
+                color: '#fdfaf2',
                 lineHeight: 1
               }}
             >
-              {post.curatorCount} <span style={{ fontSize: '0.72rem', color: 'var(--ink-soft)', fontFamily: 'var(--font-mono)' }}>WALLETS</span>
+              {post.curatorCount} <span style={{ fontSize: '0.72rem', color: '#f3d38c', fontFamily: 'var(--font-mono)' }}>WALLETS</span>
             </div>
           </div>
         </div>
@@ -318,14 +318,14 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: isBookmarked ? '#ffffff' : '#000000',
-              color: isBookmarked ? '#000000' : '#ffffff',
-              border: '1.5px solid #ffffff',
-              boxShadow: isBookmarked ? '2px 2px 0px #ffffff' : '1px 1px 0px rgba(255, 255, 255, 0.3)',
+              background: isBookmarked ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : '#070e1b',
+              color: isBookmarked ? '#030712' : '#f8fafc',
+              border: '1.5px solid #38bdf8',
+              boxShadow: isBookmarked ? '2px 2px 0px #f8fafc' : '1px 1px 0px rgba(56, 189, 248, 0.4)',
               cursor: 'pointer'
             }}
           >
-            <Bookmark size={15} fill={isBookmarked ? '#000000' : 'none'} color={isBookmarked ? '#000000' : '#ffffff'} />
+            <Bookmark size={15} fill={isBookmarked ? '#030712' : 'none'} color={isBookmarked ? '#030712' : '#38bdf8'} />
           </button>
 
           {isAuthor ? (

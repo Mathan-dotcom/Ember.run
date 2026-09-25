@@ -84,7 +84,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
             style={{ padding: '5px 10px', fontSize: '0.75rem' }}
             title="Sorted by Boost Velocity (MON / hour)"
           >
-            <Flame size={13} color={sortMode === 'velocity' ? '#000000' : '#ffffff'} />
+            <Flame size={13} color={sortMode === 'velocity' ? '#030712' : '#7dd3fc'} />
             <span>VELOCITY</span>
           </button>
 
@@ -97,7 +97,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
             style={{ padding: '5px 10px', fontSize: '0.75rem' }}
             title="Sorted by Total MON Boosted"
           >
-            <Coins size={13} color={sortMode === 'capital' ? '#000000' : '#ffffff'} />
+            <Coins size={13} color={sortMode === 'capital' ? '#030712' : '#7dd3fc'} />
             <span>TOTAL POOL</span>
           </button>
 
@@ -110,7 +110,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
             style={{ padding: '5px 10px', fontSize: '0.75rem' }}
             title="Show only bookmarked embers"
           >
-            <Bookmark size={13} fill={onlyBookmarked ? '#000000' : 'none'} color={onlyBookmarked ? '#000000' : '#ffffff'} />
+            <Bookmark size={13} fill={onlyBookmarked ? '#030712' : 'none'} color={onlyBookmarked ? '#030712' : '#38bdf8'} />
             <span>SAVED ({bookmarkedIds.length})</span>
           </button>
 
@@ -139,10 +139,11 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
           justifyContent: 'space-between',
           fontFamily: 'var(--font-mono)',
           fontSize: '0.72rem',
-          color: '#ffffff',
+          color: 'var(--ink-hard)',
           borderRadius: '0px',
-          border: '1.5px solid #ffffff',
-          boxShadow: '3px 3px 0px #ffffff'
+          border: '1.5px solid var(--glass-border)',
+          boxShadow: '3px 3px 0px var(--ember-accent)',
+          background: 'rgba(4, 8, 16, 0.85)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

@@ -87,10 +87,10 @@ export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenPr
                         width: '26px',
                         height: '26px',
                         borderRadius: '0px',
-                        background: leader.rank === 1 ? '#ffffff' : '#141414',
-                        color: leader.rank === 1 ? '#000000' : '#ffffff',
-                        border: '1.5px solid #ffffff',
-                        boxShadow: '2px 2px 0px #ffffff',
+                        background: leader.rank === 1 ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : '#070e1b',
+                        color: leader.rank === 1 ? '#030712' : '#f8fafc',
+                        border: '1.5px solid #38bdf8',
+                        boxShadow: '2px 2px 0px #38bdf8',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -108,7 +108,7 @@ export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenPr
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span className="sk-lamp sk-lamp-green" />
                       <div>
-                        <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, fontSize: '0.88rem', color: '#ffffff' }}>
+                        <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, fontSize: '0.88rem', color: '#fdfaf2' }}>
                           {leader.name} {isCurrent && <span style={{ color: 'var(--ink-soft)' }}>(You)</span>}
                         </div>
                         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: 'var(--ink-soft)' }}>
@@ -125,10 +125,10 @@ export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenPr
                         fontFamily: 'var(--font-display)',
                         fontSize: '1.15rem',
                         fontWeight: 700,
-                        color: '#ffffff'
+                        color: '#fdfaf2'
                       }}
                     >
-                      +{formatMon(leader.totalEarned, 2)} <span style={{ fontSize: '0.75rem', color: 'var(--ink-soft)' }}>MON</span>
+                      +{formatMon(leader.totalEarned, 2)} <span style={{ fontSize: '0.75rem', color: '#f3d38c' }}>MON</span>
                     </div>
                     <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'var(--ink-soft)' }}>
                       ROI: {leader.roiPercent}%
@@ -137,16 +137,16 @@ export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenPr
 
                   {/* Accuracy */}
                   <td style={{ padding: '14px 12px' }}>
-                    <div className="sk-badge" style={{ padding: '3px 8px', fontSize: '0.70rem', borderRadius: '0px', border: '1.5px solid #ffffff', boxShadow: '2px 2px 0px #ffffff' }}>
-                      <CheckCircle2 size={11} color="#ffffff" />
-                      <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#ffffff' }}>
+                    <div className="sk-badge" style={{ padding: '3px 8px', fontSize: '0.70rem', borderRadius: '0px', border: '1.5px solid #df9c32', boxShadow: '2px 2px 0px #df9c32' }}>
+                      <CheckCircle2 size={11} color="#34d399" />
+                      <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#fdfaf2' }}>
                         {leader.accuracyRate}%
                       </span>
                     </div>
                   </td>
 
                   {/* Signals */}
-                  <td style={{ padding: '14px 12px', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: 600, color: '#ffffff' }}>
+                  <td style={{ padding: '14px 12px', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: 600, color: '#fdfaf2' }}>
                     {leader.totalBoosts}
                   </td>
 
@@ -165,21 +165,21 @@ export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenPr
         style={{
           marginTop: '16px',
           padding: '10px 14px',
-          background: '#0a0a0a',
-          border: '1.5px solid #ffffff',
+          background: 'rgba(5, 9, 16, 0.90)',
+          border: '1.5px solid #df9c32',
           borderRadius: '0px',
-          boxShadow: '3px 3px 0px #ffffff',
+          boxShadow: '3px 3px 0px #38bdf8',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
           fontFamily: 'var(--font-ui)',
           fontSize: '0.75rem',
-          color: '#d4d4d8'
+          color: 'var(--ink-soft)'
         }}
       >
-        <Sparkles size={13} color="#ffffff" />
+        <Sparkles size={13} color="#7dd3fc" />
         <span>
-          <strong>How Taste Arbitrage Works:</strong> Early curators who identify high-value content before the decay cliff
+          <strong style={{ color: '#7dd3fc' }}>How Taste Arbitrage Works:</strong> Early curators who identify high-value content before the decay cliff
           earn automatic 45% cuts on subsequent boosts. Accuracy is proven onchain, never self-reported.
         </span>
       </div>

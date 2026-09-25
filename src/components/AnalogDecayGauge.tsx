@@ -47,20 +47,20 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
           width: `${dimensions}px`,
           height: `${dimensions}px`,
           borderRadius: '0px',
-          background: '#000000',
+          background: '#070e1b',
           padding: '4px',
-          border: '1.5px solid #ffffff',
-          boxShadow: '3px 3px 0px #ffffff',
+          border: '1.5px solid #38bdf8',
+          boxShadow: '3px 3px 0px #38bdf8',
           position: 'relative'
         }}
       >
-        {/* Recessed Black Face */}
+        {/* Recessed Obsidian Face */}
         <div
           style={{
             width: '100%',
             height: '100%',
             borderRadius: '0px',
-            background: '#0a0a0a',
+            background: '#030712',
             position: 'relative',
             overflow: 'hidden',
             display: 'flex',
@@ -84,20 +84,20 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
               cy="50"
               r="38"
               fill="none"
-              stroke="rgba(255, 255, 255, 0.15)"
+              stroke="rgba(56, 189, 248, 0.2)"
               strokeWidth="4"
               strokeDasharray="160 80"
               strokeDashoffset="40"
               strokeLinecap="square"
             />
 
-            {/* Active Luminous White Arc */}
+            {/* Active Luminous Starlight Cyan Arc */}
             <circle
               cx="50"
               cy="50"
               r="38"
               fill="none"
-              stroke="#ffffff"
+              stroke="#38bdf8"
               strokeWidth="4"
               strokeDasharray={`${(healthPercent / 100) * 160} 240`}
               strokeDashoffset="40"
@@ -113,13 +113,13 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
               y1="8"
               x2="50"
               y2="15"
-              stroke="#ffffff"
+              stroke="#7dd3fc"
               strokeWidth="2.5"
               transform="rotate(48 50 50)"
             />
           </svg>
 
-          {/* Minimalist Needle */}
+          {/* Minimalist Radiant Needle */}
           <div
             style={{
               position: 'absolute',
@@ -129,7 +129,7 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
               height: '40%',
               transformOrigin: '50% 100%',
               transform: `rotate(${needleAngle}deg)`,
-              background: '#ffffff',
+              background: '#f8fafc',
               transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
               zIndex: 3
             }}
@@ -141,8 +141,8 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
               width: '12px',
               height: '12px',
               borderRadius: '0px',
-              background: '#ffffff',
-              border: '2px solid #000000',
+              background: '#38bdf8',
+              border: '2px solid #030712',
               zIndex: 4
             }}
           />
@@ -155,7 +155,7 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
               fontFamily: 'var(--font-mono)',
               fontSize: size === 'sm' ? '0.65rem' : '0.75rem',
               fontWeight: 800,
-              color: '#ffffff',
+              color: '#f8fafc',
               letterSpacing: '0.04em',
               zIndex: 2
             }}

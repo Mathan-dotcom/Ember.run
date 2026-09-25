@@ -33,3 +33,7 @@ typechain-types/
 .env
 .env.local
 .env.*.local
+
+# Large source video files at root (use public/videos/ for tracked assets)
+/*.mp4
+/*.webm

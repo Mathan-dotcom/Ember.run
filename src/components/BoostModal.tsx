@@ -132,7 +132,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.88)',
+        backgroundColor: 'rgba(3, 6, 12, 0.88)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         zIndex: 100,
@@ -155,10 +155,10 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
-          background: '#0d0d0d',
-          border: '2px solid #ffffff',
+          background: 'rgba(7, 14, 28, 0.96)',
+          border: '2px solid #38bdf8',
           borderRadius: '0px',
-          boxShadow: '8px 8px 0px #ffffff'
+          boxShadow: '8px 8px 0px #38bdf8'
         }}
       >
         {/* Header */}
@@ -168,7 +168,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
             alignItems: 'center',
             justifyContent: 'space-between',
             marginBottom: '14px',
-            borderBottom: '1.5px solid #ffffff',
+            borderBottom: '1.5px solid rgba(56, 189, 248, 0.35)',
             paddingBottom: '12px'
           }}
         >
@@ -178,18 +178,18 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                 width: '32px',
                 height: '32px',
                 borderRadius: '0px',
-                background: '#ffffff',
+                background: 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '1.5px solid #ffffff',
-                boxShadow: '2px 2px 0px #ffffff'
+                border: '1.5px solid #f8fafc',
+                boxShadow: '2px 2px 0px #38bdf8'
               }}
             >
-              <Zap size={16} color="#000000" fill="#000000" />
+              <Zap size={16} color="#030712" fill="#030712" />
             </div>
             <div>
-              <h3 className="text-heading" style={{ fontSize: '1.1rem', color: '#ffffff' }}>
+              <h3 className="text-heading" style={{ fontSize: '1.1rem', color: '#f8fafc' }}>
                 Precision Boost Cockpit
               </h3>
               <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'var(--ink-soft)' }}>
@@ -260,12 +260,13 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                 padding: '12px 14px',
                 marginBottom: '16px',
                 borderRadius: '0px',
-                border: '1.5px solid #ffffff',
-                borderLeft: '4px solid #ffffff',
-                boxShadow: '2px 2px 0px #ffffff'
+                border: '1.5px solid #38bdf8',
+                borderLeft: '4px solid #7dd3fc',
+                boxShadow: '2px 2px 0px #38bdf8',
+                background: 'rgba(4, 8, 16, 0.85)'
               }}
             >
-              <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '2px', color: '#ffffff' }}>
+              <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '2px', color: '#f8fafc' }}>
                 {post.title}
               </div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: 'var(--ink-soft)' }}>
@@ -375,7 +376,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                 })}
               </div>
 
-              <div className="sk-well" style={{ display: 'flex', alignItems: 'center', padding: '2px 12px', border: '1.5px solid #ffffff', borderRadius: '0px', boxShadow: '2px 2px 0px #ffffff' }}>
+              <div className="sk-well" style={{ display: 'flex', alignItems: 'center', padding: '2px 12px', border: '1.5px solid #38bdf8', borderRadius: '0px', boxShadow: '2px 2px 0px #38bdf8', background: 'rgba(4, 8, 16, 0.85)' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--ink-soft)' }}>Custom:</span>
                 <input
                   type="number"
@@ -384,9 +385,9 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                   className="sk-input"
                   value={boostAmount}
                   onChange={(e) => setBoostAmount(parseFloat(e.target.value) || 0)}
-                  style={{ fontWeight: 600, fontFamily: 'var(--font-mono)' }}
+                  style={{ fontWeight: 600, fontFamily: 'var(--font-mono)', color: '#f8fafc' }}
                 />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: 600 }}>MON</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: 600, color: '#7dd3fc' }}>MON</span>
               </div>
             </div>
 
@@ -394,7 +395,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
             <div style={{ marginBottom: '18px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <label className="text-micro">Live Onchain Disbursement Preview</label>
-                <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.65rem', padding: '2px 8px', borderRadius: '0px', border: '1px solid #ffffff', boxShadow: '1px 1px 0px #ffffff' }}>
+                <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.65rem', padding: '2px 8px', borderRadius: '0px', border: '1px solid #f8fafc', boxShadow: '1px 1px 0px #38bdf8' }}>
                   ATOMIC 40 / 45 / 15
                 </span>
               </div>
@@ -406,9 +407,10 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '10px',
-                  border: '1.5px solid #ffffff',
+                  border: '1.5px solid #38bdf8',
                   borderRadius: '0px',
-                  boxShadow: '3px 3px 0px #ffffff'
+                  boxShadow: '3px 3px 0px #38bdf8',
+                  background: 'rgba(4, 8, 16, 0.90)'
                 }}
               >
                 {/* Poster 40% */}
@@ -530,9 +532,9 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                 className="sk-panel"
                 style={{
                   padding: '14px',
-                  background: '#111111',
-                  border: '1.5px solid #ffffff',
-                  boxShadow: '3px 3px 0px #ffffff',
+                  background: 'rgba(7, 14, 28, 0.90)',
+                  border: '1.5px solid #38bdf8',
+                  boxShadow: '3px 3px 0px #38bdf8',
                   marginBottom: '10px'
                 }}
               >
@@ -547,8 +549,8 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                   onClick={() => setShowYieldSimulator(!showYieldSimulator)}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <TrendingUp size={15} color="#ffffff" />
-                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.84rem', color: '#ffffff' }}>
+                    <TrendingUp size={15} color="#7dd3fc" />
+                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.84rem', color: '#f8fafc' }}>
                       FUTURE CURATOR YIELD SIMULATOR
                     </span>
                   </div>
@@ -557,7 +559,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                       style={{
                         fontFamily: 'var(--font-mono)',
                         fontSize: '0.66rem',
-                        color: projectedRoiPercent >= 100 ? '#ffffff' : 'var(--ink-soft)',
+                        color: projectedRoiPercent >= 100 ? '#7dd3fc' : 'var(--ink-soft)',
                         fontWeight: 700
                       }}
                     >
@@ -565,7 +567,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                     </span>
                     <button
                       type="button"
-                      style={{ background: 'transparent', border: 'none', color: '#ffffff', cursor: 'pointer', padding: 0 }}
+                      style={{ background: 'transparent', border: 'none', color: '#7dd3fc', cursor: 'pointer', padding: 0 }}
                     >
                       {showYieldSimulator ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
@@ -574,7 +576,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
 
                 {showYieldSimulator && (
                   <div style={{ marginTop: '12px' }}>
-                    <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.74rem', color: '#a1a1aa', marginBottom: '10px', lineHeight: 1.4 }}>
+                    <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.74rem', color: 'var(--ink-soft)', marginBottom: '10px', lineHeight: 1.4 }}>
                       Simulate downstream dividend splits from future curators boosting after you.
                     </p>
 
@@ -605,8 +607,8 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
                         display: 'grid',
                         gridTemplateColumns: 'repeat(2, 1fr)',
                         gap: '8px',
-                        background: '#0a0a0a',
-                        border: '1px solid rgba(255, 255, 255, 0.25)',
+                        background: '#030712',
+                        border: '1px solid rgba(56, 189, 248, 0.3)',
                         padding: '10px',
                         marginBottom: '10px'
                       }}
@@ -681,7 +683,7 @@ export const BoostModal: React.FC<BoostModalProps> = ({ post, isOpen, onClose })
         </div>
 
         {/* Pinned Modal Footer */}
-        <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.15)', paddingTop: '12px' }}>
+        <div style={{ borderTop: '1px solid rgba(56, 189, 248, 0.25)', paddingTop: '12px' }}>
           {(canScrollUp || canScrollDown) && (
             <div
               style={{

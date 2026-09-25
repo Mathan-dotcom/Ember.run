@@ -154,15 +154,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
           </div>
 
-          {/* Right Hero Column: Minimalist Instrument Card */}
+          {/* Right Hero Column: Instrument Card */}
           <div
             className="sk-panel-walnut card-hover"
             style={{
               padding: '24px',
               borderRadius: '0px',
-              border: '1.5px solid #ffffff',
-              boxShadow: '5px 5px 0px #ffffff',
-              background: '#0d0d0d'
+              border: '1.5px solid #38bdf8',
+              boxShadow: '5px 5px 0px #38bdf8',
+              background: 'rgba(11, 21, 40, 0.92)'
             }}
           >
             <div
@@ -170,14 +170,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                borderBottom: '1.5px solid #ffffff',
+                borderBottom: '1.5px solid rgba(56, 189, 248, 0.35)',
                 paddingBottom: '12px',
                 marginBottom: '16px'
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span className="sk-lamp sk-lamp-green" />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#ffffff', fontWeight: 700 }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#fdfaf2', fontWeight: 700 }}>
                   TELEMETRY // GAUGE #001
                 </span>
               </div>
@@ -207,21 +207,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 gap: '8px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.76rem',
-                border: '1.5px solid #ffffff',
-                boxShadow: '2px 2px 0px #ffffff'
+                border: '1.5px solid rgba(56, 189, 248, 0.4)',
+                boxShadow: '2px 2px 0px #38bdf8',
+                background: 'rgba(4, 8, 16, 0.92)'
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--ink-soft)' }}>PROTOCOL SPLIT:</span>
-                <span style={{ color: '#ffffff', fontWeight: 700 }}>40% AUTHOR / 45% CURATORS</span>
+                <span style={{ color: '#fdfaf2', fontWeight: 700 }}>40% AUTHOR / 45% CURATORS</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--ink-soft)' }}>DISBURSEMENT:</span>
-                <span style={{ color: '#ffffff', fontWeight: 700 }}>ATOMIC ONCHAIN (NO CLAIMS)</span>
+                <span style={{ color: '#f3d38c', fontWeight: 700 }}>ATOMIC ONCHAIN (NO CLAIMS)</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--ink-soft)' }}>ANTI-GAMING:</span>
-                <span style={{ color: '#ffffff', fontWeight: 700 }}>SELF-BOOST REVERT ARMED</span>
+                <span style={{ color: '#fdfaf2', fontWeight: 700 }}>SELF-BOOST REVERT ARMED</span>
               </div>
             </div>
 
@@ -312,21 +313,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 width: '34px',
                 height: '34px',
                 borderRadius: '0px',
-                background: '#ffffff',
+                background: 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '14px',
-                border: '1.5px solid #ffffff',
-                boxShadow: '2px 2px 0px #ffffff'
+                border: '1.5px solid #f8fafc',
+                boxShadow: '2px 2px 0px #38bdf8'
               }}
             >
-              <Zap size={16} color="#000000" />
+              <Zap size={16} color="#030712" />
             </div>
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, marginBottom: '8px', color: '#ffffff' }}>
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, marginBottom: '8px', color: '#f8fafc' }}>
               Atomic 40 / 45 / 15 Splits
             </h3>
-            <p className="text-body" style={{ fontSize: '0.85rem', color: '#d4d4d8', lineHeight: 1.55 }}>
+            <p className="text-body" style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>
               Smart contract distributes payouts in the exact same transaction. 40% goes directly to the author, 45% is
               streamed proportionally to earlier curators, and 15% is retained in the post's pool reserve. No manual claiming
               portals or lockup periods.
@@ -340,21 +341,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 width: '34px',
                 height: '34px',
                 borderRadius: '0px',
-                background: '#ffffff',
+                background: 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '14px',
-                border: '1.5px solid #ffffff',
-                boxShadow: '2px 2px 0px #ffffff'
+                border: '1.5px solid #f8fafc',
+                boxShadow: '2px 2px 0px #38bdf8'
               }}
             >
-              <Clock size={16} color="#000000" />
+              <Clock size={16} color="#030712" />
             </div>
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, marginBottom: '8px', color: '#ffffff' }}>
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, marginBottom: '8px', color: '#f8fafc' }}>
               Continuous Half-Life Decay
             </h3>
-            <p className="text-body" style={{ fontSize: '0.85rem', color: '#d4d4d8', lineHeight: 1.55 }}>
+            <p className="text-body" style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>
               Boost weight decays continuously on an exponential half-life curve (W(t) = W₀ · 2^(-Δt / 6h)).
               The feed is ranked live by current active weight — old posts decay off the radar unless stoked by sustained
               interest.
@@ -368,18 +369,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 width: '34px',
                 height: '34px',
                 borderRadius: '0px',
-                background: '#ffffff',
+                background: 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '14px',
-                border: '1.5px solid #ffffff',
-                boxShadow: '2px 2px 0px #ffffff'
+                border: '1.5px solid #f8fafc',
+                boxShadow: '2px 2px 0px #38bdf8'
               }}
             >
-              <ShieldCheck size={16} color="#000000" />
+              <ShieldCheck size={16} color="#030712" />
             </div>
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, marginBottom: '8px', color: '#ffffff' }}>
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, marginBottom: '8px', color: '#f8fafc' }}>
               Anti-Gaming Protocol Shields
             </h3>
             <p className="text-body" style={{ fontSize: '0.85rem', color: '#d4d4d8', lineHeight: 1.55 }}>
@@ -430,14 +431,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   sound.playDialTick();
                   setSimulatedBoost(parseFloat(e.target.value));
                 }}
-                style={{ width: '100%', accentColor: '#ffffff', cursor: 'pointer' }}
+                style={{ width: '100%', accentColor: '#38bdf8', cursor: 'pointer' }}
               />
             </div>
 
             <div style={{ marginBottom: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                 <span className="text-micro">DISCOVERY TIMING (HOURS AFTER POSTING)</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#ffffff' }}>Hour {simulatedHour}</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#7dd3fc' }}>Hour {simulatedHour}</span>
               </div>
               <input
                 type="range"
@@ -449,7 +450,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   sound.playDialTick();
                   setSimulatedHour(parseInt(e.target.value, 10));
                 }}
-                style={{ width: '100%', accentColor: '#ffffff', cursor: 'pointer' }}
+                style={{ width: '100%', accentColor: '#38bdf8', cursor: 'pointer' }}
               />
             </div>
 
@@ -513,9 +514,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           flexDirection: 'column',
           alignItems: 'center',
           gap: '16px',
-          border: '2px solid #ffffff',
-          boxShadow: '6px 6px 0px #ffffff',
-          background: '#0d0d0d'
+          border: '2px solid #38bdf8',
+          boxShadow: '6px 6px 0px #38bdf8',
+          background: 'rgba(11, 21, 40, 0.94)'
         }}
       >
         <div
@@ -523,15 +524,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             width: '42px',
             height: '42px',
             borderRadius: '0px',
-            background: '#ffffff',
+            background: 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            border: '1.5px solid #ffffff',
-            boxShadow: '3px 3px 0px #ffffff'
+            border: '1.5px solid #f8fafc',
+            boxShadow: '3px 3px 0px #38bdf8'
           }}
         >
-          <Flame size={22} color="#000000" fill="#000000" />
+          <Flame size={22} color="#030712" fill="#030712" />
         </div>
 
         <h2
