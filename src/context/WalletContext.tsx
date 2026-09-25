@@ -4,6 +4,7 @@ import { calculateDecayedWeight, calculateDiminishingMultiplier, formatAddress }
 import { sound } from '../utils/sound';
 import { BrowserProvider, Contract, parseEther, formatEther } from 'ethers';
 import { MONAD_TESTNET_CONFIG, SIGNAL_MARKET_ABI } from '../contracts/config';
+import { registerPasskey, authenticatePasskey, isWebAuthnSupported, listStoredPasskeys } from '../utils/webauthn';
 
 interface WalletContextType {
   currentAccount: WalletAccount;
@@ -14,6 +15,8 @@ interface WalletContextType {
   curatorLeaderboard: CuratorLeader[];
   switchAccount: (id: string) => void;
   createPasskeyAccount: (username: string) => Promise<WalletAccount>;
+  authenticateWithPasskey: () => Promise<WalletAccount | null>;
+  isWebAuthnAvailable: boolean;
   requestFaucet: (targetAddress?: string) => void;
   createPost: (title: string, body: string, tags: string[], linkUrl?: string, overrideAccount?: WalletAccount) => Promise<number>;
   boostPost: (postId: number, amountMon: number, overrideAccount?: WalletAccount) => Promise<boolean>;
@@ -306,6 +309,26 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   }, []);
 
   useEffect(() => {
+    // Restore any passkey accounts persisted from a previous session
+    const storedPasskeys = listStoredPasskeys();
+    if (storedPasskeys.length > 0) {
+      setAccounts((prev) => {
+        const restoredAccounts: WalletAccount[] = storedPasskeys.map((cred) => ({
+          id: `passkey-${cred.credentialId.slice(0, 12)}`,
+          name: cred.username,
+          handle: `@${cred.username.toLowerCase().replace(/\s+/g, '_')}`,
+          address: cred.address,
+          balanceMon: 10.0,
+          isPasskey: true,
+          passkeyLabel: 'Passkey (FIDO2 / WebAuthn)'
+        }));
+        // Merge without duplicating existing seed accounts
+        const existingIds = new Set(prev.map((a) => a.id));
+        const newOnes = restoredAccounts.filter((a) => !existingIds.has(a.id));
+        return [...prev, ...newOnes];
+      });
+    }
+
     checkInitialWeb3();
 
     if (typeof window !== 'undefined' && (window as any).ethereum) {
@@ -470,29 +493,65 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   };
 
-  // Create new Passkey Account
-  const createPasskeyAccount = async (username: string): Promise<WalletAccount> => {
-    // Generate deterministic Monad testnet address
-    const randomHex = Array.from({ length: 40 }, () =>
-      Math.floor(Math.random() * 16).toString(16)
-    ).join('');
-    const newAddress = `0x${randomHex}`;
-    const newId = `passkey-${Date.now()}`;
+  // ── Real WebAuthn passkey registration ────────────────────────────────────
+  const isWebAuthnAvailable = isWebAuthnSupported();
 
+  const createPasskeyAccount = async (username: string): Promise<WalletAccount> => {
+    // Trigger the real browser biometric prompt (Touch ID / Face ID / Windows Hello)
+    const credential = await registerPasskey(username.trim() || 'Passkey Voyager');
+
+    const newId = `passkey-${credential.credentialId.slice(0, 12)}`;
     const newAccount: WalletAccount = {
       id: newId,
-      name: username || 'Passkey Voyager',
-      handle: `@${username.toLowerCase().replace(/\s+/g, '_') || 'passkey_user'}`,
-      address: newAddress,
-      balanceMon: 10.0, // Pre-seeded with 10 testnet MON from faucet
+      name: credential.username,
+      handle: `@${credential.username.toLowerCase().replace(/\s+/g, '_')}`,
+      address: credential.address,
+      balanceMon: 10.0, // Pre-seeded testnet MON
       isPasskey: true,
-      passkeyLabel: 'Passkey (FIDO2 / TouchID)'
+      passkeyLabel: 'Passkey (FIDO2 / WebAuthn)'
     };
 
-    setAccounts((prev) => [...prev, newAccount]);
+    setAccounts((prev) => {
+      // Avoid duplicates if re-registering same credential
+      const filtered = prev.filter((a) => a.id !== newId);
+      return [...filtered, newAccount];
+    });
     setCurrentAccount(newAccount);
     sound.playDisbursementChime();
     return newAccount;
+  };
+
+  // ── Real WebAuthn passkey authentication (returning user) ─────────────────
+  const authenticateWithPasskey = async (): Promise<WalletAccount | null> => {
+    const credential = await authenticatePasskey(); // no credentialId = show all device passkeys
+    if (!credential) return null;
+
+    // Check if we already have this account in state
+    const existingId = `passkey-${credential.credentialId.slice(0, 12)}`;
+    const existing = accounts.find((a) => a.id === existingId);
+    if (existing) {
+      setCurrentAccount(existing);
+      sound.playDisbursementChime();
+      return existing;
+    }
+
+    // Reconstruct the account from the stored credential
+    const recovered: WalletAccount = {
+      id: existingId,
+      name: credential.username,
+      handle: `@${credential.username.toLowerCase().replace(/\s+/g, '_')}`,
+      address: credential.address,
+      balanceMon: 10.0,
+      isPasskey: true,
+      passkeyLabel: 'Passkey (FIDO2 / WebAuthn)'
+    };
+    setAccounts((prev) => {
+      const filtered = prev.filter((a) => a.id !== existingId);
+      return [...filtered, recovered];
+    });
+    setCurrentAccount(recovered);
+    sound.playDisbursementChime();
+    return recovered;
   };
 
   // Top up faucet
@@ -880,6 +939,8 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         curatorLeaderboard,
         switchAccount,
         createPasskeyAccount,
+        authenticateWithPasskey,
+        isWebAuthnAvailable,
         requestFaucet,
         createPost,
         boostPost,

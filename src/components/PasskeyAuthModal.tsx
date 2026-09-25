@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { sound } from '../utils/sound';
-import { Fingerprint, KeyRound, X, CheckCircle2 } from 'lucide-react';
+import { Fingerprint, KeyRound, X, CheckCircle2, LogIn, AlertTriangle, ShieldCheck } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface PasskeyAuthModalProps {
@@ -9,37 +9,92 @@ interface PasskeyAuthModalProps {
   onClose: () => void;
 }
 
+type Tab = 'register' | 'signin';
+type Phase = 'idle' | 'waiting' | 'success' | 'error';
+
 export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onClose }) => {
-  const { createPasskeyAccount } = useWallet();
+  const { createPasskeyAccount, authenticateWithPasskey, isWebAuthnAvailable } = useWallet();
+
+  const [tab, setTab] = useState<Tab>('register');
   const [username, setUsername] = useState('');
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [phase, setPhase] = useState<Phase>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
   if (!isOpen) return null;
 
-  const handleCreatePasskey = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!username.trim()) return;
+  const reset = () => {
+    setPhase('idle');
+    setErrorMsg('');
+  };
 
-    setIsAuthenticating(true);
+  // ── Register new passkey ──────────────────────────────────────────────────
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!username.trim() || phase !== 'idle') return;
+
+    setPhase('waiting');
+    setErrorMsg('');
     sound.playSwitchClick();
 
-    // Simulate WebAuthn Biometric Prompt (TouchID / FaceID)
-    setTimeout(async () => {
+    try {
       await createPasskeyAccount(username.trim());
-      setIsAuthenticating(false);
-      setSuccess(true);
-      confetti({
-        particleCount: 50,
-        spread: 60,
-        origin: { y: 0.6 }
-      });
+      setPhase('success');
+      confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
       setTimeout(() => {
-        setSuccess(false);
+        reset();
         onClose();
-      }, 1400);
-    }, 1200);
+      }, 1600);
+    } catch (err: any) {
+      setPhase('error');
+      setErrorMsg(err.message || 'Passkey registration failed.');
+      sound.playWarningBuzz();
+    }
   };
+
+  // ── Sign in with existing passkey ─────────────────────────────────────────
+  const handleSignIn = async () => {
+    if (phase !== 'idle') return;
+
+    setPhase('waiting');
+    setErrorMsg('');
+    sound.playSwitchClick();
+
+    try {
+      const account = await authenticateWithPasskey();
+      if (!account) {
+        setPhase('error');
+        setErrorMsg('No matching passkey found. Please register first.');
+        return;
+      }
+      setPhase('success');
+      confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+      setTimeout(() => {
+        reset();
+        onClose();
+      }, 1600);
+    } catch (err: any) {
+      setPhase('error');
+      setErrorMsg(err.message || 'Passkey authentication failed.');
+      sound.playWarningBuzz();
+    }
+  };
+
+  // ── Status label ──────────────────────────────────────────────────────────
+  const statusLabel =
+    phase === 'waiting'
+      ? tab === 'register'
+        ? 'TOUCH SENSOR // REGISTERING CREDENTIAL...'
+        : 'TOUCH SENSOR // AUTHENTICATING...'
+      : phase === 'success'
+      ? 'PASSKEY VERIFIED — MONAD WALLET ARMED'
+      : phase === 'error'
+      ? 'CREDENTIAL ERROR'
+      : isWebAuthnAvailable
+      ? 'WEBAUTHN HARDWARE CREDENTIAL READY'
+      : 'WEBAUTHN NOT SUPPORTED IN THIS BROWSER';
+
+  const iconColor =
+    phase === 'success' ? '#4ade80' : phase === 'error' ? '#f87171' : '#38bdf8';
 
   return (
     <div
@@ -47,18 +102,16 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.88)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.90)',
+        backdropFilter: 'blur(18px)',
+        WebkitBackdropFilter: 'blur(18px)',
         zIndex: 100,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '20px'
       }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+      onClick={(e) => { if (e.target === e.currentTarget) { reset(); onClose(); } }}
     >
       <div
         className="sk-panel-raised modal-box-fade"
@@ -66,196 +119,227 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
           width: '100%',
           maxWidth: '460px',
           padding: '28px',
-          background: '#0d0d0d',
-          border: '2px solid #ffffff',
+          background: 'rgba(7, 14, 28, 0.97)',
+          border: '2px solid #38bdf8',
           borderRadius: '0px',
-          boxShadow: '8px 8px 0px #ffffff'
+          boxShadow: '8px 8px 0px #38bdf8'
         }}
       >
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', borderBottom: '1.5px solid #ffffff', paddingBottom: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', borderBottom: '1.5px solid rgba(56,189,248,0.35)', paddingBottom: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div
-              style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '0px',
-                background: '#ffffff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '1.5px solid #ffffff',
-                boxShadow: '2px 2px 0px #ffffff'
-              }}
-            >
-              <Fingerprint size={18} color="#000000" />
+            <div style={{ width: '32px', height: '32px', background: '#38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1.5px solid #38bdf8', boxShadow: '2px 2px 0px #38bdf8' }}>
+              <Fingerprint size={18} color="#000" />
             </div>
             <div>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.20rem',
-                  fontWeight: 700,
-                  color: '#ffffff'
-                }}
-              >
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 700, color: '#e0f2fe' }}>
                 Passkey Mission Control
               </h3>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'var(--ink-soft)' }}>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--ink-soft)' }}>
                 ONE PASSKEY, ZERO SEED PHRASES
               </p>
             </div>
           </div>
           <button
-            onClick={() => {
-              sound.playSwitchClick();
-              onClose();
-            }}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              color: 'var(--ink-soft)',
-              padding: '4px'
-            }}
+            onClick={() => { sound.playSwitchClick(); reset(); onClose(); }}
+            style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--ink-soft)', padding: '4px' }}
           >
             <X size={18} />
           </button>
         </div>
 
-        {/* Biometric Scanner Visualizer */}
+        {/* Tabs */}
+        <div style={{ display: 'flex', gap: '0px', marginBottom: '20px', border: '1.5px solid rgba(56,189,248,0.4)' }}>
+          {(['register', 'signin'] as Tab[]).map((t) => (
+            <button
+              key={t}
+              onClick={() => { reset(); setTab(t); }}
+              style={{
+                flex: 1,
+                padding: '9px 0',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                letterSpacing: '0.06em',
+                cursor: 'pointer',
+                border: 'none',
+                background: tab === t ? '#38bdf8' : 'transparent',
+                color: tab === t ? '#000' : 'var(--ink-soft)',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {t === 'register' ? '▶ NEW PASSKEY' : '⬡ SIGN IN'}
+            </button>
+          ))}
+        </div>
+
+        {/* Biometric scanner visualizer */}
         <div
           style={{
-            background: '#050505',
-            borderRadius: '0px',
-            border: '1.5px solid #ffffff',
-            boxShadow: '4px 4px 0px #ffffff',
-            padding: '24px 16px',
+            background: 'rgba(3, 7, 18, 0.8)',
+            border: `1.5px solid ${phase === 'error' ? '#f87171' : phase === 'success' ? '#4ade80' : 'rgba(56,189,248,0.4)'}`,
+            boxShadow: `4px 4px 0px ${phase === 'error' ? '#f87171' : phase === 'success' ? '#4ade80' : '#38bdf8'}`,
+            padding: '20px 16px',
             textAlign: 'center',
             marginBottom: '20px',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            transition: 'all 0.3s ease'
           }}
         >
-          <div
-            style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: '0px',
-              margin: '0 auto 12px auto',
-              background: '#141414',
-              border: `2px solid ${isAuthenticating || success ? '#ffffff' : '#ffffff'}`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: isAuthenticating || success ? '4px 4px 0px #ffffff' : '2px 2px 0px #ffffff',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            {success ? (
-              <CheckCircle2 size={32} color="#ffffff" />
+          {/* Scan line animation */}
+          {phase === 'waiting' && (
+            <div style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0,
+              height: '2px',
+              background: 'linear-gradient(90deg, transparent, #38bdf8, transparent)',
+              animation: 'scan-line 1.4s linear infinite'
+            }} />
+          )}
+
+          <div style={{
+            width: '64px', height: '64px',
+            margin: '0 auto 12px auto',
+            background: 'rgba(56,189,248,0.08)',
+            border: `2px solid ${iconColor}`,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: `0 0 16px ${iconColor}40`,
+            transition: 'all 0.3s ease'
+          }}>
+            {phase === 'success' ? (
+              <CheckCircle2 size={32} color="#4ade80" />
+            ) : phase === 'error' ? (
+              <AlertTriangle size={32} color="#f87171" />
             ) : (
               <Fingerprint
                 size={32}
-                color="#ffffff"
+                color={iconColor}
+                style={{ animation: phase === 'waiting' ? 'pulse 1s ease-in-out infinite' : 'none' }}
               />
             )}
           </div>
 
-          <div
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.78rem',
-              fontWeight: 600,
-              color: '#ffffff',
-              letterSpacing: '0.04em'
-            }}
-          >
-            {isAuthenticating
-              ? 'TOUCH SENSOR // VERIFYING BIOMETRICS...'
-              : success
-              ? 'PASSKEY GENERATED & MONAD WALLET ARMED'
-              : 'WEBAUTHN HARDWARE CREDENTIAL'}
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: 600, color: iconColor, letterSpacing: '0.04em' }}>
+            {statusLabel}
           </div>
 
-          <p
-            style={{
-              fontFamily: 'var(--font-ui)',
-              fontSize: '0.74rem',
-              color: 'var(--ink-soft)',
-              marginTop: '6px'
-            }}
-          >
-            Privy / Mera specification: Embedded wallet derived via device secure enclave.
-          </p>
+          {phase === 'error' && (
+            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.72rem', color: '#fca5a5', marginTop: '6px', lineHeight: 1.5 }}>
+              {errorMsg}
+            </p>
+          )}
+
+          {phase === 'idle' && (
+            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.72rem', color: 'var(--ink-soft)', marginTop: '6px' }}>
+              {isWebAuthnAvailable
+                ? 'Uses your device secure enclave — Touch ID, Face ID, or Windows Hello.'
+                : 'Try Chrome, Safari, or Edge on a modern device to use passkeys.'}
+            </p>
+          )}
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleCreatePasskey}>
-          <div style={{ marginBottom: '16px' }}>
-            <label
-              className="text-micro"
-              style={{ display: 'block', marginBottom: '6px', color: 'var(--ink-soft)' }}
+        {/* Register tab */}
+        {tab === 'register' && (
+          <form onSubmit={handleRegister}>
+            <div style={{ marginBottom: '16px' }}>
+              <label className="text-micro" style={{ display: 'block', marginBottom: '6px', color: 'var(--ink-soft)' }}>
+                Curator Identity / Username
+              </label>
+              <div className="sk-well" style={{ padding: '2px', border: '1.5px solid rgba(56,189,248,0.5)', borderRadius: '0px', boxShadow: '2px 2px 0px #38bdf8' }}>
+                <input
+                  type="text"
+                  className="sk-input"
+                  placeholder="e.g. Satoshi_Alpha"
+                  value={username}
+                  onChange={(e) => { setUsername(e.target.value); if (phase === 'error') reset(); }}
+                  disabled={phase === 'waiting' || phase === 'success'}
+                  autoFocus
+                />
+              </div>
+            </div>
+
+            {/* Security checklist */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '20px', fontFamily: 'var(--font-ui)', fontSize: '0.72rem', color: 'var(--ink-soft)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <ShieldCheck size={12} color="#4ade80" />
+                <span>Private key never leaves your device's secure enclave</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <ShieldCheck size={12} color="#4ade80" />
+                <span>Address deterministically derived from FIDO2 credential ID</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <ShieldCheck size={12} color="#4ade80" />
+                <span>Pre-funded with +10.0 testnet MON on initialization</span>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="sk-button-primary"
+              style={{ width: '100%', padding: '12px', fontSize: '0.88rem', opacity: (!username.trim() || !isWebAuthnAvailable || phase === 'waiting' || phase === 'success') ? 0.5 : 1 }}
+              disabled={!username.trim() || !isWebAuthnAvailable || phase === 'waiting' || phase === 'success'}
             >
-              Curator Identity / Username
-            </label>
-            <div className="sk-well" style={{ padding: '2px', border: '1.5px solid #ffffff', borderRadius: '0px', boxShadow: '2px 2px 0px #ffffff' }}>
-              <input
-                type="text"
-                className="sk-input"
-                placeholder="e.g. Satoshi_Alpha"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                disabled={isAuthenticating || success}
-                autoFocus
-              />
-            </div>
-          </div>
+              <KeyRound size={15} />
+              <span>
+                {phase === 'waiting' ? 'AWAITING BIOMETRIC...' : phase === 'success' ? '✓ CONFIRMED' : 'CREATE BIOMETRIC WALLET'}
+              </span>
+            </button>
 
-          {/* Security Features Checklist */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '6px',
-              marginBottom: '22px',
-              fontFamily: 'var(--font-ui)',
-              fontSize: '0.74rem',
-              color: 'var(--ink-soft)'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span className="sk-lamp sk-lamp-green" />
-              <span>No seed phrases or private keys ever exposed</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span className="sk-lamp sk-lamp-green" />
-              <span>Pre-funded with +10.0 testnet MON upon initialization</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span className="sk-lamp sk-lamp-green" />
-              <span>Permanent session tied to device biometric authentication</span>
-            </div>
-          </div>
+            {phase === 'error' && (
+              <button type="button" onClick={reset} style={{ width: '100%', marginTop: '8px', padding: '9px', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', background: 'transparent', border: '1px solid rgba(56,189,248,0.4)', color: '#7dd3fc', cursor: 'pointer' }}>
+                TRY AGAIN
+              </button>
+            )}
+          </form>
+        )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="sk-button-primary"
-            style={{ width: '100%', padding: '12px', fontSize: '0.90rem' }}
-            disabled={!username.trim() || isAuthenticating || success}
-          >
-            <KeyRound size={15} />
-            <span>
-              {isAuthenticating
-                ? 'INITIALIZING PASSKEY...'
-                : success
-                ? 'CONFIRMED'
-                : 'CREATE BIOMETRIC WALLET'}
-            </span>
-          </button>
-        </form>
+        {/* Sign-in tab */}
+        {tab === 'signin' && (
+          <div>
+            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.78rem', color: 'var(--ink-soft)', marginBottom: '20px', lineHeight: 1.6 }}>
+              Already registered a passkey on this device? Authenticate with your biometric to restore your wallet session.
+            </p>
+
+            <button
+              onClick={handleSignIn}
+              className="sk-button-primary"
+              style={{ width: '100%', padding: '12px', fontSize: '0.88rem', opacity: (!isWebAuthnAvailable || phase === 'waiting' || phase === 'success') ? 0.5 : 1, marginBottom: '8px' }}
+              disabled={!isWebAuthnAvailable || phase === 'waiting' || phase === 'success'}
+            >
+              <LogIn size={15} />
+              <span>
+                {phase === 'waiting' ? 'AWAITING BIOMETRIC...' : phase === 'success' ? '✓ AUTHENTICATED' : 'SIGN IN WITH PASSKEY'}
+              </span>
+            </button>
+
+            {phase === 'error' && (
+              <button onClick={reset} style={{ width: '100%', padding: '9px', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', background: 'transparent', border: '1px solid rgba(56,189,248,0.4)', color: '#7dd3fc', cursor: 'pointer' }}>
+                TRY AGAIN
+              </button>
+            )}
+
+            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.70rem', color: 'var(--ink-faint)', marginTop: '16px', textAlign: 'center' }}>
+              No passkey yet?{' '}
+              <button onClick={() => { reset(); setTab('register'); }} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', fontFamily: 'var(--font-ui)', fontSize: '0.70rem', textDecoration: 'underline' }}>
+                Register one first
+              </button>
+            </p>
+          </div>
+        )}
       </div>
+
+      <style>{`
+        @keyframes scan-line {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(100px); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+      `}</style>
     </div>
   );
 };
