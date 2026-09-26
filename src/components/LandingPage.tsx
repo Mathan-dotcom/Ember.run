@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
+import { CathodeWorkstation3D } from './CathodeWorkstation3D';
 import { AnalogDecayGauge } from './AnalogDecayGauge';
 import { sound } from '../utils/sound';
 import { formatMon } from '../utils/decay';
@@ -11,7 +12,12 @@ import {
   ArrowRight,
   Play,
   Clock,
-  CheckCircle2
+  Sparkles,
+  Layers,
+  Terminal,
+  Activity,
+  Cpu,
+  Monitor
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -26,6 +32,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onOpenPasskeyModal
 }) => {
   const { currentAccount } = useWallet();
+  const [selectedVariant, setSelectedVariant] = useState<'session' | 'wireframe'>('session');
   const [simulatedBoost, setSimulatedBoost] = useState<number>(2.0);
   const [simulatedHour, setSimulatedHour] = useState<number>(1);
 
@@ -38,76 +45,221 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const estimatedRoi = Math.round((estimatedEarned / simulatedBoost) * 100);
 
   return (
-    <div className="fade-in-card" style={{ padding: '10px 0 40px 0' }}>
-      {/* Hero Section */}
+    <div className="fade-in-card" style={{ padding: '0 0 40px 0' }}>
+      {/* ── Breadcrumb Tag Bar (Cathode Session ThreeUI Style) ── */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '8px 14px',
+          marginBottom: '20px',
+          background: 'rgba(5, 10, 20, 0.75)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(56, 189, 248, 0.25)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+          flexWrap: 'wrap',
+          gap: '12px'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#38bdf8', fontWeight: 700 }}>
+            EMBER.RUN
+          </span>
+          <span style={{ color: 'rgba(255, 255, 255, 0.2)' }}>/</span>
+          {['motion design', 'motion graphics', 'cathode', 'crt', 'workstation', 'monad'].map((tag, idx) => (
+            <React.Fragment key={tag}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.68rem',
+                  color: idx < 2 ? '#f8fafc' : 'var(--ink-soft)',
+                  letterSpacing: '0.02em'
+                }}
+              >
+                {tag}
+              </span>
+              {idx < 5 && <span style={{ color: 'rgba(255, 255, 255, 0.15)' }}>·</span>}
+            </React.Fragment>
+          ))}
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.68rem',
+              color: '#34d399',
+              background: 'rgba(52, 211, 153, 0.12)',
+              border: '1px solid rgba(52, 211, 153, 0.3)',
+              padding: '2px 8px',
+              fontWeight: 700
+            }}
+          >
+            PRO | 60 FPS
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.68rem',
+              color: '#7dd3fc',
+              background: 'rgba(56, 189, 248, 0.12)',
+              border: '1px solid rgba(56, 189, 248, 0.3)',
+              padding: '2px 8px'
+            }}
+          >
+            MONAD TESTNET: 10143
+          </span>
+        </div>
+      </div>
+
+      {/* ── Main Cathode Session Hero Section ── */}
       <section
         className="sk-panel"
         style={{
-          padding: 'clamp(28px, 6vw, 64px) clamp(20px, 5vw, 48px)',
-          marginBottom: '36px',
+          padding: '0',
+          marginBottom: '32px',
           overflow: 'hidden',
-          position: 'relative'
+          position: 'relative',
+          background: 'rgba(7, 12, 24, 0.92)',
+          border: '1.5px solid #38bdf8',
+          boxShadow: '6px 6px 0px #38bdf8'
         }}
       >
-        {/* Minimalist Corner Markers */}
-        <div style={{ position: 'absolute', top: '10px', left: '10px' }} className="sk-rivet" />
-        <div style={{ position: 'absolute', top: '10px', right: '10px' }} className="sk-rivet" />
-        <div style={{ position: 'absolute', bottom: '10px', left: '10px' }} className="sk-rivet" />
-        <div style={{ position: 'absolute', bottom: '10px', right: '10px' }} className="sk-rivet" />
-
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.3fr) minmax(0, 0.9fr)',
-            gap: '36px',
-            alignItems: 'center'
+            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 1fr)',
+            alignItems: 'stretch'
           }}
           className="mission-console-grid"
         >
-          {/* Left Hero Column */}
-          <div>
-            {/* Status Lamps */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px', flexWrap: 'wrap' }}>
-              <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.70rem' }}>
-                <span className="sk-lamp sk-lamp-green" />
-                <span style={{ fontFamily: 'var(--font-mono)' }}>MONAD METROPOLIS // TRACK 03</span>
-              </span>
-              <span className="sk-badge" style={{ fontSize: '0.70rem' }}>
-                <span className="sk-lamp sk-lamp-amber" />
-                <span>TIME-DECAYING CURATION MARKET</span>
+          {/* ── Left Column: 60 FPS 3D Cathode Workstation Canvas ── */}
+          <div
+            style={{
+              position: 'relative',
+              minHeight: '480px',
+              borderRight: '1.5px solid rgba(56, 189, 248, 0.25)',
+              display: 'flex',
+              flexDirection: 'column',
+              background: 'radial-gradient(ellipse at 50% 45%, rgba(56, 189, 248, 0.08) 0%, rgba(3, 7, 18, 0.95) 80%)'
+            }}
+          >
+            {/* Top HUD Overlay inside 3D Canvas */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '14px',
+                left: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                zIndex: 10,
+                pointerEvents: 'none'
+              }}
+            >
+              <span className="sk-lamp sk-lamp-green" />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#f8fafc', fontWeight: 700 }}>
+                CATHODE WORKSTATION // THREE.JS 3D
               </span>
             </div>
 
-            {/* Giant Minimalist Headline */}
-            <h1
-              className="text-display-xl"
+            {/* Interactive 3D Workstation Canvas */}
+            <div style={{ flex: 1, position: 'relative' }}>
+              <CathodeWorkstation3D variant={selectedVariant} onInteract={sound.playDialTick} />
+            </div>
+
+            {/* Bottom Controls / Status Bar */}
+            <div
               style={{
-                marginBottom: '16px',
-                color: '#ffffff',
-                lineHeight: 1.02
+                padding: '10px 16px',
+                borderTop: '1px solid rgba(56, 189, 248, 0.2)',
+                background: 'rgba(4, 8, 16, 0.75)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '8px'
               }}
             >
-              Good taste, provably paid.
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Activity size={12} color="#38bdf8" />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--ink-soft)' }}>
+                  PARALLEL EXECUTION MATRIX: 10,000 TPS
+                </span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Cpu size={12} color="#34d399" />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: '#34d399' }}>
+                  MONAD BFT: 1.0s SLOT
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Right Column: Hero Headline & Action Console ── */}
+          <div
+            style={{
+              padding: 'clamp(24px, 4vw, 44px)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              position: 'relative'
+            }}
+          >
+            {/* Header Tagline */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+              <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.68rem', padding: '3px 8px' }}>
+                <span className="sk-lamp sk-lamp-green" />
+                <span>SESSION 01 // PARALLEL EVM</span>
+              </span>
+              <span className="sk-badge" style={{ fontSize: '0.68rem', padding: '3px 8px' }}>
+                <span>CURATION MARKET</span>
+              </span>
+            </div>
+
+            {/* Giant Bold Headline (Matching "Built for the Long Session") */}
+            <h1
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2.4rem, 4.2vw, 3.8rem)',
+                fontWeight: 900,
+                color: '#ffffff',
+                lineHeight: 1.05,
+                letterSpacing: '-0.03em',
+                marginBottom: '18px'
+              }}
+            >
+              Built for the <br />
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, #ffffff 30%, #7dd3fc 70%, #38bdf8 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  textShadow: '0 0 35px rgba(56, 189, 248, 0.4)'
+                }}
+              >
+                Long Session
+              </span>
             </h1>
 
-            {/* Sub-headline */}
+            {/* Subtitle */}
             <p
-              className="text-body"
               style={{
-                fontSize: '1.0rem',
+                fontFamily: 'var(--font-ui)',
+                fontSize: '0.98rem',
                 lineHeight: 1.65,
-                color: '#d4d4d8',
-                marginBottom: '28px',
-                maxWidth: '56ch'
+                color: '#cbd5e1',
+                marginBottom: '26px'
               }}
             >
-              Likes and retweets cost nothing, so signals drown in noise. On <strong>Ember.run</strong>, boosting content
-              costs real <strong>MON</strong>. Boost weights decay continuously over time, and early curators earn automatic onchain payouts
-              when their taste is proven right first.
+              Likes and retweets cost nothing, so signals drown in noise. On <strong style={{ color: '#ffffff' }}>Ember.run</strong>,
+              boosting attention requires capital on Monad parallel execution. Boost weights decay smoothly over time, and
+              early curators earn automatic <strong style={{ color: '#7dd3fc' }}>45% atomic payouts</strong> when their taste is proven right.
             </p>
 
-            {/* Action Buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+            {/* Primary Action Buttons */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '28px' }}>
               <button
                 onClick={() => {
                   sound.playSwitchClick();
@@ -115,8 +267,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 }}
                 className="sk-button-primary"
                 style={{
-                  padding: '11px 22px',
-                  fontSize: '0.92rem'
+                  padding: '12px 24px',
+                  fontSize: '0.92rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
                 }}
               >
                 <Flame size={16} color="#000000" fill="#000000" />
@@ -130,301 +285,205 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   onOpenDemo();
                 }}
                 className="sk-button"
-                style={{ padding: '11px 20px', fontSize: '0.88rem' }}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '0.88rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
               >
                 <Play size={14} color="#ffffff" fill="#ffffff" />
-                <span>WATCH 30-SEC DEMO</span>
+                <span>30-SEC DEMO</span>
               </button>
-            </div>
 
-            {/* Verification Tag */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                marginTop: '22px',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.72rem',
-                color: 'var(--ink-soft)'
-              }}
-            >
-              <CheckCircle2 size={13} color="#ffffff" />
-              <span>100% REAL TRANSACTIONS // ZERO MOCK DATA POLICY // MONAD TESTNET</span>
-            </div>
-          </div>
-
-          {/* Right Hero Column: Instrument Card */}
-          <div
-            className="sk-panel-walnut card-hover"
-            style={{
-              padding: '24px',
-              borderRadius: '0px',
-              border: '1.5px solid #38bdf8',
-              boxShadow: '5px 5px 0px #38bdf8',
-              background: 'rgba(11, 21, 40, 0.92)'
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                borderBottom: '1.5px solid rgba(56, 189, 248, 0.35)',
-                paddingBottom: '12px',
-                marginBottom: '16px'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="sk-lamp sk-lamp-green" />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#fdfaf2', fontWeight: 700 }}>
-                  TELEMETRY // GAUGE #001
-                </span>
-              </div>
-              <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.65rem' }}>
-                LIVE DECAY DIAL
-              </span>
-            </div>
-
-            {/* Gauge Presentation */}
-            <div style={{ display: 'flex', justifyContent: 'center', padding: '10px 0 16px 0' }}>
-              <AnalogDecayGauge
-                createdAt={Math.floor(Date.now() / 1000) - 3600}
-                totalWeight={10.0}
-                decayedWeight={8.9}
-                velocityScore={4.5}
-                size="lg"
-              />
-            </div>
-
-            {/* Console Readout Matrix */}
-            <div
-              className="sk-well-dark"
-              style={{
-                padding: '12px 14px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '8px',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.76rem',
-                border: '1.5px solid rgba(56, 189, 248, 0.4)',
-                boxShadow: '2px 2px 0px #38bdf8',
-                background: 'rgba(4, 8, 16, 0.92)'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--ink-soft)' }}>PROTOCOL SPLIT:</span>
-                <span style={{ color: '#fdfaf2', fontWeight: 700 }}>40% AUTHOR / 45% CURATORS</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--ink-soft)' }}>DISBURSEMENT:</span>
-                <span style={{ color: '#f3d38c', fontWeight: 700 }}>ATOMIC ONCHAIN (NO CLAIMS)</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--ink-soft)' }}>ANTI-GAMING:</span>
-                <span style={{ color: '#fdfaf2', fontWeight: 700 }}>SELF-BOOST REVERT ARMED</span>
-              </div>
-            </div>
-
-            <div style={{ marginTop: '14px', textAlign: 'center' }}>
               <button
                 onClick={() => {
                   sound.playSwitchClick();
-                  onLaunchApp();
+                  onOpenPasskeyModal();
                 }}
                 className="sk-button"
+                title="Create or Sign In with Windows Hello / Touch ID"
                 style={{
-                  width: '100%',
-                  fontSize: '0.78rem',
-                  padding: '8px'
+                  padding: '12px 18px',
+                  fontSize: '0.86rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  borderColor: '#38bdf8'
                 }}
               >
-                <span>OPEN FEED & TEST ONCHAIN</span>
+                <Fingerprint size={15} color="#38bdf8" />
+                <span>PASSKEY</span>
               </button>
             </div>
+
+            {/* Micro Spec Telemetry Grid */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gap: '8px',
+                borderTop: '1px solid rgba(56, 189, 248, 0.25)',
+                paddingTop: '18px'
+              }}
+            >
+              {[
+                { label: 'THROUGHPUT', val: '10K TPS', sub: 'Parallel EVM' },
+                { label: 'HALF-LIFE', val: '6.0 HRS', sub: 'Decay Curve' },
+                { label: 'DISBURSEMENT', val: '40/45/15', sub: 'Atomic Splits' },
+                { label: 'AUTH', val: 'WEBAUTHN', sub: 'Zero Seed Words' }
+              ].map((item) => (
+                <div key={item.label} className="sk-well" style={{ padding: '8px', textAlign: 'center' }}>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.60rem', color: 'var(--ink-soft)' }}>
+                    {item.label}
+                  </div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.86rem', fontWeight: 800, color: '#ffffff' }}>
+                    {item.val}
+                  </div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: '#7dd3fc' }}>
+                    {item.sub}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section 01: The Attention Crisis vs The Curation Market */}
-      <section style={{ marginBottom: '40px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-          <span className="sk-index" data-index="01" />
-          <h2 className="text-heading">THE ATTENTION CRISIS & THE SOLUTION</h2>
-        </div>
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '20px'
-          }}
-        >
-          {/* Card 1: Traditional Social Likes */}
-          <div className="sk-panel card-hover" style={{ padding: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-              <span className="sk-lamp" style={{ background: '#71717a' }} />
-              <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, color: '#ffffff' }}>
-                Traditional Social Likes = $0
-              </h3>
-            </div>
-            <p className="text-body" style={{ fontSize: '0.88rem', color: '#d4d4d8', lineHeight: 1.6 }}>
-              On Twitter and Farcaster, likes cost nothing. There is zero separation between genuine early discovery
-              and algorithmic noise. Curators who spot great creators or alpha signals months in advance get the exact
-              same reward as someone who likes a post after it has already gone viral: <strong>nothing</strong>.
-            </p>
-          </div>
-
-          {/* Card 2: Ember.run Curation Markets */}
-          <div className="sk-panel card-hover" style={{ padding: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-              <span className="sk-lamp sk-lamp-green" />
-              <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, color: '#ffffff' }}>
-                Ember.run = Paid Taste Arbitrage
-              </h3>
-            </div>
-            <p className="text-body" style={{ fontSize: '0.88rem', color: '#d4d4d8', lineHeight: 1.6 }}>
-              When boosting requires real capital, curation transforms into an onchain asset class. Every boost is split
-              atomically: 40% to the creator and 45% distributed proportionally to earlier curators. If you identify a gem
-              early, your taste becomes provably recorded and automatically compensated.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 02: Core Protocol Mechanics */}
-      <section style={{ marginBottom: '40px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-          <span className="sk-index" data-index="02" />
-          <h2 className="text-heading">THREE CORE PROTOCOL PILLARS</h2>
-        </div>
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '20px'
-          }}
-        >
-          {/* Pillar 1 */}
-          <div className="sk-panel card-hover" style={{ padding: '22px' }}>
-            <div
-              style={{
-                width: '34px',
-                height: '34px',
-                borderRadius: '0px',
-                background: 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '14px',
-                border: '1.5px solid #f8fafc',
-                boxShadow: '2px 2px 0px #38bdf8'
-              }}
-            >
-              <Zap size={16} color="#030712" />
-            </div>
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, marginBottom: '8px', color: '#f8fafc' }}>
-              Atomic 40 / 45 / 15 Splits
-            </h3>
-            <p className="text-body" style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>
-              Smart contract distributes payouts in the exact same transaction. 40% goes directly to the author, 45% is
-              streamed proportionally to earlier curators, and 15% is retained in the post's pool reserve. No manual claiming
-              portals or lockup periods.
-            </p>
-          </div>
-
-          {/* Pillar 2 */}
-          <div className="sk-panel card-hover" style={{ padding: '22px' }}>
-            <div
-              style={{
-                width: '34px',
-                height: '34px',
-                borderRadius: '0px',
-                background: 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '14px',
-                border: '1.5px solid #f8fafc',
-                boxShadow: '2px 2px 0px #38bdf8'
-              }}
-            >
-              <Clock size={16} color="#030712" />
-            </div>
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, marginBottom: '8px', color: '#f8fafc' }}>
-              Continuous Half-Life Decay
-            </h3>
-            <p className="text-body" style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>
-              Boost weight decays continuously on an exponential half-life curve (W(t) = W₀ · 2^(-Δt / 6h)).
-              The feed is ranked live by current active weight — old posts decay off the radar unless stoked by sustained
-              interest.
-            </p>
-          </div>
-
-          {/* Pillar 3 */}
-          <div className="sk-panel card-hover" style={{ padding: '22px' }}>
-            <div
-              style={{
-                width: '34px',
-                height: '34px',
-                borderRadius: '0px',
-                background: 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '14px',
-                border: '1.5px solid #f8fafc',
-                boxShadow: '2px 2px 0px #38bdf8'
-              }}
-            >
-              <ShieldCheck size={16} color="#030712" />
-            </div>
-            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: '1.02rem', fontWeight: 700, marginBottom: '8px', color: '#f8fafc' }}>
-              Anti-Gaming Protocol Shields
-            </h3>
-            <p className="text-body" style={{ fontSize: '0.85rem', color: '#d4d4d8', lineHeight: 1.55 }}>
-              Onchain rule 1 strictly rejects self-boosting. Onchain rule 2 applies diminishing returns multipliers to repeat
-              boosts from the same wallet (10000 / (10000 + 5000 · n)), making wash-curation via alt accounts
-              mathematically negative-EV.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 03: Interactive Taste Arbitrage Calculator */}
-      <section className="sk-panel" style={{ padding: '28px', marginBottom: '40px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '8px' }}>
+      {/* ── 2 VARIANTS Section (Matching ThreeUI Bottom Gallery) ── */}
+      <section style={{ marginBottom: '36px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="sk-index" data-index="03" />
-            <h2 className="text-heading">TASTE ARBITRAGE CALCULATOR</h2>
-          </div>
-          <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.70rem' }}>
             <span className="sk-lamp sk-lamp-green" />
-            <span>ESTIMATED ONCHAIN YIELD</span>
+            <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#f8fafc', fontWeight: 700, letterSpacing: '0.04em' }}>
+              2 SESSION VARIANTS // MODES
+            </h2>
+          </div>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: 'var(--ink-soft)' }}>
+            INTERACTIVE WORKSTATION PROTOCOL
           </span>
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 1fr)',
-            gap: '28px',
-            alignItems: 'center'
-          }}
-          className="mission-console-grid"
-        >
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
+          {/* Variant 01: Cathode Radar Cockpit */}
+          <div
+            onClick={() => {
+              sound.playSwitchClick();
+              setSelectedVariant('session');
+              onLaunchApp();
+            }}
+            className="sk-panel card-hover"
+            style={{
+              padding: '20px',
+              border: selectedVariant === 'session' ? '1.5px solid #38bdf8' : '1px solid rgba(255,255,255,0.1)',
+              boxShadow: selectedVariant === 'session' ? '4px 4px 0px #38bdf8' : 'none',
+              background: 'rgba(8, 14, 28, 0.88)',
+              cursor: 'pointer'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Monitor size={16} color="#38bdf8" />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: 700, color: '#ffffff' }}>
+                  01 // CATHODE RADAR SESSION
+                </span>
+              </div>
+              <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.62rem' }}>
+                ACTIVE 60 FPS
+              </span>
+            </div>
+            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '14px' }}>
+              Full instrument console with dynamic live video background, time-decay radar gauges, live post discovery, and real-time Monad RPC integration.
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#7dd3fc' }}>
+              <span>OPEN CONSOLE VIEW</span>
+              <ArrowRight size={12} />
+            </div>
+          </div>
+
+          {/* Variant 02: Taste Arbitrage & Curation Math */}
+          <div
+            onClick={() => {
+              sound.playSwitchClick();
+              setSelectedVariant('wireframe');
+            }}
+            className="sk-panel card-hover"
+            style={{
+              padding: '20px',
+              border: selectedVariant === 'wireframe' ? '1.5px solid #38bdf8' : '1px solid rgba(255,255,255,0.1)',
+              boxShadow: selectedVariant === 'wireframe' ? '4px 4px 0px #38bdf8' : 'none',
+              background: 'rgba(8, 14, 28, 0.88)',
+              cursor: 'pointer'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Terminal size={16} color="#34d399" />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: 700, color: '#ffffff' }}>
+                  02 // TASTE ARBITRAGE CALCULATOR
+                </span>
+              </div>
+              <span className="sk-badge" style={{ fontSize: '0.62rem' }}>
+                BONDING CURVE
+              </span>
+            </div>
+            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '14px' }}>
+              Interactive mathematical simulator demonstrating how early conviction earns yield from subsequent community boosts before the exponential half-life cliff.
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#34d399' }}>
+              <span>TUNE ARBITRAGE SIMULATOR</span>
+              <ArrowRight size={12} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Interactive Taste Arbitrage Calculator & Analog Gauge ── */}
+      <section
+        className="sk-panel"
+        style={{
+          padding: 'clamp(20px, 3vw, 36px)',
+          marginBottom: '36px',
+          background: 'rgba(7, 13, 26, 0.90)',
+          border: '1.5px solid #38bdf8',
+          boxShadow: '4px 4px 0px #38bdf8'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Sparkles size={16} color="#38bdf8" />
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: '#ffffff' }}>
+                Taste Arbitrage & Curation Math Engine
+              </h3>
+            </div>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--ink-soft)', marginTop: '4px' }}>
+              SIMULATE EARLY CONVICTION // CONTINUOUS DECAY HALF-LIFE = 6.0 HOURS
+            </p>
+          </div>
+          <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.68rem' }}>
+            ATOMIC 40 / 45 / 15 DISTRIBUTION
+          </span>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 0.8fr)', gap: '28px', alignItems: 'center' }} className="mission-console-grid">
           {/* Controls */}
           <div>
-            <div style={{ marginBottom: '16px' }}>
+            {/* Slider 1: Your Boost Amount */}
+            <div style={{ marginBottom: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span className="text-micro">YOUR BOOST QUANTUM</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#ffffff' }}>{simulatedBoost.toFixed(1)} MON</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--ink-soft)' }}>
+                  YOUR INITIAL BOOST AMOUNT:
+                </span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', fontWeight: 700, color: '#38bdf8' }}>
+                  {simulatedBoost.toFixed(1)} MON
+                </span>
               </div>
               <input
                 type="range"
                 min="0.5"
-                max="5.0"
+                max="10.0"
                 step="0.5"
                 value={simulatedBoost}
                 onChange={(e) => {
@@ -435,10 +494,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               />
             </div>
 
-            <div style={{ marginBottom: '16px' }}>
+            {/* Slider 2: Discovery Timing (Hours since post creation) */}
+            <div style={{ marginBottom: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span className="text-micro">DISCOVERY TIMING (HOURS AFTER POSTING)</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#7dd3fc' }}>Hour {simulatedHour}</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--ink-soft)' }}>
+                  DISCOVERY TIMING (HOURS SINCE GENESIS):
+                </span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', fontWeight: 700, color: '#ffffff' }}>
+                  HOUR {simulatedHour} {simulatedHour <= 2 ? '(EARLY SIGNAL α)' : '(LATE CONVERGENCE)'}
+                </span>
               </div>
               <input
                 type="range"
@@ -448,139 +512,107 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 value={simulatedHour}
                 onChange={(e) => {
                   sound.playDialTick();
-                  setSimulatedHour(parseInt(e.target.value, 10));
+                  setSimulatedHour(parseInt(e.target.value));
                 }}
                 style={{ width: '100%', accentColor: '#38bdf8', cursor: 'pointer' }}
               />
             </div>
 
-            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.78rem', color: 'var(--ink-soft)', lineHeight: 1.4 }}>
-              Earlier discovery captures maximum curator weight before the 6-hour decay half-life takes effect.
-            </p>
+            {/* Yield Output Metric Cards */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+              <div className="sk-well" style={{ padding: '12px', textAlign: 'center' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: 'var(--ink-soft)' }}>
+                  DOWNSTREAM 45% POOL
+                </div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 800, color: '#ffffff' }}>
+                  {formatMon(laterBoosts * 0.45, 2)} MON
+                </div>
+              </div>
+
+              <div className="sk-well" style={{ padding: '12px', textAlign: 'center' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: 'var(--ink-soft)' }}>
+                  PROJECTED EARNED
+                </div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 800, color: '#34d399' }}>
+                  +{formatMon(estimatedEarned, 2)} MON
+                </div>
+              </div>
+
+              <div className="sk-well" style={{ padding: '12px', textAlign: 'center' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: 'var(--ink-soft)' }}>
+                  TASTE ROI %
+                </div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 800, color: '#7dd3fc' }}>
+                  {estimatedRoi}%
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Calculator Output Readout */}
+          {/* Right: Analog Decay Gauge Preview */}
           <div
-            className="sk-well"
             style={{
-              padding: '20px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '12px'
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '16px',
+              background: 'rgba(4, 8, 16, 0.75)',
+              border: '1px solid rgba(56, 189, 248, 0.3)'
             }}
           >
-            <div>
-              <div className="text-micro" style={{ color: 'var(--ink-soft)' }}>
-                PROJECTED ATOMIC RETURN
-              </div>
-              <div
-                className="text-display-md"
-                style={{
-                  color: '#ffffff',
-                  fontSize: '2.2rem',
-                  display: 'flex',
-                  alignItems: 'baseline',
-                  gap: '6px'
-                }}
-              >
-                +{formatMon(estimatedEarned, 2)}
-                <span style={{ fontSize: '0.95rem', color: 'var(--ink-soft)', fontFamily: 'var(--font-mono)' }}>MON</span>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
-              <span style={{ color: 'var(--ink-soft)' }}>Estimated Net ROI:</span>
-              <span style={{ fontWeight: 700, color: '#ffffff' }}>
-                {estimatedRoi}%
-              </span>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
-              <span style={{ color: 'var(--ink-soft)' }}>Decay Multiplier:</span>
-              <span style={{ fontWeight: 700, color: '#ffffff' }}>{Math.round(decayPenalty * 100)}%</span>
+            <AnalogDecayGauge
+              createdAt={Math.floor(Date.now() / 1000) - simulatedHour * 3600}
+              totalWeight={10.0}
+              decayedWeight={Math.round(10.0 * decayPenalty * 10) / 10}
+              velocityScore={Math.round((simulatedBoost * 2.2) / simulatedHour * 10) / 10}
+              size="md"
+            />
+            <div style={{ marginTop: '10px', fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: '#7dd3fc', textAlign: 'center' }}>
+              EFFECTIVE WEIGHT REMAINING: {Math.round(decayPenalty * 100)}%
             </div>
           </div>
         </div>
       </section>
 
-      {/* Call to Action Bar */}
-      <section
-        className="sk-panel-walnut"
-        style={{
-          padding: '36px',
-          textAlign: 'center',
-          borderRadius: '0px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '16px',
-          border: '2px solid #38bdf8',
-          boxShadow: '6px 6px 0px #38bdf8',
-          background: 'rgba(11, 21, 40, 0.94)'
-        }}
-      >
-        <div
-          style={{
-            width: '42px',
-            height: '42px',
-            borderRadius: '0px',
-            background: 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1.5px solid #f8fafc',
-            boxShadow: '3px 3px 0px #38bdf8'
-          }}
-        >
-          <Flame size={22} color="#030712" fill="#030712" />
+      {/* ── 3 Architecture Principles (Cathode Wireframe Panels) ── */}
+      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="mission-console-grid">
+        <div className="sk-panel card-hover" style={{ padding: '22px', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+            <Clock size={16} color="#38bdf8" />
+            <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '0.98rem', fontWeight: 700, color: '#ffffff' }}>
+              01 // Time-Decay Physics
+            </h4>
+          </div>
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.84rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>
+            Signals decay with a 6-hour half-life curve: <code>W(t) = W₀ × 2^(-Δt/6h)</code>. No post dominates forever; fresh capital and ongoing discovery continuously recalibrate the radar.
+          </p>
         </div>
 
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '1.8rem',
-            color: '#ffffff',
-            maxWidth: '40ch'
-          }}
-        >
-          Ready to turn your taste into an onchain asset class?
-        </h2>
+        <div className="sk-panel card-hover" style={{ padding: '22px', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+            <Zap size={16} color="#7dd3fc" />
+            <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '0.98rem', fontWeight: 700, color: '#ffffff' }}>
+              02 // Atomic 40/45/15 Routing
+            </h4>
+          </div>
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.84rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>
+            Every boost is split atomically: 40% immediately to author, 45% divided proportionally among earlier curators based on their effective weight, and 15% to pool reserve.
+          </p>
+        </div>
 
-        <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.92rem', color: '#d4d4d8', maxWidth: '52ch' }}>
-          Connect seamlessly using Passkey biometric authentication. No seed phrases, instant Monad testnet transactions.
-        </p>
-
-        <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <button
-            onClick={() => {
-              sound.playSwitchClick();
-              onLaunchApp();
-            }}
-            className="sk-button-primary"
-            style={{ padding: '11px 26px', fontSize: '0.9rem' }}
-          >
-            <span>LAUNCH EMBER.RUN FEED</span>
-            <ArrowRight size={15} />
-          </button>
-
-          <button
-            onClick={() => {
-              sound.playSwitchClick();
-              onOpenPasskeyModal();
-            }}
-            className="sk-button"
-            style={{
-              padding: '11px 20px',
-              fontSize: '0.88rem'
-            }}
-          >
-            <Fingerprint size={15} color="#ffffff" />
-            <span>CREATE PASSKEY WALLET</span>
-          </button>
+        <div className="sk-panel card-hover" style={{ padding: '22px', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+            <ShieldCheck size={16} color="#34d399" />
+            <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '0.98rem', fontWeight: 700, color: '#ffffff' }}>
+              03 // Anti-Gaming Diminishing Returns
+            </h4>
+          </div>
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.84rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>
+            Self-boosting triggers an instant on-chain transaction revert. Repeated boosts from the same wallet incur a diminishing multiplier (100% → 85% → 70% → 55% → 40%).
+          </p>
         </div>
       </section>
     </div>
   );
 };
-
-export default LandingPage;
