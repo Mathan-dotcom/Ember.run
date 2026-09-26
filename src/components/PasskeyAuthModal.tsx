@@ -94,7 +94,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
       : 'WEBAUTHN NOT SUPPORTED IN THIS BROWSER';
 
   const iconColor =
-    phase === 'success' ? '#4ade80' : phase === 'error' ? '#f87171' : '#38bdf8';
+    phase === 'success' ? '#4ade80' : phase === 'error' ? '#f87171' : '#ffffff';
 
   return (
     <div
@@ -120,15 +120,15 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
           maxWidth: '460px',
           padding: '28px',
           background: 'rgba(7, 14, 28, 0.97)',
-          border: '2px solid #38bdf8',
+          border: '2px solid #ffffff',
           borderRadius: '0px',
-          boxShadow: '8px 8px 0px #38bdf8'
+          boxShadow: '8px 8px 0px #ffffff'
         }}
       >
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', borderBottom: '1.5px solid rgba(56,189,248,0.35)', paddingBottom: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', borderBottom: '1.5px solid rgba(255, 255, 255, 0.25)', paddingBottom: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '32px', height: '32px', background: '#38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1.5px solid #38bdf8', boxShadow: '2px 2px 0px #38bdf8' }}>
+            <div style={{ width: '32px', height: '32px', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1.5px solid #ffffff', boxShadow: '2px 2px 0px #ffffff' }}>
               <Fingerprint size={18} color="#000" />
             </div>
             <div>
@@ -149,7 +149,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
         </div>
 
         {/* Tabs */}
-        <div style={{ display: 'flex', gap: '0px', marginBottom: '20px', border: '1.5px solid rgba(56,189,248,0.4)' }}>
+        <div style={{ display: 'flex', gap: '0px', marginBottom: '20px', border: '1.5px solid rgba(255, 255, 255, 0.25)' }}>
           {(['register', 'signin'] as Tab[]).map((t) => (
             <button
               key={t}
@@ -163,7 +163,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
                 letterSpacing: '0.06em',
                 cursor: 'pointer',
                 border: 'none',
-                background: tab === t ? '#38bdf8' : 'transparent',
+                background: tab === t ? '#ffffff' : 'transparent',
                 color: tab === t ? '#000' : 'var(--ink-soft)',
                 transition: 'all 0.15s ease',
               }}
@@ -177,8 +177,8 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
         <div
           style={{
             background: 'rgba(3, 7, 18, 0.8)',
-            border: `1.5px solid ${phase === 'error' ? '#f87171' : phase === 'success' ? '#4ade80' : 'rgba(56,189,248,0.4)'}`,
-            boxShadow: `4px 4px 0px ${phase === 'error' ? '#f87171' : phase === 'success' ? '#4ade80' : '#38bdf8'}`,
+            border: `1.5px solid ${phase === 'error' ? '#f87171' : phase === 'success' ? '#4ade80' : 'rgba(255, 255, 255, 0.25)'}`,
+            boxShadow: `4px 4px 0px ${phase === 'error' ? '#f87171' : phase === 'success' ? '#4ade80' : '#ffffff'}`,
             padding: '20px 16px',
             textAlign: 'center',
             marginBottom: '20px',
@@ -193,7 +193,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
               position: 'absolute',
               top: 0, left: 0, right: 0,
               height: '2px',
-              background: 'linear-gradient(90deg, transparent, #38bdf8, transparent)',
+              background: 'linear-gradient(90deg, transparent, #ffffff, transparent)',
               animation: 'scan-line 1.4s linear infinite'
             }} />
           )}
@@ -201,7 +201,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
           <div style={{
             width: '64px', height: '64px',
             margin: '0 auto 12px auto',
-            background: 'rgba(56,189,248,0.08)',
+            background: 'rgba(255, 255, 255, 0.25)',
             border: `2px solid ${iconColor}`,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             boxShadow: `0 0 16px ${iconColor}40`,
@@ -246,7 +246,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
               <label className="text-micro" style={{ display: 'block', marginBottom: '6px', color: 'var(--ink-soft)' }}>
                 Curator Identity / Username
               </label>
-              <div className="sk-well" style={{ padding: '2px', border: '1.5px solid rgba(56,189,248,0.5)', borderRadius: '0px', boxShadow: '2px 2px 0px #38bdf8' }}>
+              <div className="sk-well" style={{ padding: '2px', border: '1.5px solid rgba(255, 255, 255, 0.25)', borderRadius: '0px', boxShadow: '2px 2px 0px #ffffff' }}>
                 <input
                   type="text"
                   className="sk-input"
@@ -288,7 +288,7 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
             </button>
 
             {phase === 'error' && (
-              <button type="button" onClick={reset} style={{ width: '100%', marginTop: '8px', padding: '9px', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', background: 'transparent', border: '1px solid rgba(56,189,248,0.4)', color: '#7dd3fc', cursor: 'pointer' }}>
+              <button type="button" onClick={reset} style={{ width: '100%', marginTop: '8px', padding: '9px', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', background: 'transparent', border: '1px solid rgba(255, 255, 255, 0.25)', color: '#ffffff', cursor: 'pointer' }}>
                 TRY AGAIN
               </button>
             )}
@@ -315,14 +315,14 @@ export const PasskeyAuthModal: React.FC<PasskeyAuthModalProps> = ({ isOpen, onCl
             </button>
 
             {phase === 'error' && (
-              <button onClick={reset} style={{ width: '100%', padding: '9px', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', background: 'transparent', border: '1px solid rgba(56,189,248,0.4)', color: '#7dd3fc', cursor: 'pointer' }}>
+              <button onClick={reset} style={{ width: '100%', padding: '9px', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', background: 'transparent', border: '1px solid rgba(255, 255, 255, 0.25)', color: '#ffffff', cursor: 'pointer' }}>
                 TRY AGAIN
               </button>
             )}
 
             <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.70rem', color: 'var(--ink-faint)', marginTop: '16px', textAlign: 'center' }}>
               No passkey yet?{' '}
-              <button onClick={() => { reset(); setTab('register'); }} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', fontFamily: 'var(--font-ui)', fontSize: '0.70rem', textDecoration: 'underline' }}>
+              <button onClick={() => { reset(); setTab('register'); }} style={{ background: 'none', border: 'none', color: '#ffffff', cursor: 'pointer', fontFamily: 'var(--font-ui)', fontSize: '0.70rem', textDecoration: 'underline' }}>
                 Register one first
               </button>
             </p>

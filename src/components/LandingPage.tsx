@@ -46,7 +46,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
   return (
     <div className="fade-in-card" style={{ padding: '0 0 40px 0' }}>
-      {/* ── Breadcrumb Tag Bar (Cathode Session ThreeUI Style) ── */}
+      {/* ── Breadcrumb Tag Bar (Cathode Session Monochrome Style) ── */}
       <div
         style={{
           display: 'flex',
@@ -54,26 +54,26 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           justifyContent: 'space-between',
           padding: '8px 14px',
           marginBottom: '20px',
-          background: 'rgba(5, 10, 20, 0.75)',
+          background: 'rgba(0, 0, 0, 0.85)',
           backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(56, 189, 248, 0.25)',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.7)',
           flexWrap: 'wrap',
           gap: '12px'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#38bdf8', fontWeight: 700 }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#ffffff', fontWeight: 700 }}>
             EMBER.RUN
           </span>
-          <span style={{ color: 'rgba(255, 255, 255, 0.2)' }}>/</span>
+          <span style={{ color: 'rgba(255, 255, 255, 0.25)' }}>/</span>
           {['motion design', 'motion graphics', 'cathode', 'crt', 'workstation', 'monad'].map((tag, idx) => (
             <React.Fragment key={tag}>
               <span
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.68rem',
-                  color: idx < 2 ? '#f8fafc' : 'var(--ink-soft)',
+                  color: idx < 2 ? '#ffffff' : '#a3a3a3',
                   letterSpacing: '0.02em'
                 }}
               >
@@ -89,9 +89,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.68rem',
-              color: '#34d399',
-              background: 'rgba(52, 211, 153, 0.12)',
-              border: '1px solid rgba(52, 211, 153, 0.3)',
+              color: '#ffffff',
+              background: 'rgba(255, 255, 255, 0.1)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
               padding: '2px 8px',
               fontWeight: 700
             }}
@@ -102,9 +102,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.68rem',
-              color: '#7dd3fc',
-              background: 'rgba(56, 189, 248, 0.12)',
-              border: '1px solid rgba(56, 189, 248, 0.3)',
+              color: '#d4d4d4',
+              background: 'rgba(255, 255, 255, 0.06)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
               padding: '2px 8px'
             }}
           >
@@ -113,7 +113,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </div>
 
-      {/* ── Main Cathode Session Hero Section ── */}
+      {/* ── Main Cathode Session Hero Section (Pure Black & White) ── */}
       <section
         className="sk-panel"
         style={{
@@ -121,9 +121,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           marginBottom: '32px',
           overflow: 'hidden',
           position: 'relative',
-          background: 'rgba(7, 12, 24, 0.92)',
-          border: '1.5px solid #38bdf8',
-          boxShadow: '6px 6px 0px #38bdf8'
+          background: 'rgba(10, 10, 10, 0.95)',
+          border: '1.5px solid #ffffff',
+          boxShadow: '6px 6px 0px #ffffff'
         }}
       >
         <div
@@ -139,10 +139,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             style={{
               position: 'relative',
               minHeight: '480px',
-              borderRight: '1.5px solid rgba(56, 189, 248, 0.25)',
+              borderRight: '1.5px solid rgba(255, 255, 255, 0.2)',
               display: 'flex',
               flexDirection: 'column',
-              background: 'radial-gradient(ellipse at 50% 45%, rgba(56, 189, 248, 0.08) 0%, rgba(3, 7, 18, 0.95) 80%)'
+              background: 'radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.98) 80%)'
             }}
           >
             {/* Top HUD Overlay inside 3D Canvas */}
@@ -158,8 +158,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 pointerEvents: 'none'
               }}
             >
-              <span className="sk-lamp sk-lamp-green" />
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#f8fafc', fontWeight: 700 }}>
+              <span
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  background: '#ffffff',
+                  boxShadow: '0 0 8px #ffffff'
+                }}
+              />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#ffffff', fontWeight: 700 }}>
                 CATHODE WORKSTATION // THREE.JS 3D
               </span>
             </div>
@@ -173,8 +181,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div
               style={{
                 padding: '10px 16px',
-                borderTop: '1px solid rgba(56, 189, 248, 0.2)',
-                background: 'rgba(4, 8, 16, 0.75)',
+                borderTop: '1px solid rgba(255, 255, 255, 0.15)',
+                background: 'rgba(0, 0, 0, 0.85)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -183,14 +191,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Activity size={12} color="#38bdf8" />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--ink-soft)' }}>
+                <Activity size={12} color="#ffffff" />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: '#a3a3a3' }}>
                   PARALLEL EXECUTION MATRIX: 10,000 TPS
                 </span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Cpu size={12} color="#34d399" />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: '#34d399' }}>
+                <Cpu size={12} color="#ffffff" />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: '#ffffff' }}>
                   MONAD BFT: 1.0s SLOT
                 </span>
               </div>
@@ -204,17 +212,34 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
-              position: 'relative'
+              position: 'relative',
+              background: '#050505'
             }}
           >
             {/* Header Tagline */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-              <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.68rem', padding: '3px 8px' }}>
-                <span className="sk-lamp sk-lamp-green" />
-                <span>SESSION 01 // PARALLEL EVM</span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.68rem',
+                  padding: '3px 8px',
+                  background: '#ffffff',
+                  color: '#000000',
+                  fontWeight: 700
+                }}
+              >
+                SESSION 01 // PARALLEL EVM
               </span>
-              <span className="sk-badge" style={{ fontSize: '0.68rem', padding: '3px 8px' }}>
-                <span>CURATION MARKET</span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.68rem',
+                  padding: '3px 8px',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  color: '#ffffff'
+                }}
+              >
+                CURATION MARKET
               </span>
             </div>
 
@@ -233,10 +258,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               Built for the <br />
               <span
                 style={{
-                  background: 'linear-gradient(135deg, #ffffff 30%, #7dd3fc 70%, #38bdf8 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  textShadow: '0 0 35px rgba(56, 189, 248, 0.4)'
+                  color: '#ffffff',
+                  textShadow: '0 0 25px rgba(255, 255, 255, 0.4)'
                 }}
               >
                 Long Session
@@ -249,13 +272,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 fontFamily: 'var(--font-ui)',
                 fontSize: '0.98rem',
                 lineHeight: 1.65,
-                color: '#cbd5e1',
+                color: '#a3a3a3',
                 marginBottom: '26px'
               }}
             >
               Likes and retweets cost nothing, so signals drown in noise. On <strong style={{ color: '#ffffff' }}>Ember.run</strong>,
               boosting attention requires capital on Monad parallel execution. Boost weights decay smoothly over time, and
-              early curators earn automatic <strong style={{ color: '#7dd3fc' }}>45% atomic payouts</strong> when their taste is proven right.
+              early curators earn automatic <strong style={{ color: '#ffffff' }}>45% atomic payouts</strong> when their taste is proven right.
             </p>
 
             {/* Primary Action Buttons */}
@@ -271,7 +294,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   fontSize: '0.92rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '8px',
+                  background: '#ffffff',
+                  color: '#000000',
+                  border: '1.5px solid #ffffff',
+                  boxShadow: '3px 3px 0px #737373',
+                  fontWeight: 700
                 }}
               >
                 <Flame size={16} color="#000000" fill="#000000" />
@@ -290,7 +318,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   fontSize: '0.88rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '8px',
+                  background: 'transparent',
+                  color: '#ffffff',
+                  border: '1.5px solid #ffffff',
+                  boxShadow: '2px 2px 0px #ffffff'
                 }}
               >
                 <Play size={14} color="#ffffff" fill="#ffffff" />
@@ -310,21 +342,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  borderColor: '#38bdf8'
+                  background: 'transparent',
+                  color: '#ffffff',
+                  border: '1.5px solid rgba(255, 255, 255, 0.4)'
                 }}
               >
-                <Fingerprint size={15} color="#38bdf8" />
+                <Fingerprint size={15} color="#ffffff" />
                 <span>PASSKEY</span>
               </button>
             </div>
 
-            {/* Micro Spec Telemetry Grid */}
+            {/* Micro Spec Telemetry Grid (Monochrome) */}
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(4, 1fr)',
                 gap: '8px',
-                borderTop: '1px solid rgba(56, 189, 248, 0.25)',
+                borderTop: '1px solid rgba(255, 255, 255, 0.15)',
                 paddingTop: '18px'
               }}
             >
@@ -334,14 +368,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 { label: 'DISBURSEMENT', val: '40/45/15', sub: 'Atomic Splits' },
                 { label: 'AUTH', val: 'WEBAUTHN', sub: 'Zero Seed Words' }
               ].map((item) => (
-                <div key={item.label} className="sk-well" style={{ padding: '8px', textAlign: 'center' }}>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.60rem', color: 'var(--ink-soft)' }}>
+                <div
+                  key={item.label}
+                  className="sk-well"
+                  style={{
+                    padding: '8px',
+                    textAlign: 'center',
+                    background: '#0a0a0a',
+                    border: '1px solid rgba(255, 255, 255, 0.15)'
+                  }}
+                >
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.60rem', color: '#737373' }}>
                     {item.label}
                   </div>
                   <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.86rem', fontWeight: 800, color: '#ffffff' }}>
                     {item.val}
                   </div>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: '#7dd3fc' }}>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: '#a3a3a3' }}>
                     {item.sub}
                   </div>
                 </div>
@@ -351,22 +394,30 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── 2 VARIANTS Section (Matching ThreeUI Bottom Gallery) ── */}
+      {/* ── 2 VARIANTS Section (Monochrome Black & White) ── */}
       <section style={{ marginBottom: '36px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="sk-lamp sk-lamp-green" />
-            <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#f8fafc', fontWeight: 700, letterSpacing: '0.04em' }}>
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: '#ffffff',
+                boxShadow: '0 0 6px #ffffff'
+              }}
+            />
+            <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#ffffff', fontWeight: 700, letterSpacing: '0.04em' }}>
               2 SESSION VARIANTS // MODES
             </h2>
           </div>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: 'var(--ink-soft)' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#737373' }}>
             INTERACTIVE WORKSTATION PROTOCOL
           </span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
-          {/* Variant 01: Cathode Radar Cockpit */}
+          {/* Variant 01: Cathode Radar Session */}
           <div
             onClick={() => {
               sound.playSwitchClick();
@@ -376,27 +427,36 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             className="sk-panel card-hover"
             style={{
               padding: '20px',
-              border: selectedVariant === 'session' ? '1.5px solid #38bdf8' : '1px solid rgba(255,255,255,0.1)',
-              boxShadow: selectedVariant === 'session' ? '4px 4px 0px #38bdf8' : 'none',
-              background: 'rgba(8, 14, 28, 0.88)',
+              border: selectedVariant === 'session' ? '1.5px solid #ffffff' : '1px solid rgba(255,255,255,0.15)',
+              boxShadow: selectedVariant === 'session' ? '4px 4px 0px #ffffff' : 'none',
+              background: '#0a0a0a',
               cursor: 'pointer'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Monitor size={16} color="#38bdf8" />
+                <Monitor size={16} color="#ffffff" />
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: 700, color: '#ffffff' }}>
                   01 // CATHODE RADAR SESSION
                 </span>
               </div>
-              <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.62rem' }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.62rem',
+                  padding: '2px 6px',
+                  background: '#ffffff',
+                  color: '#000000',
+                  fontWeight: 700
+                }}
+              >
                 ACTIVE 60 FPS
               </span>
             </div>
-            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '14px' }}>
+            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: '#a3a3a3', lineHeight: 1.5, marginBottom: '14px' }}>
               Full instrument console with dynamic live video background, time-decay radar gauges, live post discovery, and real-time Monad RPC integration.
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#7dd3fc' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#ffffff' }}>
               <span>OPEN CONSOLE VIEW</span>
               <ArrowRight size={12} />
             </div>
@@ -411,27 +471,35 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             className="sk-panel card-hover"
             style={{
               padding: '20px',
-              border: selectedVariant === 'wireframe' ? '1.5px solid #38bdf8' : '1px solid rgba(255,255,255,0.1)',
-              boxShadow: selectedVariant === 'wireframe' ? '4px 4px 0px #38bdf8' : 'none',
-              background: 'rgba(8, 14, 28, 0.88)',
+              border: selectedVariant === 'wireframe' ? '1.5px solid #ffffff' : '1px solid rgba(255,255,255,0.15)',
+              boxShadow: selectedVariant === 'wireframe' ? '4px 4px 0px #ffffff' : 'none',
+              background: '#0a0a0a',
               cursor: 'pointer'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Terminal size={16} color="#34d399" />
+                <Terminal size={16} color="#ffffff" />
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: 700, color: '#ffffff' }}>
                   02 // TASTE ARBITRAGE CALCULATOR
                 </span>
               </div>
-              <span className="sk-badge" style={{ fontSize: '0.62rem' }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.62rem',
+                  padding: '2px 6px',
+                  border: '1px solid rgba(255, 255, 255, 0.4)',
+                  color: '#ffffff'
+                }}
+              >
                 BONDING CURVE
               </span>
             </div>
-            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '14px' }}>
+            <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: '#a3a3a3', lineHeight: 1.5, marginBottom: '14px' }}>
               Interactive mathematical simulator demonstrating how early conviction earns yield from subsequent community boosts before the exponential half-life cliff.
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#34d399' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#ffffff' }}>
               <span>TUNE ARBITRAGE SIMULATOR</span>
               <ArrowRight size={12} />
             </div>
@@ -439,30 +507,39 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── Interactive Taste Arbitrage Calculator & Analog Gauge ── */}
+      {/* ── Interactive Taste Arbitrage Calculator & Analog Gauge (Monochrome) ── */}
       <section
         className="sk-panel"
         style={{
           padding: 'clamp(20px, 3vw, 36px)',
           marginBottom: '36px',
-          background: 'rgba(7, 13, 26, 0.90)',
-          border: '1.5px solid #38bdf8',
-          boxShadow: '4px 4px 0px #38bdf8'
+          background: '#080808',
+          border: '1.5px solid #ffffff',
+          boxShadow: '4px 4px 0px #ffffff'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Sparkles size={16} color="#38bdf8" />
+              <Sparkles size={16} color="#ffffff" />
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: '#ffffff' }}>
                 Taste Arbitrage & Curation Math Engine
               </h3>
             </div>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--ink-soft)', marginTop: '4px' }}>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#737373', marginTop: '4px' }}>
               SIMULATE EARLY CONVICTION // CONTINUOUS DECAY HALF-LIFE = 6.0 HOURS
             </p>
           </div>
-          <span className="sk-badge sk-badge--inverted" style={{ fontSize: '0.68rem' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.68rem',
+              padding: '3px 8px',
+              background: '#ffffff',
+              color: '#000000',
+              fontWeight: 700
+            }}
+          >
             ATOMIC 40 / 45 / 15 DISTRIBUTION
           </span>
         </div>
@@ -473,10 +550,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             {/* Slider 1: Your Boost Amount */}
             <div style={{ marginBottom: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--ink-soft)' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#a3a3a3' }}>
                   YOUR INITIAL BOOST AMOUNT:
                 </span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', fontWeight: 700, color: '#38bdf8' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', fontWeight: 700, color: '#ffffff' }}>
                   {simulatedBoost.toFixed(1)} MON
                 </span>
               </div>
@@ -490,14 +567,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   sound.playDialTick();
                   setSimulatedBoost(parseFloat(e.target.value));
                 }}
-                style={{ width: '100%', accentColor: '#38bdf8', cursor: 'pointer' }}
+                style={{ width: '100%', accentColor: '#ffffff', cursor: 'pointer' }}
               />
             </div>
 
-            {/* Slider 2: Discovery Timing (Hours since post creation) */}
+            {/* Slider 2: Discovery Timing */}
             <div style={{ marginBottom: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--ink-soft)' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#a3a3a3' }}>
                   DISCOVERY TIMING (HOURS SINCE GENESIS):
                 </span>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', fontWeight: 700, color: '#ffffff' }}>
@@ -514,14 +591,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   sound.playDialTick();
                   setSimulatedHour(parseInt(e.target.value));
                 }}
-                style={{ width: '100%', accentColor: '#38bdf8', cursor: 'pointer' }}
+                style={{ width: '100%', accentColor: '#ffffff', cursor: 'pointer' }}
               />
             </div>
 
             {/* Yield Output Metric Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
-              <div className="sk-well" style={{ padding: '12px', textAlign: 'center' }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: 'var(--ink-soft)' }}>
+              <div className="sk-well" style={{ padding: '12px', textAlign: 'center', background: '#0f0f0f', border: '1px solid rgba(255, 255, 255, 0.15)' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: '#737373' }}>
                   DOWNSTREAM 45% POOL
                 </div>
                 <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 800, color: '#ffffff' }}>
@@ -529,20 +606,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </div>
               </div>
 
-              <div className="sk-well" style={{ padding: '12px', textAlign: 'center' }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: 'var(--ink-soft)' }}>
+              <div className="sk-well" style={{ padding: '12px', textAlign: 'center', background: '#0f0f0f', border: '1px solid rgba(255, 255, 255, 0.15)' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: '#737373' }}>
                   PROJECTED EARNED
                 </div>
-                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 800, color: '#34d399' }}>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 800, color: '#ffffff' }}>
                   +{formatMon(estimatedEarned, 2)} MON
                 </div>
               </div>
 
-              <div className="sk-well" style={{ padding: '12px', textAlign: 'center' }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: 'var(--ink-soft)' }}>
+              <div className="sk-well" style={{ padding: '12px', textAlign: 'center', background: '#0f0f0f', border: '1px solid rgba(255, 255, 255, 0.15)' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: '#737373' }}>
                   TASTE ROI %
                 </div>
-                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 800, color: '#7dd3fc' }}>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 800, color: '#ffffff' }}>
                   {estimatedRoi}%
                 </div>
               </div>
@@ -557,8 +634,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               alignItems: 'center',
               justifyContent: 'center',
               padding: '16px',
-              background: 'rgba(4, 8, 16, 0.75)',
-              border: '1px solid rgba(56, 189, 248, 0.3)'
+              background: '#000000',
+              border: '1px solid rgba(255, 255, 255, 0.2)'
             }}
           >
             <AnalogDecayGauge
@@ -568,47 +645,47 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               velocityScore={Math.round((simulatedBoost * 2.2) / simulatedHour * 10) / 10}
               size="md"
             />
-            <div style={{ marginTop: '10px', fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: '#7dd3fc', textAlign: 'center' }}>
+            <div style={{ marginTop: '10px', fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: '#a3a3a3', textAlign: 'center' }}>
               EFFECTIVE WEIGHT REMAINING: {Math.round(decayPenalty * 100)}%
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 3 Architecture Principles (Cathode Wireframe Panels) ── */}
+      {/* ── 3 Architecture Principles (Monochrome Wireframe Panels) ── */}
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="mission-console-grid">
-        <div className="sk-panel card-hover" style={{ padding: '22px', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+        <div className="sk-panel card-hover" style={{ padding: '22px', border: '1px solid rgba(255, 255, 255, 0.2)', background: '#080808' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-            <Clock size={16} color="#38bdf8" />
+            <Clock size={16} color="#ffffff" />
             <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '0.98rem', fontWeight: 700, color: '#ffffff' }}>
               01 // Time-Decay Physics
             </h4>
           </div>
-          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.84rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>
-            Signals decay with a 6-hour half-life curve: <code>W(t) = W₀ × 2^(-Δt/6h)</code>. No post dominates forever; fresh capital and ongoing discovery continuously recalibrate the radar.
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.84rem', color: '#a3a3a3', lineHeight: 1.55 }}>
+            Signals decay with a 6-hour half-life curve: <code style={{ color: '#ffffff' }}>W(t) = W₀ × 2^(-Δt/6h)</code>. No post dominates forever; fresh capital and ongoing discovery continuously recalibrate the radar.
           </p>
         </div>
 
-        <div className="sk-panel card-hover" style={{ padding: '22px', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+        <div className="sk-panel card-hover" style={{ padding: '22px', border: '1px solid rgba(255, 255, 255, 0.2)', background: '#080808' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-            <Zap size={16} color="#7dd3fc" />
+            <Zap size={16} color="#ffffff" />
             <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '0.98rem', fontWeight: 700, color: '#ffffff' }}>
               02 // Atomic 40/45/15 Routing
             </h4>
           </div>
-          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.84rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.84rem', color: '#a3a3a3', lineHeight: 1.55 }}>
             Every boost is split atomically: 40% immediately to author, 45% divided proportionally among earlier curators based on their effective weight, and 15% to pool reserve.
           </p>
         </div>
 
-        <div className="sk-panel card-hover" style={{ padding: '22px', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+        <div className="sk-panel card-hover" style={{ padding: '22px', border: '1px solid rgba(255, 255, 255, 0.2)', background: '#080808' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-            <ShieldCheck size={16} color="#34d399" />
+            <ShieldCheck size={16} color="#ffffff" />
             <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '0.98rem', fontWeight: 700, color: '#ffffff' }}>
               03 // Anti-Gaming Diminishing Returns
             </h4>
           </div>
-          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.84rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.84rem', color: '#a3a3a3', lineHeight: 1.55 }}>
             Self-boosting triggers an instant on-chain transaction revert. Repeated boosts from the same wallet incur a diminishing multiplier (100% → 85% → 70% → 55% → 40%).
           </p>
         </div>

@@ -23,7 +23,7 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
 
     // 1. Scene & Camera (Isometric Orthographic style perspective)
     const scene = new THREE.Scene();
-    scene.background = null; // transparent to show cosmic background
+    scene.background = null;
 
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
     // Isometric angle: elevated, angled from front-right
@@ -41,29 +41,29 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.2;
     container.appendChild(renderer.domElement);
 
-    // 3. Materials System (Cathode Dark Slate + Wireframe Edges + Cyan Phosphor Glow)
-    const chassisColor = new THREE.Color('#0c1017');
-    const accentLineColor = new THREE.Color('#38bdf8');
-    const faintLineColor = new THREE.Color('#1e293b');
-    const keyCapDark = new THREE.Color('#131a26');
-    const keyCapActive = new THREE.Color('#7dd3fc');
+    // 3. Materials System (Monochromatic Black & White Wireframe Aesthetic)
+    const chassisColor = new THREE.Color('#0a0a0a');
+    const accentLineColor = new THREE.Color('#ffffff');
+    const faintLineColor = new THREE.Color('#262626');
+    const keyCapDark = new THREE.Color('#141414');
+    const keyCapActive = new THREE.Color('#ffffff');
 
     const chassisMaterial = new THREE.MeshStandardMaterial({
       color: chassisColor,
       roughness: 0.65,
-      metalness: 0.25
+      metalness: 0.2
     });
 
     const screenBezelMaterial = new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#080c12'),
-      roughness: 0.8,
+      color: new THREE.Color('#040404'),
+      roughness: 0.85,
       metalness: 0.1
     });
 
-    // Dynamic 2D Canvas for CRT Screen Terminal Display
+    // Dynamic 2D Canvas for CRT Screen Terminal Display (Monochrome)
     const screenCanvas = document.createElement('canvas');
     screenCanvas.width = 512;
     screenCanvas.height = 384;
@@ -132,7 +132,6 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
 
     // CRT Screen Glass (Curved surface facing user)
     const screenGeo = new THREE.PlaneGeometry(1.6, 1.2, 16, 12);
-    // Slight spherical bulge on the CRT glass
     const posAttr = screenGeo.attributes.position;
     for (let i = 0; i < posAttr.count; i++) {
       const x = posAttr.getX(i);
@@ -167,7 +166,7 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
     const slotGeo = new THREE.BoxGeometry(0.5, 0.03, 0.02);
     const slot = new THREE.Mesh(
       slotGeo,
-      new THREE.MeshBasicMaterial({ color: new THREE.Color('#38bdf8') })
+      new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffffff') })
     );
     slot.position.set(0.45, -0.62, 0.78);
     monitorGroup.add(slot);
@@ -197,8 +196,8 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
     }
 
     const ledGeo = new THREE.BoxGeometry(0.04, 0.04, 0.02);
-    const ledMat1 = new THREE.MeshBasicMaterial({ color: new THREE.Color('#38bdf8') });
-    const ledMat2 = new THREE.MeshBasicMaterial({ color: new THREE.Color('#34d399') });
+    const ledMat1 = new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffffff') });
+    const ledMat2 = new THREE.MeshBasicMaterial({ color: new THREE.Color('#737373') });
     const led1 = new THREE.Mesh(ledGeo, ledMat1);
     led1.position.set(-0.2, 0.82, 0.91);
     const led2 = new THREE.Mesh(ledGeo, ledMat2);
@@ -209,8 +208,8 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
     // D. Retro Isometric Mechanical Keyboard with Individually Illuminated Keycaps
     const keyboardGroup = new THREE.Group();
     keyboardGroup.position.set(0.3, 0.14, 0.95);
-    keyboardGroup.rotation.y = -Math.PI * 0.08; // slightly angled
-    keyboardGroup.rotation.x = Math.PI * 0.04; // slight ergonomic incline
+    keyboardGroup.rotation.y = -Math.PI * 0.08;
+    keyboardGroup.rotation.x = Math.PI * 0.04;
     workstation.add(keyboardGroup);
 
     const kbBodyGeo = new THREE.BoxGeometry(2.3, 0.16, 0.95);
@@ -224,7 +223,7 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
     );
     kbBody.add(kbEdges);
 
-    // Keycaps Grid Matrix (5 rows x 14 columns = ~70 interactive keycaps)
+    // Keycaps Grid Matrix
     const keyRows = 5;
     const keyCols = 13;
     const keycapMeshes: {
@@ -242,7 +241,7 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
         const keyMat = new THREE.MeshStandardMaterial({
           color: keyCapDark,
           roughness: 0.4,
-          metalness: 0.3,
+          metalness: 0.2,
           emissive: new THREE.Color('#000000'),
           emissiveIntensity: 0
         });
@@ -265,7 +264,7 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
       }
     }
 
-    // E. Retro Ergonomic Mouse with Glowing Cord
+    // E. Retro Ergonomic Mouse with Cord
     const mouseGroup = new THREE.Group();
     mouseGroup.position.set(1.75, 0.12, 1.05);
     workstation.add(mouseGroup);
@@ -287,7 +286,7 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
     mSplit.position.set(0, 0.065, -0.15);
     mouseGroup.add(mSplit);
 
-    // Mouse Cable (Curved line to keyboard/CPU)
+    // Mouse Cable
     const curve = new THREE.CatmullRomCurve3([
       new THREE.Vector3(1.75, 0.08, 0.75),
       new THREE.Vector3(1.5, 0.06, 0.4),
@@ -295,31 +294,31 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
       new THREE.Vector3(0.4, 0.06, -0.3)
     ]);
     const cableGeo = new THREE.TubeGeometry(curve, 32, 0.015, 8, false);
-    const cableMat = new THREE.MeshBasicMaterial({ color: new THREE.Color('#38bdf8') });
+    const cableMat = new THREE.MeshBasicMaterial({ color: new THREE.Color('#737373') });
     const cable = new THREE.Mesh(cableGeo, cableMat);
     workstation.add(cable);
 
-    // 5. Lighting Setup
-    const ambientLight = new THREE.AmbientLight(0x0c121e, 2.5);
+    // 5. Monochromatic Lighting Setup
+    const ambientLight = new THREE.AmbientLight(0x1a1a1a, 2.5);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0x7dd3fc, 2.8);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.8);
     keyLight.position.set(6, 8, 7);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 1024;
     keyLight.shadow.mapSize.height = 1024;
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0x38bdf8, 2.2);
+    const rimLight = new THREE.DirectionalLight(0xffffff, 2.0);
     rimLight.position.set(-6, 4, -4);
     scene.add(rimLight);
 
-    const bottomGlow = new THREE.PointLight(0x2563eb, 3.0, 10);
+    const bottomGlow = new THREE.PointLight(0x525252, 2.0, 10);
     bottomGlow.position.set(0, -0.5, 2);
     scene.add(bottomGlow);
 
-    // CRT Screen Glow Light (casts phosphor cyan onto keyboard)
-    const crtScreenLight = new THREE.PointLight(0x38bdf8, 2.5, 4.5);
+    // CRT Screen Glow Light (White light)
+    const crtScreenLight = new THREE.PointLight(0xffffff, 2.4, 4.5);
     crtScreenLight.position.set(-0.35, 1.25, 0.5);
     scene.add(crtScreenLight);
 
@@ -333,8 +332,8 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
       const ny = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
       mousePos.x = nx;
       mousePos.y = ny;
-      targetRotation.y = nx * 0.28; // tilt around Y axis
-      targetRotation.x = ny * 0.16; // tilt around X axis
+      targetRotation.y = nx * 0.28;
+      targetRotation.x = ny * 0.16;
     };
 
     container.addEventListener('mousemove', handleMouseMove);
@@ -350,7 +349,6 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
     let clock = new THREE.Clock();
     let frameCount = 0;
     let lastFpsTime = performance.now();
-    let terminalScrollOffset = 0;
 
     const terminalLines = [
       'SYSTEM // EMBER.RUN v1.0.4',
@@ -379,27 +377,26 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
         lastFpsTime = now;
       }
 
-      // Smooth Workstation Parallax Tilt (Damping / Lerp)
+      // Smooth Workstation Parallax Tilt
       workstation.rotation.y += (targetRotation.y - workstation.rotation.y) * 0.06;
       workstation.rotation.x += (targetRotation.x - workstation.rotation.x) * 0.06;
 
-      // Subtle Idle Floating Breathing Motion
+      // Subtle Idle Floating
       const breathing = Math.sin(time * 1.5) * 0.035;
       workstation.position.y = breathing;
 
-      // Subtle Monitor Ambient Head Tilt
+      // Subtle Monitor Ambient Tilt
       monitorGroup.rotation.y = Math.sin(time * 0.8) * 0.025;
 
-      // ── Animate Keyboard Keycaps Illumination Wave (as seen in Cathode Session video) ──
+      // Keyboard Keycaps Illumination Wave (Monochrome White)
       keycapMeshes.forEach((k) => {
-        // Wave equation radiating diagonally across key matrix
         const wave = Math.sin(time * 3.8 - (k.col * 0.45 + k.row * 0.65));
         const isActive = wave > 0.55;
 
         if (isActive) {
           const intensity = (wave - 0.55) / 0.45;
           k.mat.emissive.copy(keyCapActive);
-          k.mat.emissiveIntensity = intensity * 1.6;
+          k.mat.emissiveIntensity = intensity * 1.8;
           k.mesh.position.y = k.origY + intensity * 0.02;
         } else {
           k.mat.emissive.copy(chassisColor);
@@ -408,59 +405,59 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
         }
       });
 
-      // ── Animate CRT Screen Canvas (Scanlines + Blinking Cursor + Rolling Text) ──
+      // Animate Monochrome CRT Screen Canvas
       if (ctx) {
-        ctx.fillStyle = '#050a12';
+        ctx.fillStyle = '#000000';
         ctx.fillRect(0, 0, 512, 384);
 
-        // Subtle Phosphor Green / Starlight Cyan Glow Vignette
+        // Subtle Radial Vignette
         const gradient = ctx.createRadialGradient(256, 192, 40, 256, 192, 280);
-        gradient.addColorStop(0, 'rgba(56, 189, 248, 0.12)');
-        gradient.addColorStop(1, 'rgba(3, 7, 18, 0.85)');
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 0.09)');
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0.95)');
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 512, 384);
 
         // Scanlines overlay
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
         for (let y = 0; y < 384; y += 4) {
           ctx.fillRect(0, y, 512, 2);
         }
 
         // Animated Scanline Sweep Bar
         const scanY = (time * 120) % 400;
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.08)';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
         ctx.fillRect(0, scanY, 512, 20);
 
         // Terminal Header HUD
         ctx.font = 'bold 15px "Courier New", monospace';
-        ctx.fillStyle = '#38bdf8';
-        ctx.fillText('⚡ CATHODE SESSION // EMBER.RUN', 28, 42);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText('CATHODE SESSION // EMBER.RUN', 28, 42);
 
-        ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(28, 54);
         ctx.lineTo(484, 54);
         ctx.stroke();
 
-        // Terminal Log Lines with Rolling Ticker
+        // Terminal Log Lines
         ctx.font = '13px "Courier New", monospace';
         terminalLines.forEach((line, idx) => {
           const lineY = 82 + idx * 24;
           if (line.includes('MONAD') || line.includes('STATUS')) {
-            ctx.fillStyle = '#34d399'; // Emerald active
+            ctx.fillStyle = '#ffffff';
           } else if (line.includes('ATOMIC') || line.includes('DECAY')) {
-            ctx.fillStyle = '#7dd3fc'; // Electric cyan
+            ctx.fillStyle = '#d4d4d4';
           } else {
-            ctx.fillStyle = '#cbd5e1'; // Starlight slate
+            ctx.fillStyle = '#a3a3a3';
           }
           ctx.fillText(`> ${line}`, 28, lineY);
         });
 
-        // Blinking Phosphor Cursor
+        // Blinking Monochrome Cursor
         const cursorBlink = Math.floor(time * 3) % 2 === 0;
         if (cursorBlink) {
-          ctx.fillStyle = '#38bdf8';
+          ctx.fillStyle = '#ffffff';
           ctx.fillRect(28, 82 + terminalLines.length * 24 - 10, 10, 14);
         }
 
@@ -509,7 +506,7 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
         userSelect: 'none'
       }}
     >
-      {/* 60 FPS Telemetry Badge in bottom-left */}
+      {/* 60 FPS Telemetry Badge in bottom-left (Monochrome) */}
       <div
         style={{
           position: 'absolute',
@@ -518,13 +515,13 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          background: 'rgba(5, 10, 20, 0.85)',
+          background: 'rgba(0, 0, 0, 0.85)',
           backdropFilter: 'blur(8px)',
-          border: '1px solid rgba(56, 189, 248, 0.3)',
+          border: '1px solid rgba(255, 255, 255, 0.25)',
           padding: '4px 10px',
           fontFamily: 'var(--font-mono)',
           fontSize: '0.68rem',
-          color: '#7dd3fc',
+          color: '#ffffff',
           zIndex: 10,
           pointerEvents: 'none'
         }}
@@ -534,12 +531,12 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
             width: '6px',
             height: '6px',
             borderRadius: '50%',
-            background: fps >= 55 ? '#34d399' : '#f59e0b',
-            boxShadow: `0 0 8px ${fps >= 55 ? '#34d399' : '#f59e0b'}`
+            background: '#ffffff',
+            boxShadow: '0 0 8px #ffffff'
           }}
         />
         <span>60 FPS MOTION ENGINE // CATHODE 3D</span>
-        <span style={{ color: 'rgba(255, 255, 255, 0.4)' }}>|</span>
+        <span style={{ color: 'rgba(255, 255, 255, 0.3)' }}>|</span>
         <span style={{ color: '#ffffff', fontWeight: 700 }}>{fps} FPS</span>
       </div>
 
@@ -551,9 +548,9 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
           right: '16px',
           fontFamily: 'var(--font-mono)',
           fontSize: '0.65rem',
-          color: isHovered ? '#38bdf8' : 'rgba(255, 255, 255, 0.45)',
-          background: 'rgba(5, 10, 20, 0.75)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
+          color: isHovered ? '#ffffff' : 'rgba(255, 255, 255, 0.45)',
+          background: 'rgba(0, 0, 0, 0.75)',
+          border: '1px solid rgba(255, 255, 255, 0.15)',
           padding: '4px 8px',
           zIndex: 10,
           transition: 'color 0.2s ease',

@@ -87,10 +87,10 @@ export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenPr
                         width: '26px',
                         height: '26px',
                         borderRadius: '0px',
-                        background: leader.rank === 1 ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : '#070e1b',
+                        background: leader.rank === 1 ? '#ffffff' : '#070e1b',
                         color: leader.rank === 1 ? '#030712' : '#f8fafc',
-                        border: '1.5px solid #38bdf8',
-                        boxShadow: '2px 2px 0px #38bdf8',
+                        border: '1.5px solid #ffffff',
+                        boxShadow: '2px 2px 0px #ffffff',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -168,7 +168,7 @@ export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenPr
           background: 'rgba(5, 9, 16, 0.90)',
           border: '1.5px solid #df9c32',
           borderRadius: '0px',
-          boxShadow: '3px 3px 0px #38bdf8',
+          boxShadow: '3px 3px 0px #ffffff',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
@@ -177,9 +177,9 @@ export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenPr
           color: 'var(--ink-soft)'
         }}
       >
-        <Sparkles size={13} color="#7dd3fc" />
+        <Sparkles size={13} color="#ffffff" />
         <span>
-          <strong style={{ color: '#7dd3fc' }}>How Taste Arbitrage Works:</strong> Early curators who identify high-value content before the decay cliff
+          <strong style={{ color: '#ffffff' }}>How Taste Arbitrage Works:</strong> Early curators who identify high-value content before the decay cliff
           earn automatic 45% cuts on subsequent boosts. Accuracy is proven onchain, never self-reported.
         </span>
       </div>

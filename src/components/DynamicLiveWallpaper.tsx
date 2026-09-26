@@ -92,7 +92,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
         vx: 0.1,
         vy: 0.07,
         radius: Math.min(width, height) * 0.45,
-        color: 'rgba(56, 189, 248, 0.045)' // Celestial starlight cyan glow
+        color: 'rgba(255, 255, 255, 0.04)'
       },
       {
         x: width * 0.75,
@@ -100,7 +100,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
         vx: -0.09,
         vy: -0.06,
         radius: Math.min(width, height) * 0.4,
-        color: 'rgba(129, 140, 248, 0.038)' // Cosmic stardust violet glow
+        color: 'rgba(255, 255, 255, 0.03)'
       },
       {
         x: width * 0.5,
@@ -108,7 +108,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
         vx: 0.07,
         vy: -0.1,
         radius: Math.min(width, height) * 0.35,
-        color: 'rgba(240, 246, 255, 0.035)' // Brilliant starlight silver glow
+        color: 'rgba(240, 240, 240, 0.035)'
       }
     ];
 
@@ -175,8 +175,8 @@ export const DynamicLiveWallpaper: React.FC = () => {
       if (showCursorGlow && mouse.active && mouse.x > 0) {
         const spotRadius = width < 768 ? 200 : 340;
         const spotGrad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, spotRadius);
-        spotGrad.addColorStop(0, 'rgba(56, 189, 248, 0.06)');
-        spotGrad.addColorStop(0.5, 'rgba(96, 165, 250, 0.02)');
+        spotGrad.addColorStop(0, 'rgba(255, 255, 255, 0.05)');
+        spotGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.015)');
         spotGrad.addColorStop(1, 'transparent');
 
         ctx.fillStyle = spotGrad;
@@ -206,7 +206,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
                 ctx.beginPath();
                 ctx.moveTo(nodes[i].x, nodes[i].y);
                 ctx.lineTo(nodes[j].x, nodes[j].y);
-                ctx.strokeStyle = '#38bdf8';
+                ctx.strokeStyle = '#ffffff';
                 ctx.globalAlpha = lineAlpha;
                 ctx.lineWidth = 0.75;
                 ctx.stroke();
@@ -240,7 +240,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
 
           // Radiant starlight cyan pin-point aura
           ctx.globalAlpha = n.alpha * 0.4;
-          ctx.fillStyle = '#38bdf8';
+          ctx.fillStyle = '#ffffff';
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.size * 2, 0, Math.PI * 2);
           ctx.fill();
@@ -397,8 +397,8 @@ export const DynamicLiveWallpaper: React.FC = () => {
               background: 'rgba(7, 14, 28, 0.96)',
               backdropFilter: 'blur(16px)',
               borderRadius: '0px',
-              border: '2px solid #38bdf8',
-              boxShadow: '6px 6px 0px #38bdf8',
+              border: '2px solid #ffffff',
+              boxShadow: '6px 6px 0px #ffffff',
               position: 'relative'
             }}
           >
@@ -406,7 +406,7 @@ export const DynamicLiveWallpaper: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span className={`sk-lamp ${isEnabled ? 'sk-lamp-green' : 'sk-lamp-dim'}`} />
-                <span className="text-micro" style={{ letterSpacing: '0.08em', color: '#7dd3fc' }}>
+                <span className="text-micro" style={{ letterSpacing: '0.08em', color: '#ffffff' }}>
                   AMBIENT ENGINE
                 </span>
               </div>
@@ -417,8 +417,8 @@ export const DynamicLiveWallpaper: React.FC = () => {
                 style={{
                   fontSize: '0.65rem',
                   cursor: 'pointer',
-                  border: '1px solid rgba(56, 189, 248, 0.4)',
-                  background: isEnabled ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : 'transparent',
+                  border: '1px solid rgba(255, 255, 255, )',
+                  background: isEnabled ? '#ffffff' : 'transparent',
                   color: isEnabled ? '#030712' : 'var(--ink-soft)',
                   fontWeight: 700
                 }}
@@ -453,8 +453,8 @@ export const DynamicLiveWallpaper: React.FC = () => {
                         fontWeight: isCurrent ? 700 : 500,
                         textAlign: 'center',
                         color: isCurrent ? '#030712' : 'var(--ink-hard)',
-                        background: isCurrent ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : '#070e1b',
-                        border: isCurrent ? '1px solid #f8fafc' : '1px solid rgba(56, 189, 248, 0.25)'
+                        background: isCurrent ? '#ffffff' : '#070e1b',
+                        border: isCurrent ? '1px solid #f8fafc' : '1px solid rgba(255, 255, 255, )'
                       }}
                     >
                       {m.label}
@@ -573,8 +573,8 @@ export const DynamicLiveWallpaper: React.FC = () => {
             borderRadius: '0px',
             background: '#070e1b',
             color: '#f8fafc',
-            border: '1.5px solid #38bdf8',
-            boxShadow: '3px 3px 0px #38bdf8',
+            border: '1.5px solid #ffffff',
+            boxShadow: '3px 3px 0px #ffffff',
             cursor: 'pointer',
             fontSize: '0.72rem',
             fontFamily: 'var(--font-mono)',
@@ -582,9 +582,9 @@ export const DynamicLiveWallpaper: React.FC = () => {
           }}
         >
           <span className={`sk-lamp ${isEnabled ? 'sk-lamp-green' : 'sk-lamp-dim'}`} />
-          <Network size={13} color="#38bdf8" />
+          <Network size={13} color="#ffffff" />
           <span>AMBIENCE: {isEnabled ? mode.toUpperCase() : 'MUTED'}</span>
-          <Sliders size={12} color="#7dd3fc" style={{ marginLeft: '2px' }} />
+          <Sliders size={12} color="#ffffff" style={{ marginLeft: '2px' }} />
         </button>
       </aside>
     </>

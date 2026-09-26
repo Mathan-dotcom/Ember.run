@@ -131,10 +131,10 @@ export const PostComposer: React.FC = () => {
               className="sk-badge"
               style={{
                 cursor: 'pointer',
-                background: showDrafts ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : '#070e1b',
+                background: showDrafts ? '#ffffff' : '#070e1b',
                 color: showDrafts ? '#030712' : '#f8fafc',
-                border: '1.5px solid #38bdf8',
-                boxShadow: '1px 1px 0px #38bdf8',
+                border: '1.5px solid #ffffff',
+                boxShadow: '1px 1px 0px #ffffff',
                 fontSize: '0.68rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -162,8 +162,8 @@ export const PostComposer: React.FC = () => {
         <div
           style={{
             background: 'rgba(7, 14, 28, 0.95)',
-            border: '1.5px solid #38bdf8',
-            boxShadow: '3px 3px 0px #38bdf8',
+            border: '1.5px solid #ffffff',
+            boxShadow: '3px 3px 0px #ffffff',
             padding: '12px',
             marginBottom: '16px'
           }}
@@ -305,9 +305,9 @@ export const PostComposer: React.FC = () => {
                         fontSize: '0.70rem',
                         transition: 'all 0.15s ease',
                         borderRadius: '0px',
-                        border: '1.5px solid #38bdf8',
-                        boxShadow: isSelected ? '2px 2px 0px #f8fafc' : '1px 1px 0px rgba(56, 189, 248, 0.3)',
-                        background: isSelected ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : '#070e1b',
+                        border: '1.5px solid #ffffff',
+                        boxShadow: isSelected ? '2px 2px 0px #f8fafc' : '1px 1px 0px rgba(255, 255, 255, )',
+                        background: isSelected ? '#ffffff' : '#070e1b',
                         color: isSelected ? '#030712' : '#f8fafc'
                       }}
                     >

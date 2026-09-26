@@ -47,10 +47,10 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
           width: `${dimensions}px`,
           height: `${dimensions}px`,
           borderRadius: '0px',
-          background: '#070e1b',
+          background: '#0a0a0a',
           padding: '4px',
-          border: '1.5px solid #38bdf8',
-          boxShadow: '3px 3px 0px #38bdf8',
+          border: '1.5px solid #ffffff',
+          boxShadow: '3px 3px 0px #ffffff',
           position: 'relative'
         }}
       >
@@ -60,7 +60,7 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
             width: '100%',
             height: '100%',
             borderRadius: '0px',
-            background: '#030712',
+            background: '#000000',
             position: 'relative',
             overflow: 'hidden',
             display: 'flex',
@@ -84,20 +84,20 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
               cy="50"
               r="38"
               fill="none"
-              stroke="rgba(56, 189, 248, 0.2)"
+              stroke="rgba(255, 255, 255, 0.15)"
               strokeWidth="4"
               strokeDasharray="160 80"
               strokeDashoffset="40"
               strokeLinecap="square"
             />
 
-            {/* Active Luminous Starlight Cyan Arc */}
+            {/* Active Luminous White Arc */}
             <circle
               cx="50"
               cy="50"
               r="38"
               fill="none"
-              stroke="#38bdf8"
+              stroke="#ffffff"
               strokeWidth="4"
               strokeDasharray={`${(healthPercent / 100) * 160} 240`}
               strokeDashoffset="40"
@@ -113,7 +113,7 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
               y1="8"
               x2="50"
               y2="15"
-              stroke="#7dd3fc"
+              stroke="#a3a3a3"
               strokeWidth="2.5"
               transform="rotate(48 50 50)"
             />
@@ -129,7 +129,7 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
               height: '40%',
               transformOrigin: '50% 100%',
               transform: `rotate(${needleAngle}deg)`,
-              background: '#f8fafc',
+              background: '#ffffff',
               transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
               zIndex: 3
             }}
@@ -141,8 +141,8 @@ export const AnalogDecayGauge: React.FC<AnalogDecayGaugeProps> = ({
               width: '12px',
               height: '12px',
               borderRadius: '0px',
-              background: '#38bdf8',
-              border: '2px solid #030712',
+              background: '#ffffff',
+              border: '2px solid #000000',
               zIndex: 4
             }}
           />

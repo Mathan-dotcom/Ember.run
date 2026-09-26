@@ -84,7 +84,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
             style={{ padding: '5px 10px', fontSize: '0.75rem' }}
             title="Sorted by Boost Velocity (MON / hour)"
           >
-            <Flame size={13} color={sortMode === 'velocity' ? '#030712' : '#7dd3fc'} />
+            <Flame size={13} color={sortMode === 'velocity' ? '#030712' : '#ffffff'} />
             <span>VELOCITY</span>
           </button>
 
@@ -97,7 +97,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
             style={{ padding: '5px 10px', fontSize: '0.75rem' }}
             title="Sorted by Total MON Boosted"
           >
-            <Coins size={13} color={sortMode === 'capital' ? '#030712' : '#7dd3fc'} />
+            <Coins size={13} color={sortMode === 'capital' ? '#030712' : '#ffffff'} />
             <span>TOTAL POOL</span>
           </button>
 
@@ -110,7 +110,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
             style={{ padding: '5px 10px', fontSize: '0.75rem' }}
             title="Show only bookmarked embers"
           >
-            <Bookmark size={13} fill={onlyBookmarked ? '#030712' : 'none'} color={onlyBookmarked ? '#030712' : '#38bdf8'} />
+            <Bookmark size={13} fill={onlyBookmarked ? '#030712' : 'none'} color={onlyBookmarked ? '#030712' : '#ffffff'} />
             <span>SAVED ({bookmarkedIds.length})</span>
           </button>
 

@@ -71,7 +71,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
               fontSize: '0.80rem',
-              color: '#38bdf8'
+              color: '#ffffff'
             }}
           >
             #{String(post.id).padStart(4, '0')}
@@ -183,8 +183,8 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
                   fontSize: '0.7rem',
                   padding: '2px 8px',
                   background: '#070e1b',
-                  border: '1.5px solid #38bdf8',
-                  boxShadow: '2px 2px 0px #38bdf8',
+                  border: '1.5px solid #ffffff',
+                  boxShadow: '2px 2px 0px #ffffff',
                   borderRadius: '0px',
                   color: '#f8fafc'
                 }}
@@ -217,13 +217,13 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
             alignItems: 'center',
             gap: '8px',
             background: 'rgba(4, 8, 16, 0.85)',
-            border: '1.5px solid #38bdf8',
-            borderLeft: '4px solid #7dd3fc',
-            boxShadow: '2px 2px 0px #38bdf8',
+            border: '1.5px solid #ffffff',
+            borderLeft: '4px solid #ffffff',
+            boxShadow: '2px 2px 0px #ffffff',
             borderRadius: '0px'
           }}
         >
-          <Sparkles size={15} color="#7dd3fc" style={{ flexShrink: 0 }} />
+          <Sparkles size={15} color="#ffffff" style={{ flexShrink: 0 }} />
           <span
             style={{
               fontFamily: 'var(--font-ui)',
@@ -232,7 +232,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
               lineHeight: 1.4
             }}
           >
-            <strong style={{ color: '#7dd3fc' }}>[AI // INTEL]:</strong> {post.aiTrendBlurb}
+            <strong style={{ color: '#ffffff' }}>[AI // INTEL]:</strong> {post.aiTrendBlurb}
           </span>
         </div>
       )}
@@ -318,14 +318,14 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: isBookmarked ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : '#070e1b',
+              background: isBookmarked ? '#ffffff' : '#070e1b',
               color: isBookmarked ? '#030712' : '#f8fafc',
-              border: '1.5px solid #38bdf8',
-              boxShadow: isBookmarked ? '2px 2px 0px #f8fafc' : '1px 1px 0px rgba(56, 189, 248, 0.4)',
+              border: '1.5px solid #ffffff',
+              boxShadow: isBookmarked ? '2px 2px 0px #f8fafc' : '1px 1px 0px rgba(255, 255, 255, )',
               cursor: 'pointer'
             }}
           >
-            <Bookmark size={15} fill={isBookmarked ? '#030712' : 'none'} color={isBookmarked ? '#030712' : '#38bdf8'} />
+            <Bookmark size={15} fill={isBookmarked ? '#030712' : 'none'} color={isBookmarked ? '#030712' : '#ffffff'} />
           </button>
 
           {isAuthor ? (

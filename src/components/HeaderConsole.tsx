@@ -90,15 +90,15 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                 width: '34px',
                 height: '34px',
                 borderRadius: '0px',
-                background: 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)',
+                background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '1.5px solid #f8fafc',
-                boxShadow: '2px 2px 0px #38bdf8'
+                border: '1.5px solid #ffffff',
+                boxShadow: '2px 2px 0px #ffffff'
               }}
             >
-              <Flame size={18} color="#030712" fill="#030712" />
+              <Flame size={18} color="#000000" fill="#000000" />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -108,7 +108,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                     fontSize: '1.35rem',
                     fontWeight: 800,
                     letterSpacing: '-0.02em',
-                    color: '#f8fafc'
+                    color: '#ffffff'
                   }}
                 >
                   EMBER.RUN
@@ -119,10 +119,10 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                     fontSize: '0.65rem',
                     padding: '2px 8px',
                     borderRadius: '0px',
-                    background: '#070e1b',
-                    color: '#38bdf8',
-                    border: '1.5px solid #38bdf8',
-                    boxShadow: '2px 2px 0px #38bdf8',
+                    background: '#0a0a0a',
+                    color: '#ffffff',
+                    border: '1.5px solid #ffffff',
+                    boxShadow: '2px 2px 0px #ffffff',
                     fontWeight: 700
                   }}
                 >
@@ -133,7 +133,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.65rem',
-                  color: 'var(--ink-soft)',
+                  color: '#a3a3a3',
                   marginTop: '-2px',
                   letterSpacing: '0.04em'
                 }}
@@ -147,7 +147,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
           <div
             className="sk-badge sk-badge--inverted"
             title="Monad Testnet RPC Connected (Chain ID: 10143)"
-            style={{ fontSize: '0.70rem', padding: '5px 10px', borderRadius: '0px', border: '1.5px solid #f8fafc', boxShadow: '2px 2px 0px #38bdf8' }}
+            style={{ fontSize: '0.70rem', padding: '5px 10px', borderRadius: '0px', border: '1.5px solid #ffffff', boxShadow: '2px 2px 0px #ffffff' }}
           >
             <span className="sk-lamp sk-lamp-green" />
             <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.04em' }}>
@@ -166,21 +166,21 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               alignItems: 'center',
               gap: '6px',
               borderRadius: '0px',
-              border: '1.5px solid #f8fafc',
-              boxShadow: '2px 2px 0px #38bdf8'
+              border: '1.5px solid #ffffff',
+              boxShadow: '2px 2px 0px #ffffff'
             }}
           >
-            <Server size={11} color="#030712" />
+            <Server size={11} color="#000000" />
             <span
               style={{
                 width: '6px',
                 height: '6px',
                 borderRadius: '0px',
-                background: backendHealth ? '#030712' : '#666',
-                boxShadow: backendHealth ? '0 0 4px #030712' : 'none'
+                background: backendHealth ? '#000000' : '#666',
+                boxShadow: backendHealth ? '0 0 4px #000000' : 'none'
               }}
             />
-            <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', color: '#030712', fontWeight: 700 }}>
+            <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', color: '#000000', fontWeight: 700 }}>
               {backendHealth ? 'API : ACTIVE' : 'API : STANDBY'}
             </span>
           </div>
@@ -196,21 +196,21 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               alignItems: 'center',
               gap: '6px',
               borderRadius: '0px',
-              border: '1.5px solid #f8fafc',
-              boxShadow: '2px 2px 0px #38bdf8'
+              border: '1.5px solid #ffffff',
+              boxShadow: '2px 2px 0px #ffffff'
             }}
           >
-            <Database size={11} color="#030712" />
+            <Database size={11} color="#000000" />
             <span
               style={{
                 width: '6px',
                 height: '6px',
                 borderRadius: '0px',
-                background: indexerOnline ? '#030712' : '#666',
-                boxShadow: indexerOnline ? '0 0 4px #030712' : 'none'
+                background: indexerOnline ? '#000000' : '#666',
+                boxShadow: indexerOnline ? '0 0 4px #000000' : 'none'
               }}
             />
-            <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', color: '#030712', fontWeight: 700 }}>
+            <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', color: '#000000', fontWeight: 700 }}>
               {indexerOnline ? 'ENVIO : LIVE' : 'ENVIO : RPC'}
             </span>
           </div>
@@ -222,11 +222,11 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             display: 'flex',
             alignItems: 'center',
             gap: '4px',
-            background: '#070e1b',
+            background: '#0a0a0a',
             padding: '4px',
             borderRadius: '0px',
-            border: '1.5px solid #38bdf8',
-            boxShadow: '3px 3px 0px #38bdf8'
+            border: '1.5px solid #ffffff',
+            boxShadow: '3px 3px 0px #ffffff'
           }}
         >
           <button
@@ -239,9 +239,9 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               padding: '6px 14px',
               fontSize: '0.76rem',
               borderRadius: '0px',
-              border: activeView === 'landing' ? '1.5px solid #f8fafc' : '1px solid transparent',
-              background: activeView === 'landing' ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : 'transparent',
-              color: activeView === 'landing' ? '#030712' : 'var(--ink-soft)',
+              border: activeView === 'landing' ? '1.5px solid #ffffff' : '1px solid transparent',
+              background: activeView === 'landing' ? '#ffffff' : 'transparent',
+              color: activeView === 'landing' ? '#000000' : '#a3a3a3',
               boxShadow: 'none'
             }}
           >
@@ -258,13 +258,13 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               padding: '6px 14px',
               fontSize: '0.76rem',
               borderRadius: '0px',
-              border: activeView === 'console' ? '1.5px solid #f8fafc' : '1px solid transparent',
-              background: activeView === 'console' ? 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%)' : 'transparent',
-              color: activeView === 'console' ? '#030712' : 'var(--ink-soft)',
+              border: activeView === 'console' ? '1.5px solid #ffffff' : '1px solid transparent',
+              background: activeView === 'console' ? '#ffffff' : 'transparent',
+              color: activeView === 'console' ? '#000000' : '#a3a3a3',
               boxShadow: 'none'
             }}
           >
-            <Zap size={12} color={activeView === 'console' ? '#030712' : 'var(--ink-soft)'} />
+            <Zap size={12} color={activeView === 'console' ? '#000000' : '#a3a3a3'} />
             <span>[02 // MISSION CONTROL]</span>
           </button>
         </div>
@@ -386,12 +386,12 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             style={{
               display: 'flex',
               alignItems: 'center',
-              background: '#070e1b',
-              border: '1.5px solid #38bdf8',
+              background: '#0a0a0a',
+              border: '1.5px solid #ffffff',
               borderRadius: '0px',
               padding: '4px 6px 4px 12px',
               gap: '10px',
-              boxShadow: '3px 3px 0px #38bdf8'
+              boxShadow: '3px 3px 0px #ffffff'
             }}
           >
             {/* Balance in MON */}
@@ -401,12 +401,12 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.0rem',
                   fontWeight: 700,
-                  color: '#f8fafc',
+                  color: '#ffffff',
                   lineHeight: 1
                 }}
               >
                 {formatMon(currentAccount.balanceMon, 2)}{' '}
-                <span style={{ fontSize: '0.75rem', color: '#7dd3fc', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: '0.75rem', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
                   MON
                 </span>
               </div>
@@ -414,7 +414,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.62rem',
-                  color: 'var(--ink-soft)'
+                  color: '#a3a3a3'
                 }}
               >
                 TESTNET LIQUIDITY
@@ -435,17 +435,17 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                 }}
                 style={{
                   appearance: 'none',
-                  background: '#030712',
-                  border: '1.5px solid #38bdf8',
+                  background: '#000000',
+                  border: '1.5px solid #ffffff',
                   borderRadius: '0px',
-                  color: '#f8fafc',
+                  color: '#ffffff',
                   fontFamily: 'var(--font-ui)',
                   fontSize: '0.78rem',
                   fontWeight: 600,
                   padding: '5px 26px 5px 8px',
                   cursor: 'pointer',
                   outline: 'none',
-                  boxShadow: '1px 1px 0px #38bdf8'
+                  boxShadow: '1px 1px 0px #ffffff'
                 }}
               >
                 <optgroup label="Simulated Seed Wallets (Real Tx)">

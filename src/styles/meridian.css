@@ -17,51 +17,51 @@
   --glass-surface-elevated: rgba(11, 21, 40, 0.92);
   --glass-surface-subtle: rgba(15, 27, 50, 0.85);
 
-  /* Celestial Starlight Accents & Borders */
-  --ember-gold: #7dd3fc;                      /* Brilliant starlight sky blue */
-  --ember-accent: #38bdf8;                    /* Electric celestial starlight cyan */
-  --ember-bronze: #2563eb;                    /* Deep space cosmic sapphire */
-  --ember-dark: #0f172a;                      /* Space midnight slate */
+  /* Monochromatic Black & White Accents & Borders */
+  --ember-gold: #ffffff;                      /* Radiant white */
+  --ember-accent: #ffffff;                    /* Stark white */
+  --ember-bronze: #737373;                    /* Technical neutral gray */
+  --ember-dark: #0a0a0a;                      /* Deep pitch dark */
 
-  --glass-border: #38bdf8;
-  --glass-border-hover: #7dd3fc;
-  --glass-border-subtle: rgba(56, 189, 248, 0.35);
-  --glass-border-cyan: #38bdf8;
+  --glass-border: #ffffff;
+  --glass-border-hover: #ffffff;
+  --glass-border-subtle: rgba(255, 255, 255, 0.25);
+  --glass-border-cyan: #ffffff;
 
   /* Typography & Ink Contrast */
-  --ink-hard: #f8fafc;                        /* Radiant diamond starlight white */
-  --ink-soft: #cbd5e1;                        /* Silvery stardust slate */
-  --ink-muted: #64748b;                       /* Deep interstellar dust */
-  --ink-faint: #334155;                       /* Barely-visible deep space text */
-  --bevel-light: #38bdf8;
-  --bevel-dark: #030712;
+  --ink-hard: #ffffff;                        /* Pure white */
+  --ink-soft: #a3a3a3;                        /* Neutral light slate */
+  --ink-muted: #737373;                       /* Medium gray */
+  --ink-faint: #404040;                       /* Deep subtle gray */
+  --bevel-light: #ffffff;
+  --bevel-dark: #000000;
 
-  /* Hard Neo-Brutalist Geometric Shadows Aligned with Starlight Cyan */
-  --brutal-shadow: 4px 4px 0px #38bdf8;
-  --brutal-shadow-hover: 7px 7px 0px #7dd3fc;
-  --brutal-shadow-active: 1px 1px 0px #38bdf8;
-  --brutal-shadow-subtle: 3px 3px 0px rgba(56, 189, 248, 0.45);
+  /* Hard Neo-Brutalist Geometric Shadows (Monochromatic) */
+  --brutal-shadow: 4px 4px 0px #ffffff;
+  --brutal-shadow-hover: 6px 6px 0px #ffffff;
+  --brutal-shadow-active: 1px 1px 0px #ffffff;
+  --brutal-shadow-subtle: 3px 3px 0px rgba(255, 255, 255, 0.35);
   --sk-shadow: rgba(0, 0, 0, 0.95);
   --sk-shadow-tight: rgba(0, 0, 0, 0.85);
 
-  /* Semantic State Colors */
-  --recovered: #030712;
-  --recovered-accent: #34d399;
-  --recovered-mark: #34d399;
+  /* Semantic State Colors (Monochrome) */
+  --recovered: #000000;
+  --recovered-accent: #ffffff;
+  --recovered-mark: #ffffff;
 
-  --at-risk: #030712;
-  --at-risk-accent: #f59e0b;
+  --at-risk: #000000;
+  --at-risk-accent: #a3a3a3;
 
-  --critical: #030712;
-  --critical-accent: #ef4444;
+  --critical: #000000;
+  --critical-accent: #ffffff;
 
-  --signal: #030712;
-  --signal-accent: #38bdf8;
-  --cyan-accent: #38bdf8;
+  --signal: #000000;
+  --signal-accent: #ffffff;
+  --cyan-accent: #ffffff;
 
   /* Financial Ledgers */
-  --ledger: #f8fafc;
-  --ledger-muted: #64748b;
+  --ledger: #ffffff;
+  --ledger-muted: #737373;
 
   /* Typography */
   --font-display: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -199,12 +199,12 @@ p, .text-body, .card-description, article p {
 
 /* Primary Brutalist Card */
 .sk-panel {
-  background: rgba(7, 14, 28, 0.88);
+  background: rgba(10, 10, 10, 0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1.5px solid var(--glass-border);
   border-radius: var(--radius-pulse);
-  box-shadow: 4px 4px 0px rgba(56, 189, 248, 0.45);
+  box-shadow: 4px 4px 0px #ffffff;
   position: relative;
   transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s ease;
 }
@@ -234,44 +234,44 @@ p, .text-body, .card-description, article p {
 
 /* Elevated Brutalist Panel */
 .sk-panel-walnut {
-  background: rgba(11, 21, 40, 0.92);
+  background: rgba(14, 14, 14, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1.5px solid var(--glass-border);
   border-radius: var(--radius-pulse);
   color: var(--ink-hard);
-  box-shadow: 5px 5px 0px #38bdf8;
+  box-shadow: 5px 5px 0px #ffffff;
 }
 
 /* Raised Floating Modal Cockpit */
 .sk-panel-raised {
-  background: rgba(5, 10, 20, 0.96);
+  background: rgba(5, 5, 5, 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 2px solid var(--glass-border);
   border-radius: 0px;
-  box-shadow: 8px 8px 0px #38bdf8;
+  box-shadow: 8px 8px 0px #ffffff;
   position: relative;
 }
 
 /* Recessed Well Terminal */
 .sk-well {
-  background: rgba(4, 8, 16, 0.85);
-  border: 1.5px solid rgba(56, 189, 248, 0.3);
+  background: rgba(12, 12, 12, 0.92);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
   border-radius: 0px;
-  box-shadow: 2px 2px 0px rgba(56, 189, 248, 0.25);
+  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.2);
   color: var(--ink-hard);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .sk-well:focus-within {
   border-color: var(--ember-gold);
-  box-shadow: 4px 4px 0px #38bdf8;
+  box-shadow: 4px 4px 0px #ffffff;
 }
 
 .sk-well-dark {
-  background: rgba(3, 6, 12, 0.92);
-  border: 1.5px solid rgba(56, 189, 248, 0.25);
+  background: rgba(5, 5, 5, 0.95);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
   border-radius: 0px;
   color: var(--ink-hard);
 }
@@ -312,10 +312,10 @@ p, .text-body, .card-description, article p {
   justify-content: center;
   gap: 8px;
   padding: 8px 16px;
-  background: #070e1b;
+  background: #0a0a0a;
   border: 1.5px solid var(--glass-border);
   border-radius: 0px;
-  box-shadow: 3px 3px 0px #38bdf8;
+  box-shadow: 3px 3px 0px #ffffff;
   color: var(--ink-hard);
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -329,25 +329,25 @@ p, .text-body, .card-description, article p {
 }
 
 .sk-button:hover:not(:disabled) {
-  background: #0f1d36;
-  border-color: var(--ember-gold);
+  background: #171717;
+  border-color: #ffffff;
   color: #ffffff;
-  box-shadow: 5px 5px 0px var(--ember-gold);
+  box-shadow: 5px 5px 0px #ffffff;
   transform: translate(-1px, -1px);
 }
 
 .sk-button:active:not(:disabled) {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px var(--ember-gold);
-  background: var(--ember-gold);
-  color: #030712;
+  box-shadow: 1px 1px 0px #ffffff;
+  background: #ffffff;
+  color: #000000;
 }
 
 .sk-button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
   box-shadow: none;
-  border-color: #555555;
+  border-color: #404040;
 }
 
 /* Primary Inverted Hero Button */
@@ -357,11 +357,11 @@ p, .text-body, .card-description, article p {
   justify-content: center;
   gap: 8px;
   padding: 9px 18px;
-  background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
-  color: #030712;
-  border: 1.5px solid #f8fafc;
+  background: #ffffff;
+  color: #000000;
+  border: 1.5px solid #ffffff;
   border-radius: 0px;
-  box-shadow: 4px 4px 0px #f8fafc;
+  box-shadow: 4px 4px 0px #737373;
   font-family: var(--font-mono);
   font-size: 0.82rem;
   font-weight: 800;
@@ -373,16 +373,16 @@ p, .text-body, .card-description, article p {
 }
 
 .sk-button-primary:hover:not(:disabled) {
-  background: #bae6fd;
-  color: #030712;
-  box-shadow: 6px 6px 0px #f8fafc;
+  background: #e5e5e5;
+  color: #000000;
+  box-shadow: 6px 6px 0px #ffffff;
   transform: translate(-2px, -2px);
 }
 
 .sk-button-primary:active:not(:disabled) {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #f8fafc;
-  background: #38bdf8;
+  box-shadow: 1px 1px 0px #ffffff;
+  background: #ffffff;
 }
 
 .sk-button-primary:disabled {
@@ -430,27 +430,27 @@ p, .text-body, .card-description, article p {
   align-items: center;
   gap: 7px;
   padding: 4px 10px;
-  background: #070e1b;
-  border: 1px solid rgba(56, 189, 248, 0.45);
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 0px;
-  box-shadow: 2px 2px 0px rgba(56, 189, 248, 0.35);
+  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.25);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--ink-hard);
+  color: #ffffff;
 }
 
 .sk-badge--inverted {
-  background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
-  color: #030712;
-  border: 1px solid #f8fafc;
-  box-shadow: 2px 2px 0px rgba(56, 189, 248, 0.4);
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.4);
 }
 
 .sk-badge--inverted .sk-lamp {
-  background: #030712;
+  background: #000000;
   box-shadow: none;
 }
 
@@ -601,10 +601,10 @@ p, .text-body, .card-description, article p {
   padding: 2px 6px;
   font-family: var(--font-mono);
   font-size: 0.60rem;
-  background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
-  color: #030712;
-  border: 1px solid #f8fafc;
-  box-shadow: 1px 1px 0px #38bdf8;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  box-shadow: 1px 1px 0px #737373;
   pointer-events: none;
   z-index: 12;
   transition: opacity 0.25s ease-out, transform 0.25s ease-out;
