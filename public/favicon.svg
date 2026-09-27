@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Outer Badge -->
+  <rect width="64" height="64" rx="14" fill="#070a10" stroke="#df9c32" stroke-width="2.5" />
+  
+  <!-- Subtle Amber Glow Backing -->
+  <radialGradient id="emberGlow" cx="50%" cy="60%" r="55%">
+    <stop offset="0%" stop-color="#ff8800" stop-opacity="0.35" />
+    <stop offset="100%" stop-color="#070a10" stop-opacity="0" />
+  </radialGradient>
+  <rect width="64" height="64" rx="14" fill="url(#emberGlow)" />
+
+  <!-- Outer Flame Gradient -->
+  <linearGradient id="flameGrad" x1="32" y1="10" x2="32" y2="52" gradientUnits="userSpaceOnUse">
+    <stop offset="0%" stop-color="#fff8e7" />
+    <stop offset="25%" stop-color="#ffb300" />
+    <stop offset="65%" stop-color="#f57c00" />
+    <stop offset="100%" stop-color="#d84315" />
+  </linearGradient>
+
+  <!-- Inner Flame Core Gradient -->
+  <linearGradient id="innerFlameGrad" x1="32" y1="32" x2="32" y2="50" gradientUnits="userSpaceOnUse">
+    <stop offset="0%" stop-color="#ffffff" />
+    <stop offset="60%" stop-color="#ffe082" />
+    <stop offset="100%" stop-color="#ffb74d" />
+  </linearGradient>
+
+  <!-- Main Ember Flame Body -->
+  <path d="M32 10C32.5 16 35 21.5 38 25C41 28.5 43 33 43 38C43 45.5 38 52 32 52C26 52 21 45.5 21 38C21 32 23.5 27 27 23C27.5 27 29.5 29.5 32 30C34.5 30.5 36 28 35.5 25C35 22 33 17 32 10Z" fill="url(#flameGrad)" />
+
+  <!-- Inner Hot Ember Tongue -->
+  <path d="M32 34C34 37 35.5 39.5 35.5 42.5C35.5 45.5 34 48 32 48C30 48 28.5 45.5 28.5 42.5C28.5 39.5 30 37 32 34Z" fill="url(#innerFlameGrad)" />
+</svg>
