@@ -1,3 +1,13 @@
+const getInitialContractAddress = (): string => {
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('ember_contract_address');
+    if (saved && saved.startsWith('0x') && saved.length === 42) {
+      return saved;
+    }
+  }
+  return '0x7E8c545E5B4c483D47C88DE2d24296615Bb4278f';
+};
+
 export const MONAD_TESTNET_CONFIG = {
   chainId: 10143,
   chainIdHex: '0x279f',
@@ -10,7 +20,14 @@ export const MONAD_TESTNET_CONFIG = {
   },
   blockExplorerUrl: 'https://testnet.monadexplorer.com',
   faucetUrl: 'https://testnet.monad.xyz',
-  contractAddress: '0x7e8C545E5b4c483d47C88dE2d24296615bB4278F', // SignalMarket deployed instance
+  contractAddress: getInitialContractAddress(),
+};
+
+export const setStoredContractAddress = (address: string) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('ember_contract_address', address);
+  }
+  MONAD_TESTNET_CONFIG.contractAddress = address;
 };
 
 export const SIGNAL_MARKET_ABI = [

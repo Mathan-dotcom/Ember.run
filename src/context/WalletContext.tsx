@@ -2,8 +2,9 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { WalletAccount, Post, BoosterRecord, AuditEntry, CuratorLeader } from '../types/signal';
 import { calculateDecayedWeight, calculateDiminishingMultiplier, formatAddress } from '../utils/decay';
 import { sound } from '../utils/sound';
-import { BrowserProvider, Contract, parseEther, formatEther } from 'ethers';
-import { MONAD_TESTNET_CONFIG, SIGNAL_MARKET_ABI } from '../contracts/config';
+import { BrowserProvider, Contract, ContractFactory, parseEther, formatEther } from 'ethers';
+import { MONAD_TESTNET_CONFIG, SIGNAL_MARKET_ABI, setStoredContractAddress } from '../contracts/config';
+import { SIGNAL_MARKET_BYTECODE } from '../contracts/bytecode';
 import { registerPasskey, authenticatePasskey, isWebAuthnSupported, listStoredPasskeys } from '../utils/webauthn';
 
 interface WalletContextType {
@@ -34,6 +35,12 @@ interface WalletContextType {
   connectWeb3Wallet: () => Promise<boolean>;
   disconnectWeb3Wallet: () => void;
   switchToMonadTestnet: () => Promise<boolean>;
+  // Live Monad Contract Deployment & Status
+  contractAddress: string;
+  isContractDeployed: boolean;
+  isDeployingContract: boolean;
+  deployContractWithMetaMask: () => Promise<string | null>;
+  checkContractDeployment: (addr?: string) => Promise<boolean>;
 }
 
 // Initial Seed Accounts (Real Monad Testnet addresses)
@@ -268,6 +275,34 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [isConnectingWeb3, setIsConnectingWeb3] = useState<boolean>(false);
   const [onchainTxPending, setOnchainTxPending] = useState<boolean>(false);
 
+  // Live Monad Contract State
+  const [contractAddress, setContractAddress] = useState<string>(() => MONAD_TESTNET_CONFIG.contractAddress);
+  const [isContractDeployed, setIsContractDeployed] = useState<boolean>(false);
+  const [isDeployingContract, setIsDeployingContract] = useState<boolean>(false);
+
+  // Check if contract has bytecode deployed on Monad Testnet
+  const checkContractDeployment = useCallback(async (addr?: string): Promise<boolean> => {
+    const target = addr || contractAddress;
+    if (!target || !target.startsWith('0x') || target.length !== 42) {
+      setIsContractDeployed(false);
+      return false;
+    }
+    if (typeof window === 'undefined' || !(window as any).ethereum) {
+      setIsContractDeployed(false);
+      return false;
+    }
+    try {
+      const provider = new BrowserProvider((window as any).ethereum);
+      const code = await provider.getCode(target);
+      const isLive = code !== '0x' && code.length > 2;
+      setIsContractDeployed(isLive);
+      return isLive;
+    } catch {
+      setIsContractDeployed(false);
+      return false;
+    }
+  }, [contractAddress]);
+
   // Check if wallet is already connected
   const checkInitialWeb3 = useCallback(async () => {
     if (typeof window === 'undefined' || !(window as any).ethereum) return;
@@ -466,6 +501,78 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     sound.playSwitchClick();
   };
 
+  // Check contract deployment when Web3 connects
+  useEffect(() => {
+    if (isWeb3Connected) {
+      checkContractDeployment();
+    }
+  }, [isWeb3Connected, contractAddress, checkContractDeployment]);
+
+  // Deploy SignalMarket directly via MetaMask in browser
+  const deployContractWithMetaMask = async (): Promise<string | null> => {
+    if (typeof window === 'undefined' || !(window as any).ethereum) {
+      sound.playWarningBuzz();
+      alert('No EVM wallet detected. Please connect MetaMask first.');
+      return null;
+    }
+
+    try {
+      setIsDeployingContract(true);
+      sound.playSwitchClick();
+
+      const provider = new BrowserProvider((window as any).ethereum);
+      const signer = await provider.getSigner();
+      const factory = new ContractFactory(SIGNAL_MARKET_ABI, SIGNAL_MARKET_BYTECODE, signer);
+
+      // Deploy with 6 hours half-life (21600 seconds)
+      const contract = await factory.deploy(21600);
+      await contract.waitForDeployment();
+      const deployedAddress = await contract.getAddress();
+
+      setContractAddress(deployedAddress);
+      setStoredContractAddress(deployedAddress);
+      setIsContractDeployed(true);
+      sound.playDisbursementChime();
+
+      // Log deployment to Audit Ledger
+      const deployReceipt = await contract.deploymentTransaction()?.wait();
+      const txHash = deployReceipt?.hash || contract.deploymentTransaction()?.hash || '0x...';
+      const now = Math.floor(Date.now() / 1000);
+      const deployLog: AuditEntry = {
+        id: `tx-deploy-${Date.now()}`,
+        txHash,
+        timestamp: now,
+        postId: 0,
+        postTitle: 'SignalMarket Protocol Deployed',
+        sender: await signer.getAddress(),
+        senderName: 'MetaMask Deployer',
+        recipient: deployedAddress,
+        recipientName: 'SignalMarket Contract',
+        amount: 0,
+        role: 'RESERVE',
+        status: 'OK',
+        boostNumber: 0,
+        multiplierPercent: 100,
+        note: `Contract live on Monad Testnet (${deployedAddress.slice(0, 8)}...${deployedAddress.slice(-6)})`
+      };
+      setAuditLogs((prev) => [deployLog, ...prev]);
+
+      // Refresh balance
+      const updatedBal = await provider.getBalance(await signer.getAddress());
+      const monBal = parseFloat(formatEther(updatedBal));
+      setCurrentAccount((prev) => ({ ...prev, balanceMon: Math.round(monBal * 1000) / 1000 }));
+
+      return deployedAddress;
+    } catch (err: any) {
+      console.error('Contract deployment failed:', err);
+      sound.playWarningBuzz();
+      alert(`Deployment failed: ${err?.message || err}`);
+      return null;
+    } finally {
+      setIsDeployingContract(false);
+    }
+  };
+
   // Re-calculate decayed weights every 3 seconds for live radar updates
   const refreshDecayedWeights = () => {
     setPosts((prevPosts) =>
@@ -610,26 +717,33 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     let txHashToRecord = `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`;
 
     if (isWeb3Connected && typeof window !== 'undefined' && (window as any).ethereum) {
+      if (!isContractDeployed) {
+        sound.playWarningBuzz();
+        throw new Error('SignalMarket contract is not yet deployed on Monad Testnet. Please click "DEPLOY CONTRACT" in the header.');
+      }
       try {
         setOnchainTxPending(true);
         const provider = new BrowserProvider((window as any).ethereum);
         const signer = await provider.getSigner();
-        const contract = new Contract(MONAD_TESTNET_CONFIG.contractAddress, SIGNAL_MARKET_ABI, signer);
+        const contract = new Contract(contractAddress, SIGNAL_MARKET_ABI, signer);
         const postPayload = JSON.stringify({ title, body, tags, linkUrl });
         const tx = await contract.createPost(postPayload);
         const receipt = await tx.wait();
         if (receipt && receipt.hash) {
           txHashToRecord = receipt.hash;
+        } else {
+          throw new Error('Onchain transaction confirmation failed.');
         }
         const updatedBal = await provider.getBalance(activeAccount.address);
         const monBal = parseFloat(formatEther(updatedBal));
         setCurrentAccount((prev) => ({ ...prev, balanceMon: Math.round(monBal * 1000) / 1000 }));
       } catch (err: any) {
-        console.warn('[Web3 onchain createPost]:', err);
+        console.error('[Web3 onchain createPost]:', err);
+        sound.playWarningBuzz();
         if (err?.code === 4001 || err?.code === 'ACTION_REJECTED') {
-          sound.playWarningBuzz();
           throw new Error('Transaction was rejected in your wallet.');
         }
+        throw new Error(`Onchain Post Creation Failed: ${err?.reason || err?.message || err}`);
       } finally {
         setOnchainTxPending(false);
       }
@@ -807,29 +921,35 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     let txHashBase = `0x${Math.random().toString(16).slice(2, 8)}...${Math.random().toString(16).slice(2, 6)}`;
 
     if (isWeb3Connected && typeof window !== 'undefined' && (window as any).ethereum) {
+      if (!isContractDeployed) {
+        sound.playWarningBuzz();
+        throw new Error('SignalMarket contract is not yet deployed on Monad Testnet. Please click "DEPLOY CONTRACT" in the header.');
+      }
       try {
         setOnchainTxPending(true);
         const provider = new BrowserProvider((window as any).ethereum);
         const signer = await provider.getSigner();
-        const contract = new Contract(MONAD_TESTNET_CONFIG.contractAddress, SIGNAL_MARKET_ABI, signer);
+        const contract = new Contract(contractAddress, SIGNAL_MARKET_ABI, signer);
         const tx = await contract.boost(postId, { value: parseEther(amountMon.toString()) });
         const receipt = await tx.wait();
         if (receipt && receipt.hash) {
           txHashBase = receipt.hash;
+        } else {
+          throw new Error('Onchain transaction confirmation failed.');
         }
         const updatedBal = await provider.getBalance(activeAccount.address);
         const monBal = parseFloat(formatEther(updatedBal));
         setCurrentAccount((prev) => ({ ...prev, balanceMon: Math.round(monBal * 1000) / 1000 }));
       } catch (err: any) {
-        console.warn('[Web3 onchain boost]:', err);
+        console.error('[Web3 onchain boost]:', err);
+        sound.playWarningBuzz();
         if (err?.code === 4001 || err?.code === 'ACTION_REJECTED') {
-          sound.playWarningBuzz();
           throw new Error('Transaction was rejected in your wallet.');
         }
         if (err?.message?.includes('Self-boosting prohibited')) {
-          sound.playWarningBuzz();
           throw new Error('Signal: Self-boosting is strictly prohibited by onchain contract logic');
         }
+        throw new Error(`Onchain Boost Failed: ${err?.reason || err?.message || err}`);
       } finally {
         setOnchainTxPending(false);
       }
@@ -956,7 +1076,12 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         onchainTxPending,
         connectWeb3Wallet,
         disconnectWeb3Wallet,
-        switchToMonadTestnet
+        switchToMonadTestnet,
+        contractAddress,
+        isContractDeployed,
+        isDeployingContract,
+        deployContractWithMetaMask,
+        checkContractDeployment
       }}
     >
       {children}

@@ -92,6 +92,26 @@ contract SignalMarket {
     // -------------------------------------------------------------------------
     constructor(uint256 _decayHalfLife) {
         decayHalfLife = _decayHalfLife > 0 ? _decayHalfLife : 21600; // 6 hours
+
+        // Genesis Posts seeded onchain so posts 1, 2, and 3 exist immediately
+        _seedPost(0x42F7a0923eC46B5A3F124C2dd74D906E0E7fE3A1, "Week 3: Envio Indexer & Monad 10,000 TPS Parallel Execution on Ember.run");
+        _seedPost(0x8A14C62489F3Fa8e49b8095ebdF96fa4a2a20E19, "Why Curation Markets Solve the Social Attention Crisis");
+        _seedPost(0x9b3597cE76d4fE753b7f38A5Ba543efE89DC4673, "Mera Passkey Integration: Zero Seed Phrases for Web3 Social");
+    }
+
+    function _seedPost(address poster, string memory content) internal {
+        uint256 postId = ++postCount;
+        posts[postId] = Post({
+            id: postId,
+            poster: poster,
+            content: content,
+            createdAt: block.timestamp,
+            totalBoosted: 0,
+            poolReserve: 0,
+            curatorCount: 0,
+            totalWeight: 0
+        });
+        emit PostCreated(postId, poster, content, block.timestamp);
     }
 
     // -------------------------------------------------------------------------

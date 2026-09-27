@@ -113,9 +113,26 @@ export const AuditLedger: React.FC = () => {
                       {log.status}
                     </span>
 
-                    <span style={{ color: 'var(--ink-soft)' }}>
-                      TX:{log.txHash}
-                    </span>
+                    {log.txHash && log.txHash.length > 20 && !log.txHash.includes('...') ? (
+                      <a
+                        href={`https://testnet.monadexplorer.com/tx/${log.txHash}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: '#df9c32',
+                          textDecoration: 'underline',
+                          cursor: 'pointer',
+                          fontWeight: 600
+                        }}
+                        title={`Verified on Monad Testnet (${log.txHash}). Click to view on Monad Explorer.`}
+                      >
+                        TX:{log.txHash.slice(0, 8)}...{log.txHash.slice(-6)} ↗
+                      </a>
+                    ) : (
+                      <span style={{ color: 'var(--ink-soft)' }}>
+                        TX:{log.txHash}
+                      </span>
+                    )}
                   </div>
 
                   {/* Center: Recipient & Note */}

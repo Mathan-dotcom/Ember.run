@@ -29,7 +29,11 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
     isConnectingWeb3,
     connectWeb3Wallet,
     disconnectWeb3Wallet,
-    switchToMonadTestnet
+    switchToMonadTestnet,
+    contractAddress,
+    isContractDeployed,
+    isDeployingContract,
+    deployContractWithMetaMask
   } = useWallet();
   const [backendHealth, setBackendHealth] = useState<BackendHealth | null>(null);
   const [indexerOnline, setIndexerOnline] = useState<boolean>(false);
@@ -348,36 +352,87 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               <span>SWITCH TO MONAD (10143)</span>
             </button>
           ) : (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                background: '#000000',
-                border: '1.5px solid #ffffff',
-                boxShadow: '2px 2px 0px #ffffff',
-                padding: '4px 8px'
-              }}
-            >
-              <span className="sk-lamp sk-lamp-green" />
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#ffffff', fontWeight: 700 }}>
-                WEB3 LIVE
-              </span>
-              <button
-                onClick={() => disconnectWeb3Wallet()}
-                title="Disconnect Web3 wallet"
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div
                 style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--ink-soft)',
-                  cursor: 'pointer',
-                  padding: '2px 4px',
                   display: 'flex',
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  gap: '6px',
+                  background: '#000000',
+                  border: '1.5px solid #ffffff',
+                  boxShadow: '2px 2px 0px #ffffff',
+                  padding: '4px 8px'
                 }}
               >
-                <LogOut size={12} color="#ffffff" />
-              </button>
+                <span className="sk-lamp sk-lamp-green" />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#ffffff', fontWeight: 700 }}>
+                  WEB3 LIVE
+                </span>
+                <button
+                  onClick={() => disconnectWeb3Wallet()}
+                  title="Disconnect Web3 wallet"
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--ink-soft)',
+                    cursor: 'pointer',
+                    padding: '2px 4px',
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}
+                >
+                  <LogOut size={12} color="#ffffff" />
+                </button>
+              </div>
+
+              {/* 1-Click Contract Deployer or Live Contract Badge */}
+              {!isContractDeployed ? (
+                <button
+                  onClick={() => deployContractWithMetaMask()}
+                  disabled={isDeployingContract}
+                  className="sk-button"
+                  title="Deploy SignalMarket smart contract to Monad Testnet with 1-click via MetaMask"
+                  style={{
+                    padding: '6px 12px',
+                    fontSize: '0.74rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    background: '#df9c32',
+                    color: '#000000',
+                    border: '1.5px solid #ffffff',
+                    boxShadow: '2px 2px 0px #ffffff',
+                    fontWeight: 800,
+                    cursor: 'pointer'
+                  }}
+                >
+                  <Zap size={13} color="#000000" />
+                  <span>{isDeployingContract ? 'DEPLOYING...' : '🚀 DEPLOY ONCHAIN CONTRACT'}</span>
+                </button>
+              ) : (
+                <a
+                  href={`https://testnet.monadexplorer.com/address/${contractAddress}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`Contract Deployed: ${contractAddress}. Click to view on Monad Explorer`}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    background: '#0a0a0a',
+                    border: '1.5px solid #4ade80',
+                    boxShadow: '2px 2px 0px #4ade80',
+                    padding: '5px 8px',
+                    textDecoration: 'none',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <span className="sk-lamp sk-lamp-green" />
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#4ade80', fontWeight: 700 }}>
+                    ONCHAIN: {contractAddress.slice(0, 6)}...{contractAddress.slice(-4)} ↗
+                  </span>
+                </a>
+              )}
             </div>
           )}
 
