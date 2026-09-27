@@ -31,6 +31,7 @@ export const setStoredContractAddress = (address: string) => {
 };
 
 export const SIGNAL_MARKET_ABI = [
+  "constructor(uint256 _decayHalfLife)",
   "function postCount() view returns (uint256)",
   "function decayHalfLife() view returns (uint256)",
   "function createPost(string content) returns (uint256)",
