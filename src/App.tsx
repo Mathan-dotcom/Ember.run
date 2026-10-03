@@ -15,7 +15,6 @@ import { PostDetailModal } from './components/PostDetailModal';
 import { DynamicLiveWallpaper } from './components/DynamicLiveWallpaper';
 import { Post } from './types/signal';
 import { formatMon } from './utils/decay';
-import { Radio, Activity, Cpu, Layers, Award } from 'lucide-react';
 import { useScrollFade } from './hooks/useScrollFade';
 
 const MissionControlContent: React.FC = () => {
@@ -79,19 +78,27 @@ const MissionControlContent: React.FC = () => {
           />
         ) : (
           <>
-            {/* Physical Instrument Telemetry Ribbon */}
-            <section className="sk-panel telemetry-ribbon scroll-fade-card" style={{ border: '1.5px solid #df9c32', borderRadius: '0px', boxShadow: '4px 4px 0px #df9c32', marginBottom: '24px' }}>
+            <PostComposer />
+            <FeedRadar
+              onOpenBoost={(post) => setActiveBoostPost(post)}
+              onInspectPost={(post) => setActiveDetailPost(post)}
+            />
+
+            {/* Supporting metrics and diagnostics stay available, but do not interrupt the primary reading and publishing flow. */}
+            <details className="advanced-panel">
+              <summary>Network status &amp; activity</summary>
+              <section className="sk-panel telemetry-ribbon scroll-fade-card" style={{ margin: '16px 0 32px' }}>
           {/* Rivets in corners */}
           <div style={{ position: 'absolute', top: '8px', left: '8px' }} className="sk-rivet" />
           <div style={{ position: 'absolute', top: '8px', right: '8px' }} className="sk-rivet" />
           <div style={{ position: 'absolute', bottom: '8px', left: '8px' }} className="sk-rivet" />
           <div style={{ position: 'absolute', bottom: '8px', right: '8px' }} className="sk-rivet" />
 
-          {/* Metric 1: Total Curation Volume */}
+          {/* Metric 1: Total boost volume */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
               <span className="sk-lamp sk-lamp-green" />
-              <span className="text-micro" style={{ color: '#f3d38c' }}>TOTAL CURATION VOLUME</span>
+              <span className="text-micro" style={{ color: '#f3d38c' }}>TOTAL BOOST VOLUME</span>
             </div>
             <div
               className="text-display-md"
@@ -108,11 +115,11 @@ const MissionControlContent: React.FC = () => {
             </div>
           </div>
 
-          {/* Metric 2: Provable Taste Arbitrage Earned */}
+          {/* Metric 2: Rewards paid */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
               <span className="sk-lamp sk-lamp-green" />
-              <span className="text-micro" style={{ color: '#f3d38c' }}>CURATOR DISBURSEMENTS</span>
+              <span className="text-micro" style={{ color: '#f3d38c' }}>REWARDS PAID</span>
             </div>
             <div
               className="text-display-md"
@@ -133,7 +140,7 @@ const MissionControlContent: React.FC = () => {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
               <span className="sk-lamp sk-lamp-green" />
-              <span className="text-micro" style={{ color: '#f3d38c' }}>ACTIVE EMBERS ON RADAR</span>
+              <span className="text-micro" style={{ color: '#f3d38c' }}>POSTS</span>
             </div>
             <div
               className="text-display-md"
@@ -143,7 +150,7 @@ const MissionControlContent: React.FC = () => {
               }}
             >
               {totalPosts}{' '}
-              <span style={{ fontSize: '0.85rem', color: '#f3d38c', fontFamily: 'var(--font-mono)' }}>EMBERS</span>
+              <span style={{ fontSize: '0.85rem', color: '#f3d38c', fontFamily: 'var(--font-mono)' }}>POSTS</span>
             </div>
           </div>
 
@@ -174,31 +181,19 @@ const MissionControlContent: React.FC = () => {
               CHAIN ID: 10143 (MONAD TESTNET)
             </div>
           </div>
-        </section>
+              </section>
+            </details>
 
-        {/* Console Grid Layout: Responsive 2-Columns */}
-        <div className="mission-console-grid">
-          {/* Left Column: Post Composer & Live Decay Feed */}
-          <div style={{ minWidth: 0 }}>
-            <PostComposer />
-            <FeedRadar
-              onOpenBoost={(post) => setActiveBoostPost(post)}
-              onInspectPost={(post) => setActiveDetailPost(post)}
-            />
-          </div>
-
-          {/* Right Column: Audit Ledger, Leaderboard, & Telemetry */}
-          <div style={{ minWidth: 0 }}>
-            <AuditLedger />
-            <CuratorLeaderboard
-              onOpenProfile={(address) => {
-                setActiveProfileAddress(address);
-                setIsProfileModalOpen(true);
-              }}
-            />
-            <AntiGamingTelemetry />
-          </div>
-        </div>
+            <details className="advanced-panel">
+              <summary>Advanced: audit ledger, rewards &amp; how boosts work</summary>
+              <div className="mission-console-grid advanced-content">
+                <div style={{ minWidth: 0 }}><AuditLedger /></div>
+                <div style={{ minWidth: 0 }}>
+                  <CuratorLeaderboard onOpenProfile={(address) => { setActiveProfileAddress(address); setIsProfileModalOpen(true); }} />
+                  <AntiGamingTelemetry />
+                </div>
+              </div>
+            </details>
           </>
         )}
       </main>

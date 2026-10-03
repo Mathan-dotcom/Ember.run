@@ -311,7 +311,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
           <button
             type="button"
             onClick={handleToggleBookmark}
-            title={isBookmarked ? 'Remove bookmark' : 'Bookmark this ember'}
+            title={isBookmarked ? 'Remove bookmark' : 'Save this post'}
             className="sk-button"
             style={{
               padding: '8px 10px',
@@ -355,7 +355,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenBoost, onInspect
               style={{ padding: '8px 18px', fontSize: '0.85rem' }}
             >
               <Zap size={14} color="#000000" />
-              <span>BOOST EMBER</span>
+              <span>Boost post</span>
             </button>
           )}
         </div>

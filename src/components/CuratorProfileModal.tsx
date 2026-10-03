@@ -255,7 +255,7 @@ export const CuratorProfileModal: React.FC<CuratorProfileModalProps> = ({ addres
                   ACTIVE BOOKMARKS
                 </div>
                 <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', fontWeight: 800, color: '#ffffff' }}>
-                  {profile.bookmarks ? profile.bookmarks.length : 0} <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>EMBERS</span>
+                  {profile.bookmarks ? profile.bookmarks.length : 0} <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>POSTS</span>
                 </div>
               </div>
             </div>

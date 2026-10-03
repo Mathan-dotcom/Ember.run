@@ -108,7 +108,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span
                   style={{
-                    fontFamily: 'var(--font-display)',
+                    fontFamily: 'var(--font-ui)',
                     fontSize: '1.35rem',
                     fontWeight: 800,
                     letterSpacing: '-0.02em',
@@ -135,9 +135,9 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               </div>
               <p
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.65rem',
-                  color: '#a3a3a3',
+                  fontFamily: 'var(--font-ui)',
+                  fontSize: '0.72rem',
+                  color: '#c5cbd5',
                   marginTop: '-2px',
                   letterSpacing: '0.04em'
                 }}
@@ -147,6 +147,9 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             </div>
           </div>
 
+          <details className="header-network-status">
+            <summary>Network status</summary>
+            <div className="header-network-details">
           {/* Network Indicator Lamp */}
           <div
             className="sk-badge sk-badge--inverted"
@@ -218,63 +221,24 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               {indexerOnline ? 'ENVIO : LIVE' : 'ENVIO : RPC'}
             </span>
           </div>
+            </div>
+          </details>
         </div>
 
-        {/* Navigation Tabs: Overview vs Mission Control */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-            background: '#0a0a0a',
-            padding: '4px',
-            borderRadius: '0px',
-            border: '1.5px solid #ffffff',
-            boxShadow: '3px 3px 0px #ffffff'
-          }}
+        <button
+          onClick={() => { sound.playSwitchClick(); onChangeView(activeView === 'console' ? 'landing' : 'console'); }}
+          className="sk-button-primary"
+          style={{ padding: '8px 14px', fontSize: '0.9rem' }}
         >
-          <button
-            onClick={() => {
-              sound.playSwitchClick();
-              onChangeView('landing');
-            }}
-            className={`sk-button ${activeView === 'landing' ? 'sk-button-primary' : ''}`}
-            style={{
-              padding: '6px 14px',
-              fontSize: '0.76rem',
-              borderRadius: '0px',
-              border: activeView === 'landing' ? '1.5px solid #ffffff' : '1px solid transparent',
-              background: activeView === 'landing' ? '#ffffff' : 'transparent',
-              color: activeView === 'landing' ? '#000000' : '#a3a3a3',
-              boxShadow: 'none'
-            }}
-          >
-            <span>[01 // OVERVIEW]</span>
-          </button>
-
-          <button
-            onClick={() => {
-              sound.playSwitchClick();
-              onChangeView('console');
-            }}
-            className={`sk-button ${activeView === 'console' ? 'sk-button-primary' : ''}`}
-            style={{
-              padding: '6px 14px',
-              fontSize: '0.76rem',
-              borderRadius: '0px',
-              border: activeView === 'console' ? '1.5px solid #ffffff' : '1px solid transparent',
-              background: activeView === 'console' ? '#ffffff' : 'transparent',
-              color: activeView === 'console' ? '#000000' : '#a3a3a3',
-              boxShadow: 'none'
-            }}
-          >
-            <Zap size={12} color={activeView === 'console' ? '#000000' : '#a3a3a3'} />
-            <span>[02 // MISSION CONTROL]</span>
-          </button>
-        </div>
+          <Zap size={14} />
+          <span>{activeView === 'console' ? 'Overview' : 'Open posts'}</span>
+        </button>
 
         {/* Center/Right: Actions & Passkey Wallet Mission Control */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <details className="header-network-status">
+            <summary>Advanced</summary>
+            <div className="header-network-details">
           {/* 30-Second Guided Demo Button */}
           <button
             onClick={() => {
@@ -435,6 +399,8 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               )}
             </div>
           )}
+            </div>
+          </details>
 
           {/* Passkey Identity Capsule */}
           <div

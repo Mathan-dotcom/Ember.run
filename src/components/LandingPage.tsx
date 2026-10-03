@@ -662,7 +662,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </h4>
           </div>
           <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.84rem', color: '#a3a3a3', lineHeight: 1.55 }}>
-            Signals decay with a 6-hour half-life curve: <code style={{ color: '#ffffff' }}>W(t) = W₀ × 2^(-Δt/6h)</code>. No post dominates forever; fresh capital and ongoing discovery continuously recalibrate the radar.
+            Boost influence fades over six hours: <code style={{ color: '#ffffff' }}>W(t) = W₀ × 2^(-Δt/6h)</code>. No post dominates forever; fresh support and ongoing discovery keep the feed current.
           </p>
         </div>
 

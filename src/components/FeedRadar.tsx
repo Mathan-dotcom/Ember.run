@@ -54,10 +54,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="sk-index" data-index="02" />
-          <h2 className="text-heading">CURATION RADAR & FEED</h2>
-          <span className="sk-badge" style={{ fontSize: '0.7rem' }}>
-            ENVIO INDEXED
-          </span>
+          <h2 className="text-heading">Posts</h2>
         </div>
 
         {/* Sorting Toggles */}
@@ -69,10 +66,10 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
             }}
             className={`sk-button ${sortMode === 'decay' ? 'sk-button-primary' : ''}`}
             style={{ padding: '5px 10px', fontSize: '0.75rem' }}
-            title="Sorted strictly by Time-Decayed Weight"
+            title="Sort by the current influence of each post"
           >
             <Clock size={13} />
-            <span>DECAY RANK</span>
+            <span>Most relevant</span>
           </button>
 
           <button
@@ -85,7 +82,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
             title="Sorted by Boost Velocity (MON / hour)"
           >
             <Flame size={13} color={sortMode === 'velocity' ? '#030712' : '#ffffff'} />
-            <span>VELOCITY</span>
+            <span>Trending</span>
           </button>
 
           <button
@@ -98,7 +95,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
             title="Sorted by Total MON Boosted"
           >
             <Coins size={13} color={sortMode === 'capital' ? '#030712' : '#ffffff'} />
-            <span>TOTAL POOL</span>
+            <span>Most boosted</span>
           </button>
 
           <button
@@ -108,7 +105,7 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
             }}
             className={`sk-button ${onlyBookmarked ? 'sk-button-primary' : ''}`}
             style={{ padding: '5px 10px', fontSize: '0.75rem' }}
-            title="Show only bookmarked embers"
+            title="Show only saved posts"
           >
             <Bookmark size={13} fill={onlyBookmarked ? '#030712' : 'none'} color={onlyBookmarked ? '#030712' : '#ffffff'} />
             <span>SAVED ({bookmarkedIds.length})</span>
@@ -148,10 +145,10 @@ export const FeedRadar: React.FC<FeedRadarProps> = ({ onOpenBoost, onInspectPost
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="sk-lamp sk-lamp-green" />
-          <span>STATUS: LIVE FEED RANKED BY DECAYED ONCHAIN WEIGHT</span>
+          <span><strong>Boost</strong> a post by supporting it with MON. The author receives 40% of every boost.</span>
         </div>
         <div>
-          HALF-LIFE CURVE: 6.0 HOURS // 40% AUTHOR / 45% CURATORS
+          Most boost influence fades after about 6 hours
         </div>
       </div>
 

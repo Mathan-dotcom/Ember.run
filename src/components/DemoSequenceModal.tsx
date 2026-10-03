@@ -98,7 +98,7 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
     {
       num: 3,
       title: '03 / LIVE DECAY RE-RANKING',
-      desc: 'The Envio indexer and decay engine re-rank the feed in real time as boost weight decays over the 6-hour half-life curve.',
+      desc: 'The Envio indexer and decay engine re-rank the feed in real time as boost influence fades over six hours.',
       actionLabel: 'INSPECT RE-RANKING',
       action: async () => {
         sound.playDialTick();

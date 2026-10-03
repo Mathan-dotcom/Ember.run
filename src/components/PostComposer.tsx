@@ -106,7 +106,7 @@ export const PostComposer: React.FC = () => {
   };
 
   return (
-    <section className="sk-panel scroll-fade-card" style={{ padding: '24px', marginBottom: '28px' }}>
+    <section className="sk-panel composer-panel scroll-fade-card" style={{ padding: '28px', marginBottom: '36px' }}>
       {/* Console Header */}
       <div
         style={{
@@ -120,10 +120,7 @@ export const PostComposer: React.FC = () => {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="sk-index" data-index="01" />
-          <h2 className="text-heading">DISPATCH CONSOLE</h2>
-          <span className="sk-badge" style={{ fontSize: '0.68rem' }}>
-            ONCHAIN REGISTRY
-          </span>
+          <h2 className="text-heading">Create a post</h2>
           {drafts.length > 0 && (
             <button
               type="button"
@@ -156,6 +153,10 @@ export const PostComposer: React.FC = () => {
           </span>
         </div>
       </div>
+
+      <p className="composer-helper">
+        Share an idea, analysis, or discovery. You earn 40% whenever others boost your post.
+      </p>
 
       {/* Offchain Drafts Drawer */}
       {showDrafts && drafts.length > 0 && (
@@ -232,7 +233,7 @@ export const PostComposer: React.FC = () => {
             <input
               type="text"
               className="sk-input"
-              placeholder="Ember Title / Key Finding (e.g. Monad Parallel State Proofs)"
+              placeholder="Title (e.g. Monad Parallel State Proofs)"
               value={title}
               onFocus={() => setIsExpanded(true)}
               onChange={(e) => setTitle(e.target.value)}
@@ -247,11 +248,11 @@ export const PostComposer: React.FC = () => {
           <div className="sk-well" style={{ padding: '2px', border: '1.5px solid #ffffff', boxShadow: '3px 3px 0px rgba(255, 255, 255, 0.3)', borderRadius: '0px' }}>
             <textarea
               className="sk-input"
-              placeholder="Describe your thesis, alpha discovery, or technical review..."
+              placeholder="What would you like to share?"
               value={body}
               onFocus={() => setIsExpanded(true)}
               onChange={(e) => setBody(e.target.value)}
-              rows={isExpanded ? 3 : 2}
+              rows={isExpanded ? 4 : 3}
               style={{ resize: 'vertical' }}
               required
             />
@@ -344,7 +345,7 @@ export const PostComposer: React.FC = () => {
             }}
           >
             <ShieldAlert size={14} color="#f59e0b" />
-            <span>Anti-Gaming: Posters cannot boost their own content. 40% of future boosts go to you.</span>
+            <span>You cannot boost your own post. You receive 40% of every future boost.</span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -374,7 +375,7 @@ export const PostComposer: React.FC = () => {
               style={{ padding: '8px 20px', fontSize: '0.85rem' }}
             >
               <Send size={14} />
-              <span>{isSubmitting ? 'DISPATCHING...' : 'DISPATCH EMBER'}</span>
+              <span>{isSubmitting ? 'PUBLISHING...' : 'Publish post'}</span>
             </button>
           </div>
         </div>
