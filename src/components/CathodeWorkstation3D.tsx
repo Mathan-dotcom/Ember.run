@@ -356,8 +356,8 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
       'STATUS: CONSENSUS MONAD BFT // ACTIVE',
       'EPOCH #41454 // BLOCK TIME: 1.00s',
       '──────────────────────────────',
-      'SIGNAL RADAR: 6 ACTIVE EMBERS',
-      'DECAY HALF-LIFE: 6.00 HOURS',
+      'POSTS: 6 ACTIVE',
+      'BOOST INFLUENCE: FADES OVER 6 HOURS',
       'ATOMIC SPLITS: 40% / 45% / 15%',
       'WEBAUTHN FIDO2 PRF: READY',
       'SUBSCRIBER YIELD: +4.25 MON'
@@ -431,7 +431,7 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
         // Terminal Header HUD
         ctx.font = 'bold 15px "Courier New", monospace';
         ctx.fillStyle = '#ffffff';
-        ctx.fillText('CATHODE SESSION // EMBER.RUN', 28, 42);
+        ctx.fillText('EMBER.RUN // LIVE POST ACTIVITY', 28, 42);
 
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
         ctx.lineWidth = 1;
@@ -535,7 +535,7 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
             boxShadow: '0 0 8px #ffffff'
           }}
         />
-        <span>60 FPS MOTION ENGINE // CATHODE 3D</span>
+        <span>INTERACTIVE VIEW</span>
         <span style={{ color: 'rgba(255, 255, 255, 0.3)' }}>|</span>
         <span style={{ color: '#ffffff', fontWeight: 700 }}>{fps} FPS</span>
       </div>
@@ -557,7 +557,7 @@ export const CathodeWorkstation3D: React.FC<CathodeWorkstation3DProps> = ({
           pointerEvents: 'none'
         }}
       >
-        <span>PARALLAX: 3D PARALLEL SESSION</span>
+        <span>DRAG TO EXPLORE</span>
       </div>
     </div>
   );

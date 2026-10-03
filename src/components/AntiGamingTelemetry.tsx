@@ -23,9 +23,9 @@ export const AntiGamingTelemetry: React.FC = () => {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="sk-index" data-index="05" />
-          <h2 className="text-heading">ANTI-GAMING & SYBIL DEFENSE MATRIX</h2>
+          <h2 className="text-heading">Safety rules</h2>
           <span className="sk-badge" style={{ fontSize: '0.68rem' }}>
-            ONCHAIN PROTOCOL LOGIC
+            ONCHAIN RULES
           </span>
         </div>
 

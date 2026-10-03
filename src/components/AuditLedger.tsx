@@ -33,7 +33,7 @@ export const AuditLedger: React.FC = () => {
                 color: '#fdfaf2'
               }}
             >
-              IMMUTABLE TERMINAL AUDIT LEDGER
+              Transaction history
             </h2>
           </div>
         </div>

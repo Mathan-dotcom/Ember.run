@@ -26,9 +26,9 @@ export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenPr
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="sk-index" data-index="04" />
-          <h2 className="text-heading">TASTE ARBITRAGE LEADERBOARD</h2>
+          <h2 className="text-heading">Top supporters</h2>
           <span className="sk-badge" style={{ fontSize: '0.68rem' }}>
-            ONCHAIN REPUTATION
+            VERIFIED ONCHAIN
           </span>
         </div>
 
@@ -179,7 +179,7 @@ export const CuratorLeaderboard: React.FC<CuratorLeaderboardProps> = ({ onOpenPr
       >
         <Sparkles size={13} color="#ffffff" />
         <span>
-          <strong style={{ color: '#ffffff' }}>How Taste Arbitrage Works:</strong> Early curators who identify high-value content before the decay cliff
+          <strong style={{ color: '#ffffff' }}>How rewards work:</strong> People who support valuable posts early
           earn automatic 45% cuts on subsequent boosts. Accuracy is proven onchain, never self-reported.
         </span>
       </div>

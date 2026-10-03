@@ -142,7 +142,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                   letterSpacing: '0.04em'
                 }}
               >
-                TIME-DECAYING CURATION MARKET
+                ONCHAIN POST & BOOST MARKET
               </p>
             </div>
           </div>

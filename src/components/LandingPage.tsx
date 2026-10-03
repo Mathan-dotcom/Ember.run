@@ -67,7 +67,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             EMBER.RUN
           </span>
           <span style={{ color: 'rgba(255, 255, 255, 0.25)' }}>/</span>
-          {['motion design', 'motion graphics', 'cathode', 'crt', 'workstation', 'monad'].map((tag, idx) => (
+          {['onchain posts', 'boost rewards', 'time decay', 'wallets', 'monad'].map((tag, idx) => (
             <React.Fragment key={tag}>
               <span
                 style={{
@@ -168,7 +168,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 }}
               />
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#ffffff', fontWeight: 700 }}>
-                CATHODE WORKSTATION // THREE.JS 3D
+                INTERACTIVE 3D VIEW
               </span>
             </div>
 
@@ -193,7 +193,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <Activity size={12} color="#ffffff" />
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: '#a3a3a3' }}>
-                  PARALLEL EXECUTION MATRIX: 10,000 TPS
+                  MONAD PARALLEL EXECUTION: 10,000 TPS
                 </span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -228,7 +228,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   fontWeight: 700
                 }}
               >
-                SESSION 01 // PARALLEL EVM
+                MONAD TESTNET
               </span>
               <span
                 style={{
@@ -239,7 +239,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   color: '#ffffff'
                 }}
               >
-                CURATION MARKET
+                ONCHAIN POST MARKET
               </span>
             </div>
 
@@ -303,7 +303,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 }}
               >
                 <Flame size={16} color="#000000" fill="#000000" />
-                <span>ENTER MISSION CONTROL</span>
+                <span>OPEN POSTS</span>
                 <ArrowRight size={15} />
               </button>
 
@@ -364,7 +364,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             >
               {[
                 { label: 'THROUGHPUT', val: '10K TPS', sub: 'Parallel EVM' },
-                { label: 'HALF-LIFE', val: '6.0 HRS', sub: 'Decay Curve' },
+                { label: 'INFLUENCE', val: '6.0 HRS', sub: 'Fades over time' },
                 { label: 'DISBURSEMENT', val: '40/45/15', sub: 'Atomic Splits' },
                 { label: 'AUTH', val: 'WEBAUTHN', sub: 'Zero Seed Words' }
               ].map((item) => (
@@ -394,7 +394,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── 2 VARIANTS Section (Monochrome Black & White) ── */}
+      {/* Explore Ember.run */}
       <section style={{ marginBottom: '36px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -408,11 +408,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               }}
             />
             <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#ffffff', fontWeight: 700, letterSpacing: '0.04em' }}>
-              2 SESSION VARIANTS // MODES
+              Explore Ember.run
             </h2>
           </div>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#737373' }}>
-            INTERACTIVE WORKSTATION PROTOCOL
+            Interactive product views
           </span>
         </div>
 
@@ -437,7 +437,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Monitor size={16} color="#ffffff" />
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: 700, color: '#ffffff' }}>
-                  01 // CATHODE RADAR SESSION
+                  01 // POST FEED
                 </span>
               </div>
               <span
@@ -450,14 +450,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   fontWeight: 700
                 }}
               >
-                ACTIVE 60 FPS
+                LIVE INTERACTIVE VIEW
               </span>
             </div>
             <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: '#a3a3a3', lineHeight: 1.5, marginBottom: '14px' }}>
               Full instrument console with dynamic live video background, time-decay radar gauges, live post discovery, and real-time Monad RPC integration.
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#ffffff' }}>
-              <span>OPEN CONSOLE VIEW</span>
+              <span>OPEN POSTS</span>
               <ArrowRight size={12} />
             </div>
           </div>
@@ -481,7 +481,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Terminal size={16} color="#ffffff" />
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: 700, color: '#ffffff' }}>
-                  02 // TASTE ARBITRAGE CALCULATOR
+                  02 // REWARD CALCULATOR
                 </span>
               </div>
               <span
@@ -493,14 +493,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   color: '#ffffff'
                 }}
               >
-                BONDING CURVE
+                REWARD PREVIEW
               </span>
             </div>
             <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', color: '#a3a3a3', lineHeight: 1.5, marginBottom: '14px' }}>
               Interactive mathematical simulator demonstrating how early conviction earns yield from subsequent community boosts before the exponential half-life cliff.
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.70rem', color: '#ffffff' }}>
-              <span>TUNE ARBITRAGE SIMULATOR</span>
+              <span>ADJUST REWARD PREVIEW</span>
               <ArrowRight size={12} />
             </div>
           </div>
@@ -527,7 +527,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </h3>
             </div>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#737373', marginTop: '4px' }}>
-              SIMULATE EARLY CONVICTION // CONTINUOUS DECAY HALF-LIFE = 6.0 HOURS
+              See how early support earns rewards as boost influence fades
             </p>
           </div>
           <span
@@ -540,7 +540,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               fontWeight: 700
             }}
           >
-            ATOMIC 40 / 45 / 15 DISTRIBUTION
+            BOOST REWARD SPLIT: 40 / 45 / 15
           </span>
         </div>
 
@@ -551,7 +551,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div style={{ marginBottom: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#a3a3a3' }}>
-                  YOUR INITIAL BOOST AMOUNT:
+                  YOUR INITIAL BOOST:
                 </span>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', fontWeight: 700, color: '#ffffff' }}>
                   {simulatedBoost.toFixed(1)} MON
@@ -575,10 +575,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div style={{ marginBottom: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#a3a3a3' }}>
-                  DISCOVERY TIMING (HOURS SINCE GENESIS):
+                  WHEN YOU BOOST (HOURS AFTER POSTING):
                 </span>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', fontWeight: 700, color: '#ffffff' }}>
-                  HOUR {simulatedHour} {simulatedHour <= 2 ? '(EARLY SIGNAL α)' : '(LATE CONVERGENCE)'}
+                  HOUR {simulatedHour} {simulatedHour <= 2 ? '(EARLY SUPPORT)' : '(LATER SUPPORT)'}
                 </span>
               </div>
               <input
@@ -617,7 +617,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
               <div className="sk-well" style={{ padding: '12px', textAlign: 'center', background: '#0f0f0f', border: '1px solid rgba(255, 255, 255, 0.15)' }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', color: '#737373' }}>
-                  TASTE ROI %
+                  ESTIMATED RETURN %
                 </div>
                 <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 800, color: '#ffffff' }}>
                   {estimatedRoi}%
