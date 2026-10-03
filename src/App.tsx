@@ -225,11 +225,11 @@ const MissionControlContent: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span className="sk-lamp sk-lamp-green" />
           <span style={{ color: '#fdfaf2', fontWeight: 600 }}>
-            EMBER.RUN // MONAD METROPOLIS — TRACK 03: SOCIAL, ATTENTION & CULTURE
+            EMBER.RUN // MONAD METROPOLIS 
           </span>
         </div>
         <div style={{ color: '#df9c32', fontWeight: 700 }}>
-          NEO-BRUTALIST EMBER UI // MONAD HIGH-THROUGHPUT ENGINE
+           MONAD HIGH-THROUGHPUT ENGINE
         </div>
       </footer>
 
