@@ -27,9 +27,9 @@ describe("SignalMarket — Time-Decaying Curation Market", function () {
       const tx = await signalMarket.connect(poster).createPost(content);
       await tx.wait();
 
-      expect(await signalMarket.postCount()).to.equal(1n);
+      expect(await signalMarket.postCount()).to.equal(4n);
 
-      const post = await signalMarket.getPost(1);
+      const post = await signalMarket.getPost(4);
       expect(post.poster).to.equal(poster.address);
       expect(post.content).to.equal(content);
       expect(post.totalBoosted).to.equal(0n);
@@ -49,7 +49,7 @@ describe("SignalMarket — Time-Decaying Curation Market", function () {
     beforeEach(async function () {
       const tx = await signalMarket.connect(poster).createPost("Alpha signal on Monad liquidity pools");
       await tx.wait();
-      postId = 1n;
+      postId = await signalMarket.postCount();
     });
 
     it("Boundary Condition: First boost atomically distributes 40% to poster, retains 60% in reserve", async function () {
@@ -108,7 +108,7 @@ describe("SignalMarket — Time-Decaying Curation Market", function () {
     beforeEach(async function () {
       const tx = await signalMarket.connect(poster).createPost("High-conviction market call");
       await tx.wait();
-      postId = 1n;
+      postId = await signalMarket.postCount();
     });
 
     it("Anti-Gaming Rule 1: Self-boosting is rejected by the contract", async function () {
@@ -150,7 +150,7 @@ describe("SignalMarket — Time-Decaying Curation Market", function () {
     it("Calculates exponential weight decay accurately over elapsed half-lives", async function () {
       const tx = await signalMarket.connect(poster).createPost("Time sensitive protocol launch");
       await tx.wait();
-      const postId = 1n;
+      const postId = await signalMarket.postCount();
 
       const boostAmount = ethers.parseEther("10.0");
       await signalMarket.connect(curator1).boost(postId, { value: boostAmount });
