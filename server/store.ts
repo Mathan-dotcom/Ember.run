@@ -27,8 +27,8 @@ const DATA_FILE = path.join(process.cwd(), 'server', 'data_store.json');
 
 // Initial seed data for authentic testnet accounts
 const INITIAL_PROFILES: Record<string, CuratorProfile> = {
-  '0x42f7a0923ec46b5a3f124c2dd74d906e0e7fe3a1': {
-    address: '0x42f7A0923eC46b5a3f124C2dD74D906E0E7Fe3a1',
+  '0xa9c97e3d0f95be9fc990b3686997ec346d96833e': {
+    address: '0xa9c97E3D0f95be9Fc990B3686997eC346D96833e',
     name: 'Ember.run Devlog',
     handle: '@ember_core',
     bio: 'Core architecture and technical release notes for Ember.run on Monad Metropolis.',
