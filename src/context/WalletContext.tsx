@@ -49,7 +49,7 @@ const INITIAL_ACCOUNTS: WalletAccount[] = [
     id: 'builder',
     name: 'Ember.run Devlog',
     handle: '@ember_core',
-    address: '0x42f7A0923eC46b5a3f124C2dD74D906E0E7Fe3a1',
+    address: '0xa9c97E3D0f95be9Fc990B3686997eC346D96833e',
     balanceMon: 48.25,
     isPasskey: true,
     passkeyLabel: 'YubiKey 5C / Face ID'
@@ -87,7 +87,7 @@ const INITIAL_ACCOUNTS: WalletAccount[] = [
 const INITIAL_POSTS: Post[] = [
   {
     id: 1,
-    poster: '0x42f7A0923eC46b5a3f124C2dD74D906E0E7Fe3a1',
+    poster: '0xa9c97E3D0f95be9Fc990B3686997eC346D96833e',
     authorName: 'Ember.run Devlog',
     authorHandle: '@ember_core',
     title: 'Week 3: Envio Indexer & Monad 10,000 TPS Parallel Execution on Ember.run',
