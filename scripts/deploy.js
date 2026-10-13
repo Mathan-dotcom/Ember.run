@@ -44,20 +44,35 @@ async function main() {
     console.log(`Monad Explorer   : https://testnet.monadexplorer.com/address/${contractAddress}`);
   }
 
-  // Update src/contracts/config.ts if deploying to Monad Testnet
+  // Update src/contracts/config.ts and indexer/config.yaml if deploying to Monad Testnet
   if (network.name === "monadTestnet") {
     const configPath = path.resolve(__dirname, "../src/contracts/config.ts");
     if (fs.existsSync(configPath)) {
       try {
         let configContent = fs.readFileSync(configPath, "utf-8");
         configContent = configContent.replace(
-          /contractAddress:\s*'0x[a-fA-F0-9]+'/,
-          `contractAddress: '${contractAddress}'`
+          /return '0x[a-fA-F0-9]{40}';/,
+          `return '${contractAddress}';`
         );
         fs.writeFileSync(configPath, configContent, "utf-8");
         console.log(`\n✅ Updated src/contracts/config.ts with new address: ${contractAddress}`);
       } catch (err) {
         console.warn("Could not automatically update config.ts:", err);
+      }
+    }
+
+    const indexerConfigPath = path.resolve(__dirname, "../indexer/config.yaml");
+    if (fs.existsSync(indexerConfigPath)) {
+      try {
+        let indexerConfig = fs.readFileSync(indexerConfigPath, "utf-8");
+        indexerConfig = indexerConfig.replace(
+          /-\s*"0x[a-fA-F0-9]{40}"/,
+          `- "${contractAddress}"`
+        );
+        fs.writeFileSync(indexerConfigPath, indexerConfig, "utf-8");
+        console.log(`✅ Updated indexer/config.yaml with new address: ${contractAddress}`);
+      } catch (err) {
+        console.warn("Could not update indexer/config.yaml:", err);
       }
     }
   }

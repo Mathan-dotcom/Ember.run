@@ -9,7 +9,7 @@ networks:
     contracts:
       - name: SignalMarket
         address:
-          - "0x7e8C545E5b4c483d47C88dE2d24296615bB4278F"
+          - "0xC0121c2D11f181B8786eCf747d579b2d19F1c4b8"
         handler: src/EventHandlers.ts
         events:
           - event: PostCreated(uint256 indexed postId, address indexed poster, string content, uint256 createdAt)

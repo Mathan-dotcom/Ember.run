@@ -13,7 +13,9 @@ Ember.run turns content curation into a provable, onchain financial asset class.
 - **RPC URL:** `https://testnet-rpc.monad.xyz`
 - **Native Currency:** `MON` (18 decimals)
 - **Explorer:** `https://testnet.monadexplorer.com`
-- **Contract:** [`contracts/SignalMarket.sol`](file:///d:/Mathan%20Files/Projects/Ember.run/contracts/SignalMarket.sol)
+- **Contract:** [`contracts/SignalMarket.sol`](contracts/SignalMarket.sol)
+- **Deployed Contract Address:** [`0xC0121c2D11f181B8786eCf747d579b2d19F1c4b8`](https://testnet.monadexplorer.com/address/0xC0121c2D11f181B8786eCf747d579b2d19F1c4b8)
+- **Deployment Tx:** [`0x121c513ec84fdb1e6ff3506e9678d7b142777b57e07539907f573670df3418e7`](https://testnet.monadexplorer.com/tx/0x121c513ec84fdb1e6ff3506e9678d7b142777b57e07539907f573670df3418e7)
 
 ### Core Mechanics:
 1. **Atomic Payout Split (40 / 45 / 15):**

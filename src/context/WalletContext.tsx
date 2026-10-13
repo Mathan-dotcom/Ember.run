@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { WalletAccount, Post, BoosterRecord, AuditEntry, CuratorLeader } from '../types/signal';
 import { calculateDecayedWeight, calculateDiminishingMultiplier, formatAddress } from '../utils/decay';
 import { sound } from '../utils/sound';
-import { BrowserProvider, Contract, ContractFactory, parseEther, formatEther } from 'ethers';
+import { BrowserProvider, JsonRpcProvider, Contract, ContractFactory, parseEther, formatEther } from 'ethers';
 import { MONAD_TESTNET_CONFIG, SIGNAL_MARKET_ABI, setStoredContractAddress } from '../contracts/config';
 import { SIGNAL_MARKET_BYTECODE } from '../contracts/bytecode';
 import { registerPasskey, authenticatePasskey, isWebAuthnSupported, listStoredPasskeys } from '../utils/webauthn';
@@ -287,13 +287,18 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       setIsContractDeployed(false);
       return false;
     }
-    if (typeof window === 'undefined' || !(window as any).ethereum) {
-      setIsContractDeployed(false);
-      return false;
-    }
     try {
-      const provider = new BrowserProvider((window as any).ethereum);
-      const code = await provider.getCode(target);
+      if (typeof window !== 'undefined' && (window as any).ethereum) {
+        const provider = new BrowserProvider((window as any).ethereum);
+        const code = await provider.getCode(target);
+        if (code !== '0x' && code.length > 2) {
+          setIsContractDeployed(true);
+          return true;
+        }
+      }
+      // Public Monad RPC fallback
+      const rpcProvider = new JsonRpcProvider(MONAD_TESTNET_CONFIG.rpcUrl);
+      const code = await rpcProvider.getCode(target);
       const isLive = code !== '0x' && code.length > 2;
       setIsContractDeployed(isLive);
       return isLive;
@@ -501,11 +506,9 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     sound.playSwitchClick();
   };
 
-  // Check contract deployment when Web3 connects
+  // Check contract deployment on mount and when Web3 connects
   useEffect(() => {
-    if (isWeb3Connected) {
-      checkContractDeployment();
-    }
+    checkContractDeployment();
   }, [isWeb3Connected, contractAddress, checkContractDeployment]);
 
   // Deploy SignalMarket directly via MetaMask in browser

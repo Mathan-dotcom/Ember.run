@@ -5,7 +5,7 @@ const getInitialContractAddress = (): string => {
       return saved;
     }
   }
-  return '0x7E8c545E5B4c483D47C88DE2d24296615Bb4278f';
+  return '0xC0121c2D11f181B8786eCf747d579b2d19F1c4b8';
 };
 
 export const MONAD_TESTNET_CONFIG = {

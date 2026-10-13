@@ -10,7 +10,7 @@ HyperIndex provides sub-second indexing of onchain curation events directly from
 
 - **Network:** Monad Testnet (`10143`)
 - **RPC:** `https://testnet-rpc.monad.xyz`
-- **Contract Indexed:** `SignalMarket.sol` (`0x7e8C545E5b4c483d47C88dE2d24296615bB4278F`)
+- **Contract Indexed:** `SignalMarket.sol` (`0xC0121c2D11f181B8786eCf747d579b2d19F1c4b8`)
 - **Indexed Events:**
   - `PostCreated`
   - `Boosted`
