@@ -6,6 +6,7 @@ import { BrowserProvider, JsonRpcProvider, Contract, ContractFactory, parseEther
 import { MONAD_TESTNET_CONFIG, SIGNAL_MARKET_ABI, setStoredContractAddress } from '../contracts/config';
 import { SIGNAL_MARKET_BYTECODE } from '../contracts/bytecode';
 import { registerPasskey, authenticatePasskey, isWebAuthnSupported, listStoredPasskeys } from '../utils/webauthn';
+import { registerWithMera, getStoredMeraAccounts } from '../utils/mera';
 
 interface WalletContextType {
   currentAccount: WalletAccount;
@@ -17,6 +18,7 @@ interface WalletContextType {
   switchAccount: (id: string) => void;
   createPasskeyAccount: (username: string) => Promise<WalletAccount>;
   authenticateWithPasskey: () => Promise<WalletAccount | null>;
+  connectPrivyWallet: (address: string, label?: string) => void;
   isWebAuthnAvailable: boolean;
   requestFaucet: (targetAddress?: string) => void;
   createPost: (title: string, body: string, tags: string[], linkUrl?: string, overrideAccount?: WalletAccount) => Promise<number>;
@@ -547,39 +549,94 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   };
 
   // ── Real WebAuthn passkey registration ────────────────────────────────────
+  // ── Category Labs Mera & WebAuthn Passkey Registration ────────────────────
   const isWebAuthnAvailable = isWebAuthnSupported();
 
   const createPasskeyAccount = async (username: string): Promise<WalletAccount> => {
-    // Trigger the real browser biometric prompt (Touch ID / Face ID / Windows Hello)
-    const credential = await registerPasskey(username.trim() || 'Passkey Voyager');
+    try {
+      // 1. Try Category Labs Mera "One Passkey, Many Keys" PRF derivation
+      const meraAcc = await registerWithMera(username.trim() || 'Monad Curator');
+      const newId = `mera-${meraAcc.credentialId.slice(0, 12)}`;
+      const newAccount: WalletAccount = {
+        id: newId,
+        name: meraAcc.username,
+        handle: `@${meraAcc.username.toLowerCase().replace(/\s+/g, '_')}`,
+        address: meraAcc.vaultAddress,
+        balanceMon: 10.0, // Pre-seeded testnet MON
+        isPasskey: true,
+        passkeyLabel: 'Mera Passkey (One Passkey, Many Keys)',
+        sessionKeyAddress: meraAcc.sessionKeyAddress,
+        identityAddress: meraAcc.identityAddress,
+        meraMultiKey: true
+      };
 
-    const newId = `passkey-${credential.credentialId.slice(0, 12)}`;
-    const newAccount: WalletAccount = {
-      id: newId,
-      name: credential.username,
-      handle: `@${credential.username.toLowerCase().replace(/\s+/g, '_')}`,
-      address: credential.address,
-      balanceMon: 10.0, // Pre-seeded testnet MON
-      isPasskey: true,
-      passkeyLabel: 'Passkey (FIDO2 / WebAuthn)'
-    };
+      setAccounts((prev) => {
+        const filtered = prev.filter((a) => a.id !== newId);
+        return [...filtered, newAccount];
+      });
+      setCurrentAccount(newAccount);
+      sound.playDisbursementChime();
+      return newAccount;
+    } catch (meraErr) {
+      console.warn('[Mera registration fallback]:', meraErr);
+      // Standard WebAuthn fallback
+      const credential = await registerPasskey(username.trim() || 'Passkey Voyager');
+      const newId = `passkey-${credential.credentialId.slice(0, 12)}`;
+      const newAccount: WalletAccount = {
+        id: newId,
+        name: credential.username,
+        handle: `@${credential.username.toLowerCase().replace(/\s+/g, '_')}`,
+        address: credential.address,
+        balanceMon: 10.0,
+        isPasskey: true,
+        passkeyLabel: 'Passkey (FIDO2 / WebAuthn)'
+      };
 
-    setAccounts((prev) => {
-      // Avoid duplicates if re-registering same credential
-      const filtered = prev.filter((a) => a.id !== newId);
-      return [...filtered, newAccount];
-    });
-    setCurrentAccount(newAccount);
-    sound.playDisbursementChime();
-    return newAccount;
+      setAccounts((prev) => {
+        const filtered = prev.filter((a) => a.id !== newId);
+        return [...filtered, newAccount];
+      });
+      setCurrentAccount(newAccount);
+      sound.playDisbursementChime();
+      return newAccount;
+    }
   };
 
-  // ── Real WebAuthn passkey authentication (returning user) ─────────────────
+  // ── Passkey Authentication (Returning User) ──────────────────────────────
   const authenticateWithPasskey = async (): Promise<WalletAccount | null> => {
-    const credential = await authenticatePasskey(); // no credentialId = show all device passkeys
+    // Check stored Mera accounts first
+    const storedMera = getStoredMeraAccounts();
+    const meraKeys = Object.keys(storedMera);
+    if (meraKeys.length > 0) {
+      const firstMera = storedMera[meraKeys[0]];
+      const existingId = `mera-${firstMera.credentialId.slice(0, 12)}`;
+      const existing = accounts.find((a) => a.id === existingId);
+      if (existing) {
+        setCurrentAccount(existing);
+        sound.playDisbursementChime();
+        return existing;
+      }
+      const recovered: WalletAccount = {
+        id: existingId,
+        name: firstMera.username,
+        handle: `@${firstMera.username.toLowerCase().replace(/\s+/g, '_')}`,
+        address: firstMera.vaultAddress,
+        balanceMon: 10.0,
+        isPasskey: true,
+        passkeyLabel: 'Mera Passkey (One Passkey, Many Keys)',
+        sessionKeyAddress: firstMera.sessionKeyAddress,
+        identityAddress: firstMera.identityAddress,
+        meraMultiKey: true
+      };
+      setAccounts((prev) => [...prev.filter((a) => a.id !== existingId), recovered]);
+      setCurrentAccount(recovered);
+      sound.playDisbursementChime();
+      return recovered;
+    }
+
+    const credential = await authenticatePasskey();
     if (!credential) return null;
 
-    // Check if we already have this account in state
     const existingId = `passkey-${credential.credentialId.slice(0, 12)}`;
     const existing = accounts.find((a) => a.id === existingId);
     if (existing) {
@@ -588,7 +645,6 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       return existing;
     }
 
-    // Reconstruct the account from the stored credential
     const recovered: WalletAccount = {
       id: existingId,
       name: credential.username,
@@ -605,6 +661,26 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setCurrentAccount(recovered);
     sound.playDisbursementChime();
     return recovered;
+  };
+
+  // ── Privy Embedded Wallet Handler ─────────────────────────────────────────
+  const connectPrivyWallet = (address: string, label?: string) => {
+    const privyId = `privy-${address.slice(2, 8).toLowerCase()}`;
+    const privyAccount: WalletAccount = {
+      id: privyId,
+      name: label || `Privy User (${formatAddress(address)})`,
+      handle: `@privy_${address.slice(2, 6).toLowerCase()}`,
+      address: address,
+      balanceMon: 10.0,
+      isPasskey: false,
+      passkeyLabel: 'Privy Embedded Monad Wallet'
+    };
+    setAccounts((prev) => {
+      const filtered = prev.filter((a) => a.id !== privyId);
+      return [privyAccount, ...filtered];
+    });
+    setCurrentAccount(privyAccount);
+    sound.playDisbursementChime();
   };
 
   // Top up faucet
@@ -1009,6 +1085,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         switchAccount,
         createPasskeyAccount,
         authenticateWithPasskey,
+        connectPrivyWallet,
         isWebAuthnAvailable,
         requestFaucet,
         createPost,

@@ -2,22 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { formatAddress, formatMon } from '../utils/decay';
 import { sound } from '../utils/sound';
-import { Fingerprint, Coins, Play, ChevronDown, Flame, Zap, Server, Wallet, AlertTriangle, LogOut, Database } from 'lucide-react';
+import { Fingerprint, Coins, Play, ChevronDown, Flame, Zap, Server, Wallet, AlertTriangle, LogOut, Database, Users, Activity } from 'lucide-react';
 import { backendApi, BackendHealth } from '../services/api';
 import { indexerService } from '../services/indexer';
+import { alchemyService, AlchemyHealthStatus } from '../services/alchemy';
 
 interface HeaderConsoleProps {
   activeView: 'landing' | 'console';
   onChangeView: (view: 'landing' | 'console') => void;
   onOpenDemo: () => void;
   onOpenPasskeyModal: () => void;
+  onOpenEnvioModal: () => void;
+  onOpenAlchemyModal: () => void;
+  onOpenCommunityModal: () => void;
 }
 
 export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
   activeView,
   onChangeView,
   onOpenDemo,
-  onOpenPasskeyModal
+  onOpenPasskeyModal,
+  onOpenEnvioModal,
+  onOpenAlchemyModal,
+  onOpenCommunityModal
 }) => {
   const {
     currentAccount,
@@ -37,6 +44,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
   } = useWallet();
   const [backendHealth, setBackendHealth] = useState<BackendHealth | null>(null);
   const [indexerOnline, setIndexerOnline] = useState<boolean>(false);
+  const [alchemyStatus, setAlchemyStatus] = useState<AlchemyHealthStatus | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -46,12 +54,18 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
     indexerService.checkStatus().then((online) => {
       if (mounted) setIndexerOnline(online);
     });
+    alchemyService.checkHealth().then((status) => {
+      if (mounted) setAlchemyStatus(status);
+    });
     const interval = setInterval(() => {
       backendApi.checkHealth().then((health) => {
         if (mounted) setBackendHealth(health);
       });
       indexerService.checkStatus().then((online) => {
         if (mounted) setIndexerOnline(online);
+      });
+      alchemyService.checkHealth().then((status) => {
+        if (mounted) setAlchemyStatus(status);
       });
     }, 15000);
     return () => {
@@ -189,10 +203,14 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
             </span>
           </div>
 
-          {/* Envio HyperIndex Status Badge */}
-          <div
+          {/* Envio HyperIndex Interactive Badge */}
+          <button
+            onClick={() => {
+              sound.playSwitchClick();
+              onOpenEnvioModal();
+            }}
             className="sk-badge sk-badge--inverted"
-            title={indexerOnline ? 'Envio HyperIndex Online (GraphQL Sub-second stream)' : 'Envio HyperIndex Standby (RPC Fallback Active)'}
+            title={indexerOnline ? 'Envio HyperIndex Online (Click to open GraphQL Telemetry Console)' : 'Envio HyperIndex Standby (Click to inspect)'}
             style={{
               fontSize: '0.70rem',
               padding: '5px 10px',
@@ -201,7 +219,10 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               gap: '6px',
               borderRadius: '0px',
               border: '1.5px solid #ffffff',
-              boxShadow: '2px 2px 0px #ffffff'
+              boxShadow: '2px 2px 0px #ffffff',
+              cursor: 'pointer',
+              background: '#ffffff',
+              color: '#000000'
             }}
           >
             <Database size={11} color="#000000" />
@@ -215,9 +236,46 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
               }}
             />
             <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', color: '#000000', fontWeight: 700 }}>
-              {indexerOnline ? 'ENVIO : LIVE' : 'ENVIO : RPC'}
+              {indexerOnline ? 'ENVIO : LIVE ↗' : 'ENVIO : RPC ↗'}
             </span>
-          </div>
+          </button>
+
+          {/* Alchemy Monad RPC Interactive Badge */}
+          <button
+            onClick={() => {
+              sound.playSwitchClick();
+              onOpenAlchemyModal();
+            }}
+            className="sk-badge sk-badge--inverted"
+            title={alchemyStatus ? `Alchemy Monad RPC Online (${alchemyStatus.latencyMs}ms) — Click for Telemetry & Gas Sim` : 'Alchemy RPC Standby (Click to inspect)'}
+            style={{
+              fontSize: '0.70rem',
+              padding: '5px 10px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              borderRadius: '0px',
+              border: '1.5px solid #ffffff',
+              boxShadow: '2px 2px 0px #ffffff',
+              cursor: 'pointer',
+              background: '#ffffff',
+              color: '#000000'
+            }}
+          >
+            <Activity size={11} color="#000000" />
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '0px',
+                background: alchemyStatus?.isHealthy ? '#000000' : '#666',
+                boxShadow: alchemyStatus?.isHealthy ? '0 0 4px #000000' : 'none'
+              }}
+            />
+            <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', color: '#000000', fontWeight: 700 }}>
+              {alchemyStatus?.isHealthy ? `ALCHEMY : ${alchemyStatus.latencyMs}ms ↗` : 'ALCHEMY : MONAD ↗'}
+            </span>
+          </button>
         </div>
 
         {/* Navigation Tabs: Overview vs Mission Control */}
@@ -289,6 +347,26 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
           >
             <Play size={12} color="#000000" fill="#000000" />
             <span>30-SEC DEMO</span>
+          </button>
+
+          {/* Community & Governance Button */}
+          <button
+            onClick={() => {
+              sound.playSwitchClick();
+              onOpenCommunityModal();
+            }}
+            className="sk-button"
+            title="Community Curation Council & Open Source Governance (Best Community Team Project)"
+            style={{
+              padding: '6px 12px',
+              fontSize: '0.76rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <Users size={12} color="#ffffff" />
+            <span>COMMUNITY</span>
           </button>
 
           {/* Testnet Faucet Button */}

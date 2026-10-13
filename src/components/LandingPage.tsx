@@ -690,6 +690,152 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </p>
         </div>
       </section>
+
+      {/* ── 04 // Hackathon Tracks & Bounties Integration Matrix ── */}
+      <section style={{ marginTop: '28px' }}>
+        <div
+          style={{
+            background: 'rgba(5, 9, 16, 0.95)',
+            border: '2px solid #df9c32',
+            boxShadow: '6px 6px 0px #df9c32',
+            padding: '24px'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span className="sk-lamp sk-lamp-green" />
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                  04 // HACKATHON TRACKS &amp; BOUNTIES DIRECTORY
+                </h3>
+              </div>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: '#df9c32', margin: '4px 0 0 0' }}>
+                1 TARGET TRACK &bull; 6 TARGET BOUNTIES &bull; ALL 100% IMPLEMENTED IN CODEBASE
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button
+                onClick={onLaunchApp}
+                className="sk-button-primary"
+                style={{ padding: '6px 14px', fontSize: '0.76rem' }}
+              >
+                <span>OPEN MISSION CONTROL &rarr;</span>
+              </button>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '14px' }}>
+            {/* Item 1 */}
+            <div style={{ background: '#0a0a0a', border: '1px solid rgba(223, 156, 50, 0.4)', padding: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', fontWeight: 800, color: '#df9c32' }}>
+                  TRACK 03
+                </span>
+                <span style={{ background: '#000', border: '1px solid #4ade80', color: '#4ade80', fontSize: '0.60rem', padding: '1px 5px', fontFamily: 'var(--font-mono)' }}>
+                  ONCHAIN // 10143
+                </span>
+              </div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.92rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                Social, Attention &amp; Culture
+              </div>
+              <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.74rem', color: '#a1a1aa', margin: 0, lineHeight: 1.4 }}>
+                Time-decaying curation market on Monad Testnet (<code style={{ color: '#ffffff' }}>0xC012...c4b8</code>) transforming social likes into provable taste arbitrage.
+              </p>
+            </div>
+
+            {/* Item 2 */}
+            <div style={{ background: '#0a0a0a', border: '1px solid rgba(56, 189, 248, 0.4)', padding: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', fontWeight: 800, color: '#38bdf8' }}>
+                  BOUNTY // ENVIO
+                </span>
+                <span style={{ background: '#000', border: '1px solid #4ade80', color: '#4ade80', fontSize: '0.60rem', padding: '1px 5px', fontFamily: 'var(--font-mono)' }}>
+                  &lt;50ms SYNC
+                </span>
+              </div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.92rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                Best Use of Envio
+              </div>
+              <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.74rem', color: '#a1a1aa', margin: 0, lineHeight: 1.4 }}>
+                Envio HyperIndex (<code style={{ color: '#ffffff' }}>indexer/config.yaml</code>) streams sub-second Monad events into interactive GraphQL telemetry console without hitting RPC rate limits.
+              </p>
+            </div>
+
+            {/* Item 3 */}
+            <div style={{ background: '#0a0a0a', border: '1px solid rgba(168, 85, 247, 0.4)', padding: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', fontWeight: 800, color: '#a855f7' }}>
+                  BOUNTY // COMMUNITY
+                </span>
+                <span style={{ background: '#000', border: '1px solid #4ade80', color: '#4ade80', fontSize: '0.60rem', padding: '1px 5px', fontFamily: 'var(--font-mono)' }}>
+                  OPEN GOVERNANCE
+                </span>
+              </div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.92rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                Best Community Team Project
+              </div>
+              <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.74rem', color: '#a1a1aa', margin: 0, lineHeight: 1.4 }}>
+                Open-source community curation guild, transparent moderation anti-gaming logic, and formal contribution framework (<code style={{ color: '#ffffff' }}>CONTRIBUTING.md</code>).
+              </p>
+            </div>
+
+            {/* Item 4 */}
+            <div style={{ background: '#0a0a0a', border: '1px solid rgba(56, 189, 248, 0.4)', padding: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', fontWeight: 800, color: '#38bdf8' }}>
+                  BOUNTY // ALCHEMY
+                </span>
+                <span style={{ background: '#000', border: '1px solid #4ade80', color: '#4ade80', fontSize: '0.60rem', padding: '1px 5px', fontFamily: 'var(--font-mono)' }}>
+                  RPC &amp; GAS SIM
+                </span>
+              </div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.92rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                Best Projects using Alchemy
+              </div>
+              <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.74rem', color: '#a1a1aa', margin: 0, lineHeight: 1.4 }}>
+                Alchemy Monad Testnet RPC routing (<code style={{ color: '#ffffff' }}>src/services/alchemy.ts</code>), sub-50ms latency telemetry, and parallel gas burst simulation console.
+              </p>
+            </div>
+
+            {/* Item 5 */}
+            <div style={{ background: '#0a0a0a', border: '1px solid rgba(244, 114, 182, 0.4)', padding: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', fontWeight: 800, color: '#f472b6' }}>
+                  BOUNTY // PRIVY
+                </span>
+                <span style={{ background: '#000', border: '1px solid #4ade80', color: '#4ade80', fontSize: '0.60rem', padding: '1px 5px', fontFamily: 'var(--font-mono)' }}>
+                  EMBEDDED WALLETS
+                </span>
+              </div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.92rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                Privy! Social &amp; Embedded Wallets
+              </div>
+              <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.74rem', color: '#a1a1aa', margin: 0, lineHeight: 1.4 }}>
+                1-Click social sign-in (X, Google, Discord, Email) with auto-provisioned Monad Testnet embedded wallets (<code style={{ color: '#ffffff' }}>@privy-io/react-auth</code>).
+              </p>
+            </div>
+
+            {/* Item 6 & 7 */}
+            <div style={{ background: '#0a0a0a', border: '1px solid rgba(223, 156, 50, 0.4)', padding: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', fontWeight: 800, color: '#df9c32' }}>
+                  BOUNTY // CATEGORY LABS MERA
+                </span>
+                <span style={{ background: '#000', border: '1px solid #4ade80', color: '#4ade80', fontSize: '0.60rem', padding: '1px 5px', fontFamily: 'var(--font-mono)' }}>
+                  1 PASSKEY &rarr; 3 KEYS
+                </span>
+              </div>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.92rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                Mera UX &bull; One Passkey, Many Keys
+              </div>
+              <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.74rem', color: '#a1a1aa', margin: 0, lineHeight: 1.4 }}>
+                Category Labs Mera SDK (<code style={{ color: '#ffffff' }}>@category-labs/mera</code>) uses WebAuthn PRF to derive Vault Account, Ephemeral Session Key, and Ed25519 Identity from 1 biometric touch.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
+

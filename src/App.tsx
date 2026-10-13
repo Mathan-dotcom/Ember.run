@@ -12,6 +12,9 @@ import { PasskeyAuthModal } from './components/PasskeyAuthModal';
 import { DemoSequenceModal } from './components/DemoSequenceModal';
 import { CuratorProfileModal } from './components/CuratorProfileModal';
 import { PostDetailModal } from './components/PostDetailModal';
+import { EnvioTelemetryModal } from './components/EnvioTelemetryModal';
+import { AlchemyTelemetryModal } from './components/AlchemyTelemetryModal';
+import { CommunityGovernanceModal } from './components/CommunityGovernanceModal';
 import { DynamicLiveWallpaper } from './components/DynamicLiveWallpaper';
 import { Post } from './types/signal';
 import { formatMon } from './utils/decay';
@@ -26,6 +29,9 @@ const MissionControlContent: React.FC = () => {
   const [isDemoModalOpen, setIsDemoModalOpen] = useState<boolean>(false);
   const [activeProfileAddress, setActiveProfileAddress] = useState<string | null>(null);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
+  const [isEnvioModalOpen, setIsEnvioModalOpen] = useState<boolean>(false);
+  const [isAlchemyModalOpen, setIsAlchemyModalOpen] = useState<boolean>(false);
+  const [isCommunityModalOpen, setIsCommunityModalOpen] = useState<boolean>(false);
 
   // Activate dynamic scroll fade in and fade out engine for all cards
   useScrollFade(activeView);
@@ -49,6 +55,9 @@ const MissionControlContent: React.FC = () => {
           onChangeView={setActiveView}
           onOpenDemo={() => setIsDemoModalOpen(true)}
           onOpenPasskeyModal={() => setIsPasskeyModalOpen(true)}
+          onOpenEnvioModal={() => setIsEnvioModalOpen(true)}
+          onOpenAlchemyModal={() => setIsAlchemyModalOpen(true)}
+          onOpenCommunityModal={() => setIsCommunityModalOpen(true)}
         />
       </div>
 
@@ -261,6 +270,21 @@ const MissionControlContent: React.FC = () => {
         isOpen={!!activeDetailPost}
         onClose={() => setActiveDetailPost(null)}
         onOpenBoost={(post) => setActiveBoostPost(post)}
+      />
+
+      <EnvioTelemetryModal
+        isOpen={isEnvioModalOpen}
+        onClose={() => setIsEnvioModalOpen(false)}
+      />
+
+      <AlchemyTelemetryModal
+        isOpen={isAlchemyModalOpen}
+        onClose={() => setIsAlchemyModalOpen(false)}
+      />
+
+      <CommunityGovernanceModal
+        isOpen={isCommunityModalOpen}
+        onClose={() => setIsCommunityModalOpen(false)}
       />
     </div>
   );

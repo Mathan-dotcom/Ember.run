@@ -67,7 +67,11 @@ export interface WalletAccount {
   balanceMon: number;
   isPasskey: boolean;
   passkeyLabel: string;
+  sessionKeyAddress?: string;
+  identityAddress?: string;
+  meraMultiKey?: boolean;
 }
+
 
 export interface BoostSplitPreview {
   posterCut: number;
