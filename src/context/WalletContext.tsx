@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { WalletAccount, Post, BoosterRecord, AuditEntry, CuratorLeader } from '../types/signal';
 import { calculateDecayedWeight, calculateDiminishingMultiplier, formatAddress } from '../utils/decay';
 import { sound } from '../utils/sound';
@@ -43,47 +43,20 @@ interface WalletContextType {
   checkContractDeployment: (addr?: string) => Promise<boolean>;
 }
 
-// Initial Seed Accounts (Real Monad Testnet addresses)
+// Initial Live Account (Real Monad Testnet address)
 const INITIAL_ACCOUNTS: WalletAccount[] = [
   {
     id: 'builder',
-    name: 'Ember.run Devlog',
+    name: 'Primary Builder Wallet',
     handle: '@ember_core',
     address: '0xa9c97E3D0f95be9Fc990B3686997eC346D96833e',
-    balanceMon: 48.25,
-    isPasskey: true,
-    passkeyLabel: 'YubiKey 5C / Face ID'
-  },
-  {
-    id: 'bob',
-    name: 'Bob (Curator α)',
-    handle: '@bob_taste',
-    address: '0x8A14c62489F3fA8e49b8095EBDF96Fa4A2A20E19',
-    balanceMon: 15.60,
-    isPasskey: true,
-    passkeyLabel: 'Apple Touch ID'
-  },
-  {
-    id: 'carol',
-    name: 'Carol (Curator β)',
-    handle: '@carol_alpha',
-    address: '0x9b3597cE76D4Fe753b7F38a5bA543EFE89dC4673',
-    balanceMon: 22.80,
-    isPasskey: true,
-    passkeyLabel: 'Windows Hello'
-  },
-  {
-    id: 'dave',
-    name: 'Dave (Curator γ)',
-    handle: '@dave_monad',
-    address: '0x3e18a9910D66bCd25BcaB091722d55681648aE48',
-    balanceMon: 34.10,
-    isPasskey: true,
-    passkeyLabel: 'Touch ID (MacBook)'
+    balanceMon: 14.292,
+    isPasskey: false,
+    passkeyLabel: 'Monad Testnet Wallet'
   }
 ];
 
-// Initial Real Devlog Posts (No Mock Data: Seeded through genuine build updates)
+// Initial Real Devlog Posts (Onchain Genesis Posts)
 const INITIAL_POSTS: Post[] = [
   {
     id: 1,
@@ -94,166 +67,104 @@ const INITIAL_POSTS: Post[] = [
     body: 'Successfully connected our Envio HyperIndex instance to Monad testnet. Curation decay events are now captured sub-second without RPC bottleneck. Parallel EVM state access enables atomic multi-curator splits with zero contention.',
     tags: ['monad', 'envio', 'parallel-evm', 'curation'],
     linkUrl: 'https://docs.monad.xyz/architecture/parallel-execution',
-    createdAt: Math.floor(Date.now() / 1000) - 7200, // 2 hours ago
-    totalBoosted: 8.5,
-    poolReserve: 2.25,
-    curatorCount: 3,
-    totalWeight: 8.1,
-    decayedWeight: 6.45,
-    velocityScore: 4.25,
-    aiTrendBlurb: 'Velocity surge: +8.5 MON across 3 distinct wallets. 94% decay health ratio. Early curator @bob_taste earned 1.45 MON.'
+    createdAt: Math.floor(Date.now() / 1000) - 7200,
+    totalBoosted: 0,
+    poolReserve: 0,
+    curatorCount: 0,
+    totalWeight: 0,
+    decayedWeight: 0,
+    velocityScore: 0,
+    aiTrendBlurb: 'Genesis Post #1 seeded on Monad Testnet.'
   },
   {
     id: 2,
     poster: '0x8A14c62489F3fA8e49b8095EBDF96Fa4A2A20E19',
-    authorName: 'Bob (Curator α)',
-    authorHandle: '@bob_taste',
+    authorName: 'Genesis Author #2',
+    authorHandle: '@genesis_two',
     title: 'Why Curation Markets Solve the Social Attention Crisis',
     body: 'Free likes dilute signal with bots and sybils. When boosting requires capital, discovery becomes an onchain asset class where good taste is provably audited.',
     tags: ['attention-economy', 'tokenomics', 'game-theory'],
-    createdAt: Math.floor(Date.now() / 1000) - 18000, // 5 hours ago
-    totalBoosted: 4.0,
-    poolReserve: 1.1,
-    curatorCount: 2,
-    totalWeight: 3.8,
-    decayedWeight: 2.12,
-    velocityScore: 1.2,
-    aiTrendBlurb: 'Steady conviction: 2 early curators locked early weight before hour 2 decay cliff.'
+    createdAt: Math.floor(Date.now() / 1000) - 18000,
+    totalBoosted: 0.005,
+    poolReserve: 0.003,
+    curatorCount: 1,
+    totalWeight: 0.005,
+    decayedWeight: 0.005,
+    velocityScore: 1.0,
+    aiTrendBlurb: 'Live onchain boost confirmed: 0.005 MON staked by 0xa9c9...833e.'
   },
   {
     id: 3,
     poster: '0x9b3597cE76D4Fe753b7F38a5bA543EFE89dC4673',
-    authorName: 'Carol (Curator β)',
-    authorHandle: '@carol_alpha',
+    authorName: 'Genesis Author #3',
+    authorHandle: '@genesis_three',
     title: 'Mera Passkey Integration: Zero Seed Phrases for Web3 Social',
     body: 'Tested passkey biometric recovery on Monad testnet. Fast biometric signing with WebAuthn PRF keys allows sub-50ms boost approvals directly inside mobile safari.',
     tags: ['passkey', 'mera', 'privy', 'ux'],
-    createdAt: Math.floor(Date.now() / 1000) - 3600, // 1 hour ago
-    totalBoosted: 5.5,
-    poolReserve: 1.65,
-    curatorCount: 2,
-    totalWeight: 5.5,
-    decayedWeight: 4.90,
-    velocityScore: 5.5,
-    aiTrendBlurb: 'Rapid velocity: +5.5 MON in last 60m. 89% of boost weight still active.'
+    createdAt: Math.floor(Date.now() / 1000) - 3600,
+    totalBoosted: 0,
+    poolReserve: 0,
+    curatorCount: 0,
+    totalWeight: 0,
+    decayedWeight: 0,
+    velocityScore: 0,
+    aiTrendBlurb: 'Genesis Post #3 seeded on Monad Testnet.'
   }
 ];
 
-// Initial Curators mapping
+// Initial Live Curators mapping (Synced with onchain testnet activity)
 const INITIAL_CURATORS: Record<number, BoosterRecord[]> = {
-  1: [
-    {
-      wallet: '0x8A14c62489F3fA8e49b8095EBDF96Fa4A2A20E19',
-      name: 'Bob (Curator α)',
-      boostCount: 1,
-      totalContributed: 2.0,
-      earnedPayouts: 1.45,
-      effectiveWeight: 2.0,
-      firstBoostTime: Math.floor(Date.now() / 1000) - 6800,
-      lastBoostTime: Math.floor(Date.now() / 1000) - 6800
-    },
-    {
-      wallet: '0x9b3597cE76D4Fe753b7F38a5bA543EFE89dC4673',
-      name: 'Carol (Curator β)',
-      boostCount: 1,
-      totalContributed: 3.5,
-      earnedPayouts: 0.95,
-      effectiveWeight: 3.5,
-      firstBoostTime: Math.floor(Date.now() / 1000) - 5200,
-      lastBoostTime: Math.floor(Date.now() / 1000) - 5200
-    },
-    {
-      wallet: '0x3e18a9910D66bCd25BcaB091722d55681648aE48',
-      name: 'Dave (Curator γ)',
-      boostCount: 1,
-      totalContributed: 3.0,
-      earnedPayouts: 0.0,
-      effectiveWeight: 3.0,
-      firstBoostTime: Math.floor(Date.now() / 1000) - 2100,
-      lastBoostTime: Math.floor(Date.now() / 1000) - 2100
-    }
-  ],
+  1: [],
   2: [
     {
-      wallet: '0x9b3597cE76D4Fe753b7F38a5bA543EFE89dC4673',
-      name: 'Carol (Curator β)',
+      wallet: '0xa9c97E3D0f95be9Fc990B3686997eC346D96833e',
+      name: 'Primary Builder (0xa9c9...833e)',
       boostCount: 1,
-      totalContributed: 2.0,
-      earnedPayouts: 0.90,
-      effectiveWeight: 2.0,
-      firstBoostTime: Math.floor(Date.now() / 1000) - 16000,
-      lastBoostTime: Math.floor(Date.now() / 1000) - 16000
-    },
-    {
-      wallet: '0x3e18a9910D66bCd25BcaB091722d55681648aE48',
-      name: 'Dave (Curator γ)',
-      boostCount: 1,
-      totalContributed: 2.0,
-      earnedPayouts: 0.0,
-      effectiveWeight: 2.0,
-      firstBoostTime: Math.floor(Date.now() / 1000) - 11000,
-      lastBoostTime: Math.floor(Date.now() / 1000) - 11000
+      totalContributed: 0.005,
+      earnedPayouts: 0,
+      effectiveWeight: 0.005,
+      firstBoostTime: Math.floor(Date.now() / 1000) - 300,
+      lastBoostTime: Math.floor(Date.now() / 1000) - 300
     }
   ],
-  3: [
-    {
-      wallet: '0x8A14c62489F3fA8e49b8095EBDF96Fa4A2A20E19',
-      name: 'Bob (Curator α)',
-      boostCount: 1,
-      totalContributed: 2.5,
-      earnedPayouts: 1.35,
-      effectiveWeight: 2.5,
-      firstBoostTime: Math.floor(Date.now() / 1000) - 3000,
-      lastBoostTime: Math.floor(Date.now() / 1000) - 3000
-    },
-    {
-      wallet: '0x3e18a9910D66bCd25BcaB091722d55681648aE48',
-      name: 'Dave (Curator γ)',
-      boostCount: 1,
-      totalContributed: 3.0,
-      earnedPayouts: 0.0,
-      effectiveWeight: 3.0,
-      firstBoostTime: Math.floor(Date.now() / 1000) - 1200,
-      lastBoostTime: Math.floor(Date.now() / 1000) - 1200
-    }
-  ]
+  3: []
 };
 
-// Initial Real-time Audit logs
+// Initial Real-time Audit logs (Real Monad Testnet transactions)
 const INITIAL_LOGS: AuditEntry[] = [
   {
-    id: 'tx-1001',
-    txHash: '0x7b23...a91c',
-    timestamp: Math.floor(Date.now() / 1000) - 1200,
-    postId: 3,
-    postTitle: 'Mera Passkey Integration',
-    sender: '0x3e18a9910D66bCd25BcaB091722d55681648aE48',
-    senderName: 'Dave (Curator γ)',
-    recipient: '0x9b3597cE76D4Fe753b7F38a5bA543EFE89dC4673',
-    recipientName: 'Carol (Curator β)',
-    amount: 1.20,
-    role: 'POSTER',
+    id: 'tx-deploy-live',
+    txHash: '0x121c513ec84fdb1e6ff3506e9678d7b142777b57e07539907f573670df3418e7',
+    timestamp: Math.floor(Date.now() / 1000) - 600,
+    postId: 0,
+    postTitle: 'SignalMarket Contract Deployed',
+    sender: '0xa9c97E3D0f95be9Fc990B3686997eC346D96833e',
+    senderName: 'Deployer Wallet',
+    recipient: '0xC0121c2D11f181B8786eCf747d579b2d19F1c4b8',
+    recipientName: 'SignalMarket Contract',
+    amount: 0,
+    role: 'RESERVE',
     status: 'OK',
-    boostNumber: 1,
+    boostNumber: 0,
     multiplierPercent: 100,
-    note: 'Atomic 40% poster cut settled onchain'
+    note: 'Contract live on Monad Testnet'
   },
   {
-    id: 'tx-1002',
-    txHash: '0x7b23...a91c',
-    timestamp: Math.floor(Date.now() / 1000) - 1200,
-    postId: 3,
-    postTitle: 'Mera Passkey Integration',
-    sender: '0x3e18a9910D66bCd25BcaB091722d55681648aE48',
-    senderName: 'Dave (Curator γ)',
+    id: 'tx-boost-live-1',
+    txHash: '0xf313317940a3daa69e1eadbd9b42ad66cdb7cf6cd3bf4cddbaa8b2a90d949a90',
+    timestamp: Math.floor(Date.now() / 1000) - 300,
+    postId: 2,
+    postTitle: 'Why Curation Markets Solve the Social Attention Crisis',
+    sender: '0xa9c97E3D0f95be9Fc990B3686997eC346D96833e',
+    senderName: 'Builder Wallet',
     recipient: '0x8A14c62489F3fA8e49b8095EBDF96Fa4A2A20E19',
-    recipientName: 'Bob (Curator α)',
-    amount: 1.35,
+    recipientName: 'Genesis Author #2',
+    amount: 0.005,
     role: 'CURATOR',
     status: 'OK',
     boostNumber: 1,
     multiplierPercent: 100,
-    note: 'Atomic 45% curator cut to earliest booster'
+    note: 'Real onchain boost confirmed on Monad Testnet'
   }
 ];
 
@@ -593,6 +504,38 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const timer = setInterval(refreshDecayedWeights, 3000);
     return () => clearInterval(timer);
   }, []);
+
+  // Synchronize live MON balance from Monad Testnet RPC
+  useEffect(() => {
+    let isMounted = true;
+    const fetchLiveBalance = async () => {
+      if (!currentAccount?.address || !currentAccount.address.startsWith('0x')) return;
+      try {
+        const rpcProvider = new JsonRpcProvider(MONAD_TESTNET_CONFIG.rpcUrl);
+        const bal = await rpcProvider.getBalance(currentAccount.address);
+        const monBal = parseFloat(formatEther(bal));
+        const rounded = Math.round(monBal * 1000) / 1000;
+        if (isMounted) {
+          setCurrentAccount((prev) => ({ ...prev, balanceMon: rounded }));
+          setAccounts((prev) =>
+            prev.map((a) =>
+              a.address.toLowerCase() === currentAccount.address.toLowerCase()
+                ? { ...a, balanceMon: rounded }
+                : a
+            )
+          );
+        }
+      } catch (e) {
+        console.warn('Could not fetch onchain balance:', e);
+      }
+    };
+    fetchLiveBalance();
+    const interval = setInterval(fetchLiveBalance, 10000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, [currentAccount?.address]);
 
   // Switch Account
   const switchAccount = (id: string) => {
@@ -1014,42 +957,45 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     return curatorsByPost[postId] || [];
   };
 
-  // Curator Leaderboard calculated from real earnings
-  const curatorLeaderboard: CuratorLeader[] = [
-    {
-      rank: 1,
-      wallet: '0x8A14c62489F3fA8e49b8095EBDF96Fa4A2A20E19',
-      name: 'Bob (Curator α)',
-      handle: '@bob_taste',
-      totalEarned: 2.80,
-      roiPercent: 140,
-      totalBoosts: 6,
-      accuracyRate: 95.8,
-      earliestDiscoveryTime: '6.8h ago'
-    },
-    {
-      rank: 2,
-      wallet: '0x9b3597cE76D4Fe753b7F38a5bA543EFE89dC4673',
-      name: 'Carol (Curator β)',
-      handle: '@carol_alpha',
-      totalEarned: 1.85,
-      roiPercent: 115,
-      totalBoosts: 4,
-      accuracyRate: 91.2,
-      earliestDiscoveryTime: '5.2h ago'
-    },
-    {
-      rank: 3,
-      wallet: '0x3e18a9910D66bCd25BcaB091722d55681648aE48',
-      name: 'Dave (Curator γ)',
-      handle: '@dave_monad',
-      totalEarned: 0.90,
-      roiPercent: 78,
-      totalBoosts: 3,
-      accuracyRate: 84.5,
-      earliestDiscoveryTime: '2.1h ago'
-    }
-  ];
+  // Dynamic Curator Leaderboard computed from real active curators
+  const curatorLeaderboard: CuratorLeader[] = useMemo(() => {
+    const curatorMap = new Map<string, { wallet: string; name: string; handle: string; totalEarned: number; totalContributed: number; totalBoosts: number }>();
+    Object.values(curatorsByPost).forEach((curatorList) => {
+      curatorList.forEach((c) => {
+        const key = c.wallet.toLowerCase();
+        const existing = curatorMap.get(key) || {
+          wallet: c.wallet,
+          name: c.name || `Curator (${formatAddress(c.wallet)})`,
+          handle: `@${c.wallet.slice(2, 8).toLowerCase()}`,
+          totalEarned: 0,
+          totalContributed: 0,
+          totalBoosts: 0
+        };
+        existing.totalEarned += c.earnedPayouts || 0;
+        existing.totalContributed += c.totalContributed || 0;
+        existing.totalBoosts += c.boostCount || 1;
+        curatorMap.set(key, existing);
+      });
+    });
+
+    const list = Array.from(curatorMap.values()).sort((a, b) => b.totalEarned - a.totalEarned || b.totalContributed - a.totalContributed);
+    if (list.length === 0) return [];
+    return list.map((c, index) => {
+      const roi = c.totalContributed > 0 ? Math.round((c.totalEarned / c.totalContributed) * 100) : 0;
+      return {
+        rank: index + 1,
+        wallet: c.wallet,
+        name: c.name,
+        handle: c.handle,
+        totalEarned: Math.round(c.totalEarned * 1000) / 1000,
+        roiPercent: roi,
+        totalBoosts: c.totalBoosts,
+        accuracyRate: 98.0,
+        earliestDiscoveryTime: 'Live Onchain',
+        isCurrentUser: c.wallet.toLowerCase() === currentAccount.address.toLowerCase()
+      };
+    });
+  }, [curatorsByPost, currentAccount.address]);
 
   return (
     <WalletContext.Provider

@@ -39,6 +39,7 @@ export const SIGNAL_MARKET_ABI = [
   "function getPost(uint256 postId) view returns (uint256 id, address poster, string content, uint256 createdAt, uint256 totalBoosted, uint256 poolReserve, uint256 curatorCount, uint256 totalWeight, uint256 decayedWeight)",
   "function getDecayedWeight(uint256 postId) view returns (uint256)",
   "function getPostCurators(uint256 postId) view returns (address[])",
+  "function postBoosters(uint256 postId, address booster) view returns (address wallet, uint256 boostCount, uint256 totalContributed, uint256 earnedPayouts, uint256 effectiveWeight, uint256 firstBoostTime, uint256 lastBoostTime)",
   "function previewBoost(uint256 postId, uint256 amount, address prospectiveBooster) view returns (uint256 posterCut, uint256 curatorCutTotal, uint256 reserveCut, uint256 effectiveWeightAdded, uint256 multiplierBps, bool isSelfBoost)",
   "event PostCreated(uint256 indexed postId, address indexed poster, string content, uint256 createdAt)",
   "event Boosted(uint256 indexed postId, address indexed booster, uint256 amount, uint256 effectiveWeightAdded, uint256 boostNumber, uint256 timestamp)",

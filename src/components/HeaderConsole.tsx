@@ -503,7 +503,7 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
                   boxShadow: '1px 1px 0px #ffffff'
                 }}
               >
-                <optgroup label="Simulated Seed Wallets (Real Tx)">
+                <optgroup label="Live Monad Wallets">
                   {accounts.map((acc) => (
                     <option key={acc.id} value={acc.id} style={{ background: '#111111', color: '#ffffff' }}>
                       {acc.name} ({formatAddress(acc.address)})

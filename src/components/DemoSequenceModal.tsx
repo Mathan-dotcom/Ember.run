@@ -83,15 +83,22 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
     },
     {
       num: 2,
-      title: '02 / GENESIS BOOST (BOB)',
-      desc: 'Bob spots the alpha post early and boosts 2.0 MON. 40% (0.8 MON) goes directly to the author atomically.',
+      title: '02 / GENESIS BOOST (CURATOR α)',
+      desc: 'First curator spots the alpha post early and boosts 2.0 MON. 40% (0.8 MON) goes directly to the author atomically.',
       actionLabel: 'EXECUTE GENESIS BOOST (2 MON)',
       action: async () => {
-        const bobAcc = accounts.find((a) => a.id === 'bob');
-        switchAccount('bob');
+        const curatorAlpha = accounts.find((a) => a.id === 'bob') || {
+          id: 'curator-alpha',
+          name: 'Curator Alpha',
+          handle: '@curator_alpha',
+          address: '0x8A14c62489F3fA8e49b8095EBDF96Fa4A2A20E19',
+          balanceMon: 10.0,
+          isPasskey: false,
+          passkeyLabel: 'Testnet Curator'
+        };
         const latestPost = posts[0] || posts[posts.length - 1];
         if (latestPost) {
-          await boostPost(latestPost.id, 2.0, bobAcc);
+          await boostPost(latestPost.id, 2.0, curatorAlpha);
         }
       }
     },
@@ -106,15 +113,22 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
     },
     {
       num: 4,
-      title: '04 / CASCADE PAYOUT (CAROL -> BOB)',
-      desc: 'Carol boosts 3.0 MON later. Bob receives an instant, automatic cut of the 45% curator share. Good taste pays.',
+      title: '04 / CASCADE PAYOUT (CURATOR β -> α)',
+      desc: 'Second curator boosts 3.0 MON later. Curator α receives an instant, automatic cut of the 45% curator share.',
       actionLabel: 'TRIGGER CASCADE SPLIT (3 MON)',
       action: async () => {
-        const carolAcc = accounts.find((a) => a.id === 'carol');
-        switchAccount('carol');
+        const curatorBeta = accounts.find((a) => a.id === 'carol') || {
+          id: 'curator-beta',
+          name: 'Curator Beta',
+          handle: '@curator_beta',
+          address: '0x9b3597cE76D4Fe753b7F38a5bA543EFE89dC4673',
+          balanceMon: 10.0,
+          isPasskey: false,
+          passkeyLabel: 'Testnet Curator'
+        };
         const latestPost = posts[0] || posts[posts.length - 1];
         if (latestPost) {
-          await boostPost(latestPost.id, 3.0, carolAcc);
+          await boostPost(latestPost.id, 3.0, curatorBeta);
           confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
         }
       }
@@ -122,11 +136,10 @@ export const DemoSequenceModal: React.FC<DemoSequenceModalProps> = ({ isOpen, on
     {
       num: 5,
       title: '05 / ANTI-GAMING DEFENSE',
-      desc: 'Author attempts to boost their own post -> contract reverts immediately. Repeat boosts from Bob scale down on the diminishing curve.',
+      desc: 'Author attempts to boost their own post -> contract reverts immediately. Repeat boosts from same wallet scale down on diminishing curve.',
       actionLabel: 'TRIGGER DEFENSE VERIFICATION',
       action: async () => {
-        const builderAcc = accounts.find((a) => a.id === 'builder');
-        switchAccount('builder');
+        const builderAcc = accounts.find((a) => a.id === 'builder') || accounts[0];
         const latestPost = posts[0] || posts[posts.length - 1];
         if (latestPost) {
           try {
