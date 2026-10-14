@@ -216,8 +216,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               background: '#050505'
             }}
           >
-            {/* Header Tagline */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+            {/* Header Tagline with Logo */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px', flexWrap: 'wrap' }}>
+              <div
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  border: '1.5px solid #df9c32',
+                  boxShadow: '2px 2px 0px #df9c32',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: '#050910'
+                }}
+              >
+                <img src="/logo.jpg" alt="Ember.run Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
               <span
                 style={{
                   fontFamily: 'var(--font-mono)',

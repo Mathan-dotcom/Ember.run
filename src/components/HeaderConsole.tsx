@@ -105,18 +105,19 @@ export const HeaderConsole: React.FC<HeaderConsoleProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div
               style={{
-                width: '34px',
-                height: '34px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '0px',
-                background: '#ffffff',
+                background: '#050910',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '1.5px solid #ffffff',
-                boxShadow: '2px 2px 0px #ffffff'
+                border: '1.5px solid #df9c32',
+                boxShadow: '2px 2px 0px #df9c32',
+                overflow: 'hidden'
               }}
             >
-              <Flame size={18} color="#000000" fill="#000000" />
+              <img src="/logo.jpg" alt="Ember.run Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
